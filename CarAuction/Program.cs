@@ -6,6 +6,7 @@ using CarAuction.Entites;
 using CarAuction.Middleware;
 using CarAuction.Models.DTO;
 using CarAuction.Models.Validators;
+using CarAuction.Seeder;
 using CarAuction.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;

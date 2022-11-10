@@ -3,6 +3,7 @@ using CarAuction.Entites;
 using CarAuction.Entites.Enum;
 using CarAuction.Entities.Action;
 using CarAuction.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarAuction.Services
 {
@@ -10,8 +11,8 @@ namespace CarAuction.Services
     {
         int Create(CreateBidDto dto);
         void Delete(int id);
-        IEnumerable<Bid> GetAll();
-        Bid GetById(int id);
+        IEnumerable<BidStatus> GetAll();
+        BidStatus GetById(int id);
         void Update(int id, UpdateBidDto model);
     }
     public class BidService: IBidService
@@ -27,7 +28,7 @@ namespace CarAuction.Services
         }
 
 
-        public IEnumerable<Bid> GetAll()
+        public IEnumerable<BidStatus> GetAll()
         {
             var bid = this.dbContext.Bids.ToList();
 
@@ -39,7 +40,7 @@ namespace CarAuction.Services
             return bid;
         }
 
-        public Bid GetById(int id)
+        public BidStatus GetById(int id)
         {
             var bid = this.dbContext.Bids.FirstOrDefault(u => u.Id == id);
 
@@ -75,9 +76,9 @@ namespace CarAuction.Services
             {
                 dbContext.SaveChanges();
             }
-            catch (DataBaseSaveException e)
+            catch (DbUpdateException e)
             {
-                throw new DataBaseSaveException("Error DataBase");
+                throw new DbUpdateException("Error DataBase", e);
             }
         }
 
@@ -98,14 +99,13 @@ namespace CarAuction.Services
             bid.dateTime = model.dateTime;
             bid.timeLeft = model.timeLeft;
 
-
             try
             {
                 dbContext.SaveChanges();
             }
-            catch (DataBaseSaveException e)
+            catch (DbUpdateException e)
             {
-                throw new DataBaseSaveException("Error DataBase");
+                throw new DbUpdateException("Error DataBase", e);
             }
         }
     }

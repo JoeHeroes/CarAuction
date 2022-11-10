@@ -76,7 +76,7 @@ namespace CarAuction.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CarAuction.Entites.Bid", b =>
+            modelBuilder.Entity("CarAuction.Entites.BidStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,8 +93,8 @@ namespace CarAuction.Migrations
                     b.Property<DateTime>("dateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("idVehicle")
-                        .HasColumnType("int");
+                    b.Property<Guid>("idVehicle")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("location")
                         .HasColumnType("int");
@@ -139,8 +139,8 @@ namespace CarAuction.Migrations
                     b.Property<int>("fuel")
                         .HasColumnType("int");
 
-                    b.Property<int>("idVehicle")
-                        .HasColumnType("int");
+                    b.Property<Guid>("idVehicle")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long>("meterReadout")
                         .HasColumnType("bigint");
@@ -152,6 +152,9 @@ namespace CarAuction.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("numberKeys")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("producer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("registrationYear")
@@ -168,7 +171,7 @@ namespace CarAuction.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vehicle", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("CarAuction.Models.InfoSell", b =>
@@ -180,24 +183,16 @@ namespace CarAuction.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("VIN")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("highLights")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idVehicle")
-                        .HasColumnType("int");
-
-                    b.Property<string>("modelGeneration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("modelSpecifer")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("idVehicle")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("primaryDamage")
-                        .HasColumnType("int");
-
-                    b.Property<int>("registrationYear")
                         .HasColumnType("int");
 
                     b.Property<int>("saleTerm")

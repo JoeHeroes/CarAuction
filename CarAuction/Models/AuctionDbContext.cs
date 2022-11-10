@@ -12,7 +12,7 @@ namespace CarAuction.Entites
 
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<InfoSell> InfoSells { get; set; }
-        public DbSet<Bid> Bids { get; set; }
+        public DbSet<BidStatus> Bids { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
@@ -23,10 +23,10 @@ namespace CarAuction.Entites
                 .IsRequired();
 
             modelBuilder.Entity<InfoSell>()
-               .Property(u => u.registrationYear)
+               .Property(u => u.VIN)
                .IsRequired();
 
-            modelBuilder.Entity<Bid>()
+            modelBuilder.Entity<BidStatus>()
                .Property(u => u.timeLeft)
                .IsRequired();
 
@@ -37,10 +37,6 @@ namespace CarAuction.Entites
             modelBuilder.Entity<Role>()
               .Property(u => u.Name)
               .IsRequired();
-
-            modelBuilder.Entity<Vehicle>().ToTable("Vehicle");
-            //modelBuilder.Entity<University>().HasData();
-
         }
     }
 }

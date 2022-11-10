@@ -14,11 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="idVehicle" class="control-label"></label>
-                <input asp-for="idVehicle" class="form-control" />
-                <span asp-validation-for="idVehicle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="modelSpecifer" class="control-label"></label>
                 <input asp-for="modelSpecifer" class="form-control" />
                 <span asp-validation-for="modelSpecifer" class="text-danger"></span>
@@ -40,7 +35,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="bodyType" class="control-label"></label>
-                <select asp-for="bodyType" class="form-control"></select>
+                <select asp-for="bodyType" class="form-control">
+                    <option>Micro</option>
+                    <option>Sedan</option>
+                    <option>Liftback</option>
+                    <option>Combi</option>
+                    <option>Coupe</option>
+                    <option>Hatchback</option>
+                    <option>Van</option>
+                    <option>SUV</option>
+                    <option>Picup</option>
+                    <option>Cabrio</option>
+                </select>
                 <span asp-validation-for="bodyType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,12 +61,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="transmission" class="control-label"></label>
-                <select asp-for="transmission" class="form-control"></select>
+                <select asp-for="transmission" class="form-control">
+                    <option>Manual</option>
+                    <option>Automatic</option>
+                    <option>DualClutch</option>
+                    <option>CVT</option>
+                </select>
                 <span asp-validation-for="transmission" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="drive" class="control-label"></label>
-                <select asp-for="drive" class="form-control"></select>
+                <select asp-for="drive" class="form-control">
+                    <option>AWD</option>
+                    <option>FWD</option>
+                    <option>RWD</option>
+                </select>
                 <span asp-validation-for="drive" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -70,7 +85,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="fuel" class="control-label"></label>
-                <select asp-for="fuel" class="form-control"></select>
+                <select asp-for="fuel" class="form-control">
+                    <option>Diesel</option>
+                    <option>Petrol</option>
+                    <option>Gas</option>
+                    <option>Hybrid</option>
+                    <option>Electric</option>
+                </select>
                 <span asp-validation-for="fuel" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -87,11 +108,6 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="secondTireSet" /> @Html.DisplayNameFor(model => model.secondTireSet)
                 </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateById" class="control-label"></label>
-                <input asp-for="CreateById" class="form-control" />
-                <span asp-validation-for="CreateById" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -3,10 +3,10 @@ using CarAuction.Entites.Enum;
 
 namespace CarAuction.Entites
 {
-    public class Bid
+    public class BidStatus
     {
         public int Id { get; set; }
-        public int idVehicle { get; set; }
+        public Guid idVehicle { get; set; }
         public bool bidStatus { get; set;}
         public int currentBid { get; set; }
         public bool saleStatus { get; set; }

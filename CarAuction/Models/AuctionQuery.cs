@@ -6,7 +6,7 @@ using CarAuction.Models.Enum;
 
 namespace CarAuction.Models
 {
-    public class UniversityQuery
+    public class AuctionQuery
     {
         public string SearchPhrase { get; set; } = null!;
         public int PageNumber { get; set; }

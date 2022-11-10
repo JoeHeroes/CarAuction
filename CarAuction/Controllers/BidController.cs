@@ -25,7 +25,7 @@ namespace AutoAuction.Controller
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Bid> GetOne([FromRoute] int id)
+        public ActionResult<BidStatus> GetOne([FromRoute] int id)
         {
             var vehicles = _service.GetById(id);
             return Ok(vehicles);

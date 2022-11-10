@@ -1,12 +1,12 @@
-﻿using System;
-using CarAuction.Entites.Enum;
+﻿using CarAuction.Entites.Enum;
 
 namespace CarAuction.Entites
 {
     public class Vehicle
     {
         public int Id { get; set; }
-        public int idVehicle { get; set; }
+        public Guid idVehicle { get; set; }
+        public string producer { get; set; } = "";
         public string modelSpecifer { get; set; } = "";
         public string modelGeneration { get; set; } = "";
         public int registrationYear { get; set; }

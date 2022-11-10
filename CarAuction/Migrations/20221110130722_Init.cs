@@ -15,7 +15,7 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idVehicle = table.Column<int>(type: "int", nullable: false),
+                    idVehicle = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     bidStatus = table.Column<bool>(type: "bit", nullable: false),
                     currentBid = table.Column<int>(type: "int", nullable: false),
                     saleStatus = table.Column<bool>(type: "bit", nullable: false),
@@ -34,14 +34,11 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idVehicle = table.Column<int>(type: "int", nullable: false),
-                    modelSpecifer = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    modelGeneration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    registrationYear = table.Column<int>(type: "int", nullable: false),
+                    idVehicle = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     saleTerm = table.Column<int>(type: "int", nullable: false),
                     primaryDamage = table.Column<int>(type: "int", nullable: false),
                     secondaryDamage = table.Column<int>(type: "int", nullable: false),
-                    VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VIN = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     highLights = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -63,12 +60,13 @@ namespace CarAuction.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vehicle",
+                name: "Vehicles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idVehicle = table.Column<int>(type: "int", nullable: false),
+                    idVehicle = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    producer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     modelSpecifer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     modelGeneration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     registrationYear = table.Column<int>(type: "int", nullable: false),
@@ -87,7 +85,7 @@ namespace CarAuction.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicle", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,7 +131,7 @@ namespace CarAuction.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Vehicle");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Roles");

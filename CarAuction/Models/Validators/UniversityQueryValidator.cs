@@ -1,13 +1,14 @@
-﻿using FluentValidation;
+﻿using CarAuction.Entites;
+using FluentValidation;
 
 namespace CarAuction.Models.Validators
 {
-    public class AuctionQueryValidator : AbstractValidator<UniversityQuery>
+    public class AuctionQueryValidator : AbstractValidator<AuctionQuery>
     {
 
 
         private int[] allowedPageSizes = new[] { 5, 10, 15 };
-        private string[] allowedSortColumnNames = { nameof(InfoSell.modelGeneration), nameof(InfoSell.modelSpecifer), nameof(InfoSell.registrationYear) };
+        private string[] allowedSortColumnNames = { nameof(Vehicle.modelGeneration), nameof(Vehicle.modelSpecifer), nameof(Vehicle.registrationYear) };
         public AuctionQueryValidator()
         {
             RuleFor(r => r.PageNumber).GreaterThanOrEqualTo(1);

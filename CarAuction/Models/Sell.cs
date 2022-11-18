@@ -3,7 +3,7 @@ using CarAuction.Models.Enum;
 
 namespace CarAuction.Models
 {
-    public class InfoSell
+    public class Sell
     {
         public int Id { get; set; }
         public SaleTerm SaleTerm { get; set; }
@@ -12,5 +12,6 @@ namespace CarAuction.Models
         public string VIN { get; set; } = null!;
         public DateTime DateTime { get; set; }
         public DateTime TimeLeft { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

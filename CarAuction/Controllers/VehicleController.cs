@@ -50,19 +50,19 @@ namespace AutoAuction.Controllers
 
             List<VehicleView> vehiclesView = new List<VehicleView>();
 
-            foreach (InfoVehicle vehicle in vehicles)
+            foreach (Vehicle vehicle in vehicles)
             {
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.LotNumber,
-                    //Watch = vehicle.InfoBid.Watch,
+                    //Watch = vehicle.Bid.Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
                     ModelSpecifer = vehicle.ModelSpecifer,
-                    //DateTime = vehicle.InfoSell.DateTime,
+                    //DateTime = vehicle.Sell.DateTime,
                     MeterReadout = vehicle.MeterReadout,
-                    //Damage = vehicle.InfoSell.PrimaryDamage,
-                    //CurrentBid = vehicle.InfoBid.CurrentBid
+                    //Damage = vehicle.Sell.PrimaryDamage,
+                    //CurrentBid = vehicle.Bid.CurrentBid
                 };
 
                 vehiclesView.Add(view);

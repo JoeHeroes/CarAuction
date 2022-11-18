@@ -5,9 +5,9 @@ using System.Security.Claims;
 namespace CarAuction.Authorization.Policy
 {
 
-    public class ResourceOperationRequirementHandler : AuthorizationHandler<ResourceOperationRequirement, InfoVehicle>
+    public class ResourceOperationRequirementHandler : AuthorizationHandler<ResourceOperationRequirement, Vehicle>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ResourceOperationRequirement requirement, InfoVehicle vehicle)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ResourceOperationRequirement requirement, Vehicle vehicle)
         {
             if(requirement.ResourcOperation == ResourcOperation.Read || 
                requirement.ResourcOperation == ResourcOperation.Create)

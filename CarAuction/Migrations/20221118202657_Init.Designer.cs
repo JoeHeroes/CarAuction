@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221118174338_Init")]
+    [Migration("20221118202657_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,7 +78,29 @@ namespace CarAuction.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.InfoBid", b =>
+            modelBuilder.Entity("CarAuction.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Bid", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +125,35 @@ namespace CarAuction.Migrations
                     b.ToTable("Bids");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.InfoSell", b =>
+            modelBuilder.Entity("CarAuction.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Sell", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,12 +163,6 @@ namespace CarAuction.Migrations
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("HighLights")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Location")
-                        .HasColumnType("int");
 
                     b.Property<int>("PrimaryDamage")
                         .HasColumnType("int");
@@ -141,13 +185,16 @@ namespace CarAuction.Migrations
                     b.ToTable("Sells");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.InfoVehicle", b =>
+            modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BidId")
+                        .HasColumnType("int");
 
                     b.Property<int>("BodyType")
                         .HasColumnType("int");
@@ -170,10 +217,7 @@ namespace CarAuction.Migrations
                     b.Property<int>("Fuel")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InfoBidId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InfoSellId")
+                    b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("LotNumber")
@@ -200,6 +244,9 @@ namespace CarAuction.Migrations
                     b.Property<bool>("SecondTireSet")
                         .HasColumnType("bit");
 
+                    b.Property<int>("SellId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("ServiceManual")
                         .HasColumnType("bit");
 
@@ -208,9 +255,13 @@ namespace CarAuction.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InfoBidId");
+                    b.HasIndex("BidId")
+                        .IsUnique();
 
-                    b.HasIndex("InfoSellId");
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("SellId")
+                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });
@@ -226,19 +277,55 @@ namespace CarAuction.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.InfoVehicle", b =>
+            modelBuilder.Entity("CarAuction.Models.Location", b =>
                 {
-                    b.HasOne("CarAuction.Models.InfoBid", "InfoBid")
+                    b.HasOne("CarAuction.Models.Address", "Address")
+                        .WithOne("Location")
+                        .HasForeignKey("CarAuction.Models.Location", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
+                {
+                    b.HasOne("CarAuction.Models.Bid", "Bid")
+                        .WithOne("Vehicle")
+                        .HasForeignKey("CarAuction.Models.Vehicle", "BidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarAuction.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("InfoBidId");
+                        .HasForeignKey("LocationId");
 
-                    b.HasOne("CarAuction.Models.InfoSell", "InfoSell")
-                        .WithMany()
-                        .HasForeignKey("InfoSellId");
+                    b.HasOne("CarAuction.Models.Sell", "Sell")
+                        .WithOne("Vehicle")
+                        .HasForeignKey("CarAuction.Models.Vehicle", "SellId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("InfoBid");
+                    b.Navigation("Bid");
 
-                    b.Navigation("InfoSell");
+                    b.Navigation("Location");
+
+                    b.Navigation("Sell");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Address", b =>
+                {
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Bid", b =>
+                {
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Sell", b =>
+                {
+                    b.Navigation("Vehicle");
                 });
 #pragma warning restore 612, 618
         }

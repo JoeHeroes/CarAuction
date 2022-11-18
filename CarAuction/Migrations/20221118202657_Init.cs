@@ -10,6 +10,21 @@ namespace CarAuction.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bids",
                 columns: table => new
                 {
@@ -48,14 +63,34 @@ namespace CarAuction.Migrations
                     PrimaryDamage = table.Column<int>(type: "int", nullable: false),
                     SecondaryDamage = table.Column<int>(type: "int", nullable: false),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HighLights = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sells", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,23 +141,37 @@ namespace CarAuction.Migrations
                     ServiceManual = table.Column<bool>(type: "bit", nullable: false),
                     SecondTireSet = table.Column<bool>(type: "bit", nullable: false),
                     CreateById = table.Column<int>(type: "int", nullable: false),
-                    InfoSellId = table.Column<int>(type: "int", nullable: true),
-                    InfoBidId = table.Column<int>(type: "int", nullable: true)
+                    SellId = table.Column<int>(type: "int", nullable: false),
+                    BidId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vehicles_Bids_InfoBidId",
-                        column: x => x.InfoBidId,
+                        name: "FK_Vehicles_Bids_BidId",
+                        column: x => x.BidId,
                         principalTable: "Bids",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Vehicles_Sells_InfoSellId",
-                        column: x => x.InfoSellId,
+                        name: "FK_Vehicles_Sells_SellId",
+                        column: x => x.SellId,
                         principalTable: "Sells",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_AddressId",
+                table: "Locations",
+                column: "AddressId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -130,14 +179,21 @@ namespace CarAuction.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_InfoBidId",
+                name: "IX_Vehicles_BidId",
                 table: "Vehicles",
-                column: "InfoBidId");
+                column: "BidId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_InfoSellId",
+                name: "IX_Vehicles_LocationId",
                 table: "Vehicles",
-                column: "InfoSellId");
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_SellId",
+                table: "Vehicles",
+                column: "SellId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -155,7 +211,13 @@ namespace CarAuction.Migrations
                 name: "Bids");
 
             migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
                 name: "Sells");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
         }
     }
 }

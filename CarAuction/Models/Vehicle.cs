@@ -3,7 +3,7 @@ using System.Net;
 
 namespace CarAuction.Models
 {
-    public class InfoVehicle
+    public class Vehicle
     {
         public int Id { get; set; }
         public Guid LotNumber { get; set; }
@@ -23,8 +23,12 @@ namespace CarAuction.Models
         public bool ServiceManual { get; set; }
         public bool SecondTireSet { get; set; }
         public int CreateById { get; set; }
-        public InfoSell InfoSell { get; set; }
-        public InfoBid InfoBid { get; set; }
+        public int SellId { get; set; }
+        public  Sell Sell { get; set; }
+
+        public int BidId { get; set; }
+        public Bid Bid { get; set; }
+
         public Location Location { get; set; }
 
     }

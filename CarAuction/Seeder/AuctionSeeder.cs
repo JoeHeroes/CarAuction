@@ -54,11 +54,11 @@ namespace CarAuction.Seeder
             };
         }
 
-        public IEnumerable<InfoVehicle> GetInfoVehicle()
+        public IEnumerable<Vehicle> GetInfoVehicle()
         {
-            return new List<InfoVehicle>()
+            return new List<Vehicle>()
             {
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Audi,
                     ModelSpecifer = "A4",
@@ -75,19 +75,19 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,
                         VIN = ""
                     }
                 },
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Audi,
                     ModelSpecifer = "A4",
@@ -104,19 +104,19 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = false,
-                     InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,
                         VIN = ""
                     }
                 },
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Audi,
                     ModelSpecifer = "Passat",
@@ -133,19 +133,19 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                     InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000 
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,
                         VIN = ""
                     }
                 },
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Volkswagen,
                     ModelSpecifer = "Passat",
@@ -162,19 +162,19 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                     InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,
                         VIN = ""
                     }
                 },
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Volkswagen,
                     ModelSpecifer = "Polo",
@@ -191,19 +191,19 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                     InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,
                         VIN = ""
                     }
                 },
-                new InfoVehicle()
+                new Vehicle()
                 {
                     Producer = Producer.Toyota,
                     ModelSpecifer = "Yaris",
@@ -220,12 +220,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = false,
                     SecondTireSet = false,
-                     InfoBid = new InfoBid()
+                    Bid = new Bid()
                     {
                         Watch = true,
                         CurrentBid = 5000
                     },
-                    InfoSell = new InfoSell()
+                    Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
                         DateTime = DateTime.Today,

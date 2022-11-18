@@ -9,23 +9,25 @@ namespace CarAuction.Models
         {
         }
 
-        public DbSet<InfoVehicle> Vehicles { get; set; }
-        public DbSet<InfoSell> Sells { get; set; }
-        public DbSet<InfoBid> Bids { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Sell> Sells { get; set; }
+        public DbSet<Bid> Bids { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<InfoVehicle>()
+            modelBuilder.Entity<Vehicle>()
                 .Property(u => u.BodyType)
                 .IsRequired();
 
-            modelBuilder.Entity<InfoSell>()
+            modelBuilder.Entity<Sell>()
                .Property(u => u.VIN)
                .IsRequired();
 
-            modelBuilder.Entity<InfoBid>()
+            modelBuilder.Entity<Bid>()
                .Property(u => u.CurrentBid)
                .IsRequired();
 

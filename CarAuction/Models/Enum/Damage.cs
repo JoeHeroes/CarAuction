@@ -1,4 +1,4 @@
-﻿namespace CarAuction.Entites.Enum
+﻿namespace CarAuction.Models.Enum
 {
     public enum Damage
     {
@@ -6,13 +6,16 @@
         Burn,
         Burn_Engine,
         Front_End,
-        Rear_End,
-        Side,
         Hail,
         Mechanical,
+        Minor_Dents_Scratch,
         Normal_Wear,
+        Rear_End,
         Rollover,
+        Side,
+        Top_Roof,
         Undercarriage,
-        Vandalism,
+        Unknown,
+        Vandalism
     }
 }

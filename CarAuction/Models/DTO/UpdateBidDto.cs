@@ -1,11 +1,11 @@
-﻿using CarAuction.Entites.Enum;
+﻿using CarAuction.Models.Enum;
 
-namespace CarAuction.Entities.Action
+namespace CarAuction.Models.DTO
 {
     public class UpdateBidDto
     {
-        public Location location { get; set; }
-        public DateTime dateTime { get; set; }
-        public DateTime timeLeft { get; set; }
+        public Location Location { get; set; }
+        public DateTime DateTime { get; set; }
+        public DateTime TimeLeft { get; set; }
     }
 }

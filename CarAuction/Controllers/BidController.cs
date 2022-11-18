@@ -1,61 +1,15 @@
-﻿
-using CarAuction.Entites;
-using CarAuction.Entities.Action;
-using CarAuction.Services;
+﻿using CarAuction.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AutoAuction.Controller
+namespace AutoAuction.Controllers
 {
-    [Route("api/bid")]
-    [ApiController]
-    public class BidController : ControllerBase
+    public class BidController : Controller
     {
-        private readonly IBidService _service;
+        private readonly AuctionDbContext dbContext;
 
-        public BidController(IBidService service)
+        public BidController(AuctionDbContext dbContext)
         {
-            _service = service;
-        }
-
-        [HttpGet]
-        public ActionResult<IEnumerable<Vehicle>> GetAll()
-        {
-            var vehicles = _service.GetAll();
-            return Ok(vehicles);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<BidStatus> GetOne([FromRoute] int id)
-        {
-            var vehicles = _service.GetById(id);
-            return Ok(vehicles);
-        }
-
-        [HttpDelete("{id}")]
-
-        public ActionResult Delete([FromRoute] int id)
-        {
-            _service.Delete(id);
-
-            return NotFound();
-        }
-
-        [HttpPost]
-        public ActionResult CreateStudent([FromBody] CreateBidDto model)
-        {
-
-            var id = _service.Create(model);
-
-            return Created($"/api/bid/{id}", null);
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult Update([FromBody] UpdateBidDto model, [FromRoute] int id)
-        {
-
-            _service.Update(id, model);
-
-            return Ok();
+           this.dbContext = dbContext;
         }
     }
 }

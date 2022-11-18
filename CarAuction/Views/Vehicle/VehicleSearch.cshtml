@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CarAuction.Models.View.VehicleView>
+
+@{
+    ViewData["Title"] = "VehicleSearch";
+}
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Search Results For:</h2>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Lot
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Make
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Sale Date
+            </th>
+            <th>
+                Odometer
+            </th>
+            <th>
+                Damage
+            </th>
+            <th>
+                Current Bid
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="50%">
+                    @obj.LotNumber
+                    @obj.Watch
+                </td>
+                <td width="30%">
+                    @obj.RegistrationYear
+                </td>
+                <td width="20%">
+                    @obj.Producer
+                </td>
+                <td width="20%">
+                    @obj.ModelSpecifer
+                </td>
+                <td width="20%">
+                    @obj.DateTime
+                </td>
+                <td width="20%">
+                    @obj.MeterReadout
+                </td>
+                <td width="20%">
+                    @obj.Damage
+                </td>
+                <td width="20%">
+                    @obj.CurrentBid
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

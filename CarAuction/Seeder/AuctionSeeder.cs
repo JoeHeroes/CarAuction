@@ -1,6 +1,6 @@
 ﻿using CarAuction.Authorization;
-using CarAuction.Entites;
-using CarAuction.Entites.Enum;
+using CarAuction.Models;
+using CarAuction.Models.Enum;
 
 namespace CarAuction.Seeder
 {
@@ -54,123 +54,183 @@ namespace CarAuction.Seeder
             };
         }
 
-        public IEnumerable<Vehicle> GetInfoVehicle()
+        public IEnumerable<InfoVehicle> GetInfoVehicle()
         {
-            return new List<Vehicle>()
+            return new List<InfoVehicle>()
             {
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "Audi",
-                    modelSpecifer = "A4",
-                    modelGeneration = "B9",
-                    registrationYear = 2016,
-                    color = "Grey",
-                    bodyType = BodyType.Sedan,
-                    engineCapacity = 1968 ,
-                    engineOutput = 110,
-                    transmission = Transmission.DualClutch,
-                    drive = Drive.FWD,
-                    meterReadout = 177000,
-                    fuel = Fuel.Diesel,
-                    numberKeys = "1",
-                    serviceManual = true,
-                    secondTireSet = true,
+                    Producer = Producer.Audi,
+                    ModelSpecifer = "A4",
+                    ModelGeneration = "B9",
+                    RegistrationYear = 2016,
+                    Color = "Grey",
+                    BodyType = BodyCar.Sedan,
+                    EngineCapacity = 1968 ,
+                    EngineOutput = 110,
+                    Transmission = Transmission.DualClutch,
+                    Drive = Drive.FWD,
+                    MeterReadout = 177000,
+                    Fuel = Fuel.Diesel,
+                    NumberKeys = "1",
+                    ServiceManual = true,
+                    SecondTireSet = true,
+                    InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 },
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "Audi",
-                    modelSpecifer = "A4",
-                    modelGeneration = "B6",
-                    registrationYear = 2004,
-                    color = "Blue",
-                    bodyType = BodyType.Sedan,
-                    engineCapacity = 1896,
-                    engineOutput = 96,
-                    transmission = Transmission.Manual,
-                    drive = Drive.FWD,
-                    meterReadout = 268000,
-                    fuel = Fuel.Diesel,
-                    numberKeys = "1",
-                    serviceManual = true,
-                    secondTireSet = false,
+                    Producer = Producer.Audi,
+                    ModelSpecifer = "A4",
+                    ModelGeneration = "B6",
+                    RegistrationYear = 2004,
+                    Color = "Blue",
+                    BodyType = BodyCar.Sedan,
+                    EngineCapacity = 1896,
+                    EngineOutput = 96,
+                    Transmission = Transmission.Manual,
+                    Drive = Drive.FWD,
+                    MeterReadout = 268000,
+                    Fuel = Fuel.Diesel,
+                    NumberKeys = "1",
+                    ServiceManual = true,
+                    SecondTireSet = false,
+                     InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 },
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "VW",
-                    modelSpecifer = "Passat",
-                    modelGeneration = "B8",
-                    registrationYear = 2015,
-                    color = "Black",
-                    bodyType = BodyType.Sedan,
-                    engineCapacity = 1598,
-                    engineOutput = 88,
-                    transmission = Transmission.DualClutch,
-                    drive = Drive.FWD,
-                    meterReadout = 180000,
-                    fuel = Fuel.Diesel,
-                    numberKeys = "2",
-                    serviceManual = true,
-                    secondTireSet = true,
+                    Producer = Producer.Audi,
+                    ModelSpecifer = "Passat",
+                    ModelGeneration = "B8",
+                    RegistrationYear = 2015,
+                    Color = "Black",
+                    BodyType = BodyCar.Sedan,
+                    EngineCapacity = 1598,
+                    EngineOutput = 88,
+                    Transmission = Transmission.DualClutch,
+                    Drive = Drive.FWD,
+                    MeterReadout = 180000,
+                    Fuel = Fuel.Diesel,
+                    NumberKeys = "2",
+                    ServiceManual = true,
+                    SecondTireSet = true,
+                     InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000 
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 },
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "VW",
-                    modelSpecifer = "Passat",
-                    modelGeneration = "B8",
-                    registrationYear = 2015,
-                    color = "LightBlue",
-                    bodyType = BodyType.Sedan,
-                    engineCapacity = 1968,
-                    engineOutput = 110,
-                    transmission = Transmission.DualClutch,
-                    drive = Drive.FWD,
-                    meterReadout = 172000,
-                    fuel = Fuel.Diesel,
-                    numberKeys = "2",
-                    serviceManual = true,
-                    secondTireSet = true,
+                    Producer = Producer.Volkswagen,
+                    ModelSpecifer = "Passat",
+                    ModelGeneration = "B8",
+                    RegistrationYear = 2015,
+                    Color = "LightBlue",
+                    BodyType = BodyCar.Sedan,
+                    EngineCapacity = 1968,
+                    EngineOutput = 110,
+                    Transmission = Transmission.DualClutch,
+                    Drive = Drive.FWD,
+                    MeterReadout = 172000,
+                    Fuel = Fuel.Diesel,
+                    NumberKeys = "2",
+                    ServiceManual = true,
+                    SecondTireSet = true,
+                     InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 },
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "VW",
-                    modelSpecifer = "Polo",
-                    modelGeneration = "2G",
-                    registrationYear = 2020,
-                    color = "White",
-                    bodyType = BodyType.Hatchback,
-                    engineCapacity = 999,
-                    engineOutput = 59,
-                    transmission = Transmission.Manual,
-                    drive = Drive.FWD,
-                    meterReadout = 25000,
-                    fuel = Fuel.Petrol,
-                    numberKeys = "2",
-                    serviceManual = true,
-                    secondTireSet = true,
+                    Producer = Producer.Volkswagen,
+                    ModelSpecifer = "Polo",
+                    ModelGeneration = "2G",
+                    RegistrationYear = 2020,
+                    Color = "White",
+                    BodyType = BodyCar.Hatchback,
+                    EngineCapacity = 999,
+                    EngineOutput = 59,
+                    Transmission = Transmission.Manual,
+                    Drive = Drive.FWD,
+                    MeterReadout = 25000,
+                    Fuel = Fuel.Petrol,
+                    NumberKeys = "2",
+                    ServiceManual = true,
+                    SecondTireSet = true,
+                     InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 },
-                new Vehicle()
+                new InfoVehicle()
                 {
-                    idVehicle = new Guid(),
-                    producer = "Toyota",
-                    modelSpecifer = "Yaris",
-                    modelGeneration = "2",
-                    registrationYear = 2010,
-                    color = "White",
-                    bodyType = BodyType.Hatchback,
-                    engineCapacity = 1364,
-                    engineOutput = 66,
-                    transmission = Transmission.Manual,
-                    drive = Drive.FWD,
-                    meterReadout = 80000,
-                    fuel = Fuel.Diesel,
-                    numberKeys = "2",
-                    serviceManual = false,
-                    secondTireSet = false,
+                    Producer = Producer.Toyota,
+                    ModelSpecifer = "Yaris",
+                    ModelGeneration = "2",
+                    RegistrationYear = 2010,
+                    Color = "White",
+                    BodyType = BodyCar.Hatchback,
+                    EngineCapacity = 1364,
+                    EngineOutput = 66,
+                    Transmission = Transmission.Manual,
+                    Drive = Drive.FWD,
+                    MeterReadout = 80000,
+                    Fuel = Fuel.Diesel,
+                    NumberKeys = "2",
+                    ServiceManual = false,
+                    SecondTireSet = false,
+                     InfoBid = new InfoBid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    InfoSell = new InfoSell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Today,
+                        VIN = ""
+                    }
                 }
             };
         }

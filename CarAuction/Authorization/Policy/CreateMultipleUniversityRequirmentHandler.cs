@@ -1,4 +1,4 @@
-﻿using CarAuction.Entites;
+﻿using CarAuction.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 

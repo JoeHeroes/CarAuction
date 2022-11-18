@@ -1,6 +1,6 @@
-﻿namespace CarAuction.Entites.Enum
+﻿namespace CarAuction.Models.Enum
 {
-    public enum BodyType
+    public enum BodyCar
     {
         Micro,
         Sedan,

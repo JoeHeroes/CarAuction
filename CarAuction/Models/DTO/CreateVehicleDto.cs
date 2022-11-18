@@ -1,11 +1,11 @@
-﻿using CarAuction.Entites.Enum;
+﻿using CarAuction.Models.Enum;
 
-namespace CarAuction.Entities.Action
+namespace CarAuction.Models.DTO
 {
     public class CreateVehicleDto
     {
         public string color { get; set; } = null!;
-        public BodyType bodyType { get; set; }
+        public BodyCar bodyType { get; set; }
         public int engineCapacity { get; set; }
         public int engineOutput { get; set; }
         public Transmission transmission { get; set; }

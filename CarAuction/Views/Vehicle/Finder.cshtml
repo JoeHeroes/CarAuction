@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewData["Title"] = "Finder";
+}
+
+<h1>Vehicle Finder</h1>
+
+<div>
+    <h2>Make</h2>
+    <div>
+        <a href="">Alfa_Romeo</a>
+        <a href="">Audi</a>
+        <a href="">BMW</a>
+        <a href="">Cupra</a>
+        <a href="">Chevrolet</a>
+        <a href="">Citroen</a>
+        <a href="">Dacia</a>
+        <a href="">Dodge</a>
+        <a href="">FIAT</a>
+        <a href="">Ford</a>
+        <a href="">Honda</a>
+        <a href="">Hyundai</a>
+        <a href="">Kia</a>
+        <a href="">Land_Rover</a>
+        <a href="">Jeep</a>
+        <a href="">Lexus</a>
+        <a href="">Mazda</a>
+        <a href="">Mercedes</a>
+        <a href="">Mini</a>
+        <a href="">Mitsubishi</a>
+        <a href="">Nissan</a>
+        <a href="">Opel</a>
+        <a href="">Peugeot</a>
+        <a href="">Renault</a>
+        <a href="">Seat</a>
+        <a href="">Skoda</a>
+        <a href="">Subaru</a>
+        <a href="">Suzuki</a>
+        <a href="">Tesla</a>
+        <a href="">Toyota</a>
+        <a href="">Volkswagen</a>
+        <a href="">Volvo</a>
+    </div>
+    
+
+    <h2>Damage</h2>
+    <div>
+        <a href="">Volvo</a>
+        <a href="">All_Over</a>
+        <a href="">Burn</a>
+        <a href="">Burn_Engine</a>
+        <a href="">Front_End</a>
+        <a href="">Hail</a>
+        <a href="">Mechanical</a>
+        <a href="">Minor_Dents_Scratch</a>
+        <a href="">Normal_Wear</a>
+        <a href="">Rear_End</a>
+        <a href="">Rollover</a>
+        <a href="">Side</a>
+        <a href="">Top_Roof</a>
+        <a href="">Undercarriage</a>
+        <a href="">Unknown</a>
+        <a href="">Vandalism</a>
+    </div>
+
+    
+
+
+
+
+
+    <form method="post" action="@Url.Action("Search", "Vehicle")">
+        <table border="0" cellpadding="2" cellspacing="2">
+
+            <tr>
+                <td>Model</td>
+                <td>
+                    <select name="producer">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Location</td>
+                <td>
+                    <select name="sinceYear">
+                        <option value="2000">2000</option>
+                        <option value="2001">2001</option>
+                        <option value="2002">2002</option>
+                        <option value="2003">2003</option>
+                    </select>
+                    To
+                    <select name="toYear">
+                        <option value="2000">2000</option>
+                        <option value="2001">2001</option>
+                        <option value="2002">2002</option>
+                        <option value="2003">2003</option>
+                    </select>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Location</td>
+                <td><select name="location">
+                        <option value="Espoo">Espoo</option>
+                        <option value="Oulu">Oulu</option>
+                        <option value="Pirkkala">Pirkkala</option>
+                        <option value="Turku">Turku</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button></td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+
+
+

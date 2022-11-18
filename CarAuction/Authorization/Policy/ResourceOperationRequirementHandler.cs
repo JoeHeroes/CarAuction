@@ -1,13 +1,13 @@
-﻿using CarAuction.Entites;
+﻿using CarAuction.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace CarAuction.Authorization.Policy
 {
 
-    public class ResourceOperationRequirementHandler : AuthorizationHandler<ResourceOperationRequirement, Vehicle>
+    public class ResourceOperationRequirementHandler : AuthorizationHandler<ResourceOperationRequirement, InfoVehicle>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ResourceOperationRequirement requirement, Vehicle vehicle)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ResourceOperationRequirement requirement, InfoVehicle vehicle)
         {
             if(requirement.ResourcOperation == ResourcOperation.Read || 
                requirement.ResourcOperation == ResourcOperation.Create)

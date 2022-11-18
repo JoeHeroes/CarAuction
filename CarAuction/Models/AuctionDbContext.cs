@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CarAuction.Authorization;
-using CarAuction.Models;
+﻿using CarAuction.Authorization;
+using Microsoft.EntityFrameworkCore;
 
-namespace CarAuction.Entites
+namespace CarAuction.Models
 {
     public class AuctionDbContext : DbContext
     {
@@ -10,24 +9,24 @@ namespace CarAuction.Entites
         {
         }
 
-        public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<InfoSell> InfoSells { get; set; }
-        public DbSet<BidStatus> Bids { get; set; }
+        public DbSet<InfoVehicle> Vehicles { get; set; }
+        public DbSet<InfoSell> Sells { get; set; }
+        public DbSet<InfoBid> Bids { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Vehicle>()
-                .Property(u => u.bodyType)
+            modelBuilder.Entity<InfoVehicle>()
+                .Property(u => u.BodyType)
                 .IsRequired();
 
             modelBuilder.Entity<InfoSell>()
                .Property(u => u.VIN)
                .IsRequired();
 
-            modelBuilder.Entity<BidStatus>()
-               .Property(u => u.timeLeft)
+            modelBuilder.Entity<InfoBid>()
+               .Property(u => u.CurrentBid)
                .IsRequired();
 
             modelBuilder.Entity<User>()

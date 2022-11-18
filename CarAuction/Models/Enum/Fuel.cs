@@ -1,4 +1,4 @@
-﻿namespace CarAuction.Entites.Enum
+﻿namespace CarAuction.Models.Enum
 {
     public enum Fuel
     {

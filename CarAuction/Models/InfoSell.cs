@@ -1,16 +1,16 @@
 ﻿using System;
-using CarAuction.Entites.Enum;
+using CarAuction.Models.Enum;
 
 namespace CarAuction.Models
 {
     public class InfoSell
     {
         public int Id { get; set; }
-        public Guid idVehicle { get; set; }
-        public SaleTerm saleTerm { get; set; }
-        public Damage primaryDamage { get; set; }
-        public Damage secondaryDamage { get; set; }
+        public SaleTerm SaleTerm { get; set; }
+        public Damage PrimaryDamage { get; set; }
+        public Damage SecondaryDamage { get; set; }
         public string VIN { get; set; } = null!;
-        public string highLights { get; set; } = null!;
+        public DateTime DateTime { get; set; }
+        public DateTime TimeLeft { get; set; }
     }
 }

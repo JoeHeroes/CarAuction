@@ -1,0 +1,38 @@
+﻿namespace CarAuction.Models.Enum
+{
+    public enum Producer
+    {
+        Alfa_Romeo,
+        Audi,
+        BMW,
+        Cupra,
+        Chevrolet,
+        Citroen,
+        Dacia,
+        Dodge,
+        FIAT,
+        Ford,
+        Honda,
+        Hyundai,
+        Kia,
+        Land_Rover,
+        Jeep,
+        Lexus,
+        Mazda,
+        Mercedes,
+        Mini,
+        Mitsubishi,
+        Nissan,
+        Opel,
+        Peugeot,
+        Renault,
+        Seat,
+        Skoda,
+        Subaru,
+        Suzuki,
+        Tesla,
+        Toyota,
+        Volkswagen,
+        Volvo,
+    }
+}

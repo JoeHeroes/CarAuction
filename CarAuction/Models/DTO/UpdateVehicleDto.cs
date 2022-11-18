@@ -1,14 +1,14 @@
-﻿using CarAuction.Entites.Enum;
+﻿using CarAuction.Models.Enum;
 
-namespace CarAuction.Entities.Action
+namespace CarAuction.Models.DTO
 {
     public class UpdateVehicleDto
     {
-        public long meterReadout { get; set; }
-        public bool serviceManual { get; set; }
-        public bool secondTireSet { get; set; }
-        public SaleTerm saleTerm { get; set; }
-        public Damage primaryDamage { get; set; }
-        public Damage secondaryDamage { get; set; }
+        public long MeterReadout { get; set; }
+        public bool ServiceManual { get; set; }
+        public bool SecondTireSet { get; set; }
+        public SaleTerm SaleTerm { get; set; }
+        public Damage PrimaryDamage { get; set; }
+        public Damage SecondaryDamage { get; set; }
     }
 }

@@ -1,13 +1,10 @@
-using AutoAuction.Service;
 using CarAuction;
 using CarAuction.Authorization;
 using CarAuction.Authorization.Policy;
-using CarAuction.Entites;
 using CarAuction.Middleware;
+using CarAuction.Models;
 using CarAuction.Models.DTO;
-using CarAuction.Models.Validators;
 using CarAuction.Seeder;
-using CarAuction.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -17,7 +14,6 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using System.Text;
-using UniAPI.Services;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
@@ -80,11 +76,6 @@ try
     //Sedder
     builder.Services.AddScoped<AuctionSeeder>();
 
-    //Interface
-    builder.Services.AddScoped<IAccountServices, AccountServices>();
-    builder.Services.AddScoped<IVehicleService, VehicleService>();
-    builder.Services.AddScoped<IUserContextService, UserContextService>();
-
     //Middleware
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
     builder.Services.AddScoped<RequestTimeMiddleware>();
@@ -93,13 +84,11 @@ try
     builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
     //Validetor
-    builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+    //builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+    //builder.Services.AddScoped<IValidator<AuctionQuery>, AuctionQueryValidator>();
 
     //ContextAccessor
     builder.Services.AddHttpContextAccessor();
-
-    //Swagger
-    builder.Services.AddSwaggerGen();
 
     //DbContext
     builder.Services.AddDbContext<AuctionDbContext>(options =>
@@ -132,10 +121,6 @@ try
     app.UseStaticFiles();
 
     app.UseHttpsRedirection();
-
-    app.UseSwagger();
-
-    app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "v1.0"));
 
     app.UseRouting();
 

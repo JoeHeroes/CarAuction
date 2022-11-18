@@ -1,60 +1,74 @@
-﻿using AutoAuction.Service;
-using CarAuction.Entites;
-using CarAuction.Entities.Action;
+﻿using CarAuction.Models;
+using CarAuction.Models.DTO;
+using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
-namespace AutoAuction.Controller
+namespace AutoAuction.Controllers
 {
-    [Route("api/vehicle")]
-    [ApiController]
-    public class VehicleController: ControllerBase
+    [Route("Vehicle")]
+    public class VehicleController : Controller
     {
-        private readonly IVehicleService _service;
+        private readonly AuctionDbContext dbContext;
 
-        public VehicleController(IVehicleService service)
+        public VehicleController(AuctionDbContext dbContext)
         {
-            _service = service;
+            this.dbContext = dbContext;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Vehicle>> GetAll()
+
+        [Route("Finder")]
+        public IActionResult Finder()
         {
-            var vehicles = _service.GetAll();
-            return Ok(vehicles);
+            return View();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Vehicle> GetOne([FromRoute] int id)
+        [Route("WatchList")]
+        public IActionResult WatchList()
         {
-            var vehicles = _service.GetById(id);
-            return Ok(vehicles);
+            return View();
         }
 
-        [HttpDelete("{id}")]
-        
-        public ActionResult Delete([FromRoute] int id)
-        {
-            _service.Delete(id);
 
-            return NotFound();
-        }
 
         [HttpPost]
-        public ActionResult CreateStudent([FromBody] CreateVehicleDto model)
+        [Route("Search")]
+        public IActionResult VehicleSearch(AuctionQuery query)
         {
+            // Page control
+            query.PageSize = 2;
+            query.PageNumber = 2;
 
-            var id = _service.Create(model);
 
-            return Created($"/api/vehicle/{id}", null);
-        }
+            var vehicles = this.dbContext.Vehicles
+                                            .Where(r => query.SearchPhrase == null || 
+                                            (r.Producer.ToString().ToLower().Contains(query.SearchPhrase.ToLower())|| 
+                                             r.Location.ToString().ToLower().Contains(query.SearchPhrase.ToLower())))
+                                            .Skip(query.PageSize * (query.PageNumber - 1))
+                                            .Take(query.PageSize)
+                                            .ToList( );
 
-        [HttpPut("{id}")]
-        public ActionResult Update([FromBody] UpdateVehicleDto model, [FromRoute] int id)
-        {
+            List<VehicleView> vehiclesView = new List<VehicleView>();
 
-            _service.Update(id, model);
+            foreach (InfoVehicle vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.LotNumber,
+                    //Watch = vehicle.InfoBid.Watch,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    //DateTime = vehicle.InfoSell.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    //Damage = vehicle.InfoSell.PrimaryDamage,
+                    //CurrentBid = vehicle.InfoBid.CurrentBid
+                };
 
-            return Ok();
+                vehiclesView.Add(view);
+            }
+
+            return View(vehiclesView);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CarAuction.Entities.Action
+﻿namespace CarAuction.Models.DTO
 {
     public class CreateBidDto
     {

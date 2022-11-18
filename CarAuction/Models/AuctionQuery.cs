@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarAuction.Models.Enum;
+﻿using CarAuction.Models.Enum;
 
 namespace CarAuction.Models
 {

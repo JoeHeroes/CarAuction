@@ -1,0 +1,161 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace CarAuction.Migrations
+{
+    public partial class Init : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Bids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BidStatus = table.Column<bool>(type: "bit", nullable: false),
+                    CurrentBid = table.Column<int>(type: "int", nullable: false),
+                    SaleStatus = table.Column<bool>(type: "bit", nullable: false),
+                    Watch = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bids", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sells",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleTerm = table.Column<int>(type: "int", nullable: false),
+                    PrimaryDamage = table.Column<int>(type: "int", nullable: false),
+                    SecondaryDamage = table.Column<int>(type: "int", nullable: false),
+                    VIN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HighLights = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<int>(type: "int", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sells", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LotNumber = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Producer = table.Column<int>(type: "int", nullable: false),
+                    ModelSpecifer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelGeneration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegistrationYear = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BodyType = table.Column<int>(type: "int", nullable: false),
+                    EngineCapacity = table.Column<int>(type: "int", nullable: false),
+                    EngineOutput = table.Column<int>(type: "int", nullable: false),
+                    Transmission = table.Column<int>(type: "int", nullable: false),
+                    Drive = table.Column<int>(type: "int", nullable: false),
+                    MeterReadout = table.Column<long>(type: "bigint", nullable: false),
+                    Fuel = table.Column<int>(type: "int", nullable: false),
+                    NumberKeys = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceManual = table.Column<bool>(type: "bit", nullable: false),
+                    SecondTireSet = table.Column<bool>(type: "bit", nullable: false),
+                    CreateById = table.Column<int>(type: "int", nullable: false),
+                    InfoSellId = table.Column<int>(type: "int", nullable: true),
+                    InfoBidId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Bids_InfoBidId",
+                        column: x => x.InfoBidId,
+                        principalTable: "Bids",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Vehicles_Sells_InfoSellId",
+                        column: x => x.InfoSellId,
+                        principalTable: "Sells",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_InfoBidId",
+                table: "Vehicles",
+                column: "InfoBidId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_InfoSellId",
+                table: "Vehicles",
+                column: "InfoSellId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Vehicles");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Bids");
+
+            migrationBuilder.DropTable(
+                name: "Sells");
+        }
+    }
+}

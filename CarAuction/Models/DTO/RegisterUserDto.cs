@@ -1,14 +1,24 @@
-﻿namespace CarAuction.Models.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CarAuction.Models.DTO
 {
     public class RegisterUserDto
     {
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string ConfirmPassword { get; set; } = null!;
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
-        public string Nationality { get; set; } = null!;
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string ConfirmPassword { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; } 
+        [Required]
+        public string Nationality { get; set; }
+        [Required]
         public DateTime? DateOfBirth { get; set; }
+        [Required]
         public int RoleId { get; set; } = 1;
         //1 Admin 
         //2 Moderator

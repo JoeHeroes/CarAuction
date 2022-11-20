@@ -1,8 +1,13 @@
 ﻿using CarAuction.Models;
 using CarAuction.Models.DTO;
+using CarAuction.Models.Enum;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AutoAuction.Controllers
 {
@@ -32,25 +37,55 @@ namespace AutoAuction.Controllers
 
 
         [HttpPost]
-        [Route("Search")]
+        [Route("VehicleSearch")]
         public IActionResult VehicleSearch(AuctionQuery query)
         {
-            // Page control
-            query.PageSize = 2;
-            query.PageNumber = 2;
+            var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear); ;
+
+            if(query.Producer != Producer.none)
+            {
+                var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
+                baseQuery = baseProducer;
+            }
+
+            if (query.RegistrationYear != 0)
+            {
+                var baseRegistration = baseQuery.Where(x => x.RegistrationYear == query.RegistrationYear);
+                baseQuery = baseRegistration;
+            }
+
+            if (query.LocationName != null)
+            {
+                var baseRegistration = baseQuery.Where(x => x.Location.Name == query.LocationName);
+                baseQuery = baseRegistration;
+            }
 
 
-            var vehicles = this.dbContext.Vehicles
-                                            .Where(r => query.SearchPhrase == null || 
-                                            (r.Producer.ToString().ToLower().Contains(query.SearchPhrase.ToLower())|| 
-                                             r.Location.ToString().ToLower().Contains(query.SearchPhrase.ToLower())))
-                                            .Skip(query.PageSize * (query.PageNumber - 1))
-                                            .Take(query.PageSize)
-                                            .ToList( );
+            if (!string.IsNullOrEmpty(query.SortBy))
+            {
+                var columnsSelectors = new Dictionary<string, Expression<Func<Vehicle, object>>>
+                {
+                    { nameof(Vehicle.Producer), r => r.Producer },
+                    { nameof(Vehicle.RegistrationYear), r => r.RegistrationYear },
+                    { nameof(Vehicle.Location.Name), r => r.Location.Name },
+                };
+
+                var selectedColumn = columnsSelectors[query.SortBy];
+
+                baseQuery = query.SortDirection == SortDirection.ASC
+                    ? baseQuery.OrderBy(selectedColumn)
+                    : baseQuery.OrderByDescending(selectedColumn);
+            }
+
+            var vehicles = baseQuery
+                .Skip(query.PageSize * (query.PageNumber - 1))
+                .Take(query.PageSize)
+                .ToList();
+
 
             List<VehicleView> vehiclesView = new List<VehicleView>();
 
-            foreach (Vehicle vehicle in vehicles)
+            foreach (var vehicle in vehicles)
             {
                 VehicleView view = new VehicleView()
                 {

@@ -31,8 +31,57 @@ namespace CarAuction.Seeder
                     _dbContext.Vehicles.AddRange(info);
                     _dbContext.SaveChanges();
                 }
-            }
 
+                if (!_dbContext.Locations.Any())
+                {
+                    var info = GetLocations();
+                    _dbContext.Locations.AddRange(info);
+                    _dbContext.SaveChanges();
+                }
+            }
+        }
+
+        public IEnumerable<Location> GetLocations()
+        {
+            return new List<Location>()
+            {
+                new Location()
+                {
+                    Name = "Espoo",
+                    Phone = "358401776000",
+                    Email = "Espoo@Copart.fi",
+                    City = "Espoo",
+                    Street = "Pieni teollisuuskatu 7",
+                    PostalCode = "Uusimaa 02920"
+                },
+                new Location()
+                {
+                    Name = "Oulu",
+                    Phone = "358401776000",
+                    Email = "Oulu@Copart.fi",
+                    City = "Oulu",
+                    Street = "Ahertajantie 1",
+                    PostalCode = "North Ostrobothnia 90940"
+                },
+                new Location()
+                {
+                    Name = "Pirkkala",
+                    Phone = "358401776000",
+                    Email = "Pirkkala@Copart.fi",
+                    City = "Pirkkala",
+                    Street = "Teollisuustie 24",
+                    PostalCode = "Pirkanmaa 33960"
+                },
+                new Location()
+                {
+                    Name = "Turku",
+                    Phone = "358401776000",
+                    Email = "Turku@Copart.fi",
+                    City = "Turku",
+                    Street = "Tiemestarinkatu 5",
+                    PostalCode = "20360"
+                },
+            };
         }
 
         public IEnumerable<Role> GetRole()
@@ -118,7 +167,7 @@ namespace CarAuction.Seeder
                 },
                 new Vehicle()
                 {
-                    Producer = Producer.Audi,
+                    Producer = Producer.Volkswagen,
                     ModelSpecifer = "Passat",
                     ModelGeneration = "B8",
                     RegistrationYear = 2015,

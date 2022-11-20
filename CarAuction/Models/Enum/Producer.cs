@@ -2,6 +2,7 @@
 {
     public enum Producer
     {
+        none,
         Alfa_Romeo,
         Audi,
         BMW,

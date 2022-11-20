@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@inject AuctionDbContext dbContext
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +13,7 @@
     <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/CarAuction.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -25,6 +30,27 @@
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
+
+
+
+                <ul class="navbar-nav">
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
+                    {
+                        <li class="nav-item">
+                            <a class="navbar-text text-white" title="Login">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+                        </li>
+                    }
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white"><b>@dbContext.Vehicles.ToList().Count()</b> Vehicle on Sale </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white">@DateTime.UtcNow</a>
+                    </li>
+                </ul>
+           
               
 
 
@@ -63,7 +89,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Location" asp-action="Index">Location</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Location" asp-action="GetAll">Location</a>
                         </li>
 
 

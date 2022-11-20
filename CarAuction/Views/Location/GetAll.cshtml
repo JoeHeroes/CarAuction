@@ -1,0 +1,69 @@
+﻿@model List<Location>
+@{
+    ViewData["Title"] = "GetAll";
+}
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Locations</h2>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                City
+            </th>
+            <th>
+                Street
+            </th>
+            <th>
+                Postcode
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {  
+            <tr>
+                <td width="50%">
+                    @if (@obj.City == "Espoo")
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Espoo">@obj.City</a>
+                    }
+
+                    @if (@obj.City == "Oulu")
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Oulu">@obj.City</a>
+                    }
+
+                    @if (@obj.City == "Pirkkala")
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Pirkkala">@obj.City</a>
+                    }
+
+                    @if (@obj.City == "Turku")
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Turku">@obj.City</a>
+                    }
+                </td>
+                <td width="30%">
+                    @obj.Street
+                </td>
+                <td width="20%">
+                    @obj.PostalCode
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -39,19 +39,19 @@ namespace UniAPI.Controllers
         [Route("Logout")]
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("email");
+            HttpContext.Session.Remove("name");
             return RedirectToAction("Login");
         }
 
         [Route("Welcome")]
         public IActionResult Welcome()
         {
-            ViewBag.username = HttpContext.Session.GetString("email");
+            ViewBag.username = HttpContext.Session.GetString("name");
             return View("Welcome");
         }
 
         [HttpPost]
-        [Route("registerUser")]
+        [Route("RegisterUser")]
         public IActionResult Register(RegisterUserDto dto)
         {
             if (ModelState.IsValid)
@@ -73,7 +73,6 @@ namespace UniAPI.Controllers
                 this.dbContext.Users.Add(newUser);
                 this.dbContext.SaveChanges();
 
-                HttpContext.Session.SetString("email", dto.Email);
                 return RedirectToAction("Welcome");
             }
             ViewBag.msg = "Invalid";
@@ -81,7 +80,7 @@ namespace UniAPI.Controllers
         }
 
         [HttpPost]
-        [Route("loginUser")]
+        [Route("LoginUser")]
         public IActionResult Login(LoginDto dto)
         {
             if (ModelState.IsValid)
@@ -101,6 +100,7 @@ namespace UniAPI.Controllers
                 {
                     throw new BadRequestException("Invalid username or password");
                 }
+                HttpContext.Session.SetString("name", user.LastName+" "+user.FirstName);
                 return RedirectToAction("Welcome");
             }
             return View(dto);

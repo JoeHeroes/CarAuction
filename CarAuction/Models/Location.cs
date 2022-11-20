@@ -1,4 +1,4 @@
-﻿using System.Net;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarAuction.Models
 {
@@ -6,12 +6,12 @@ namespace CarAuction.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [PhoneAttribute]
         public string Phone { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
-        public int AddressId { get; set; }
-        public virtual Address Address { get; set; }
-
-
-
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
     }
 }

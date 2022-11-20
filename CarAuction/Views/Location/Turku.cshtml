@@ -1,0 +1,48 @@
+﻿@model Location
+@{
+    ViewData["Title"] = "Turku";
+}
+
+<div class="jumbotron">
+    <h1>Turku</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Copart Finland</h2>
+        <p>
+            Copart Finland Premium and Basic Members may preview vehicles at Espoo yard between 9-16 on weekdays. Guest Members may also preview vehicles between 9-16 on weekdays by paying Guest fee according to the price list.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h5><i class="fa fa-phone"></i> Phone:</h5>
+        <p>@Model.Phone</p>
+
+
+        <h5><i class="fa fa-clock-o"></i> Hours:</h5>
+        <p>Monday - Friday</p>
+        <p>09:00 - 17:00</p>
+
+
+        <h5><i class="fa fa-envelope"></i> Email:</h5>
+        <p>@Model.Email</p>
+
+
+    </div>
+    <div class="col-md-4">
+        <h5><i class="fa fa-home"></i> Physical Address:</h5>
+
+        <p>@Model.Street</p>
+        <p>@Model.City, @Model.PostalCode</p>
+
+
+
+        <h5><i class="fa fa-envelope"></i> Mailing Address:</h5>
+        <p>@Model.Street</p>
+        <p>@Model.City, @Model.PostalCode</p>
+    </div>
+</div>
+
+
+
+
+

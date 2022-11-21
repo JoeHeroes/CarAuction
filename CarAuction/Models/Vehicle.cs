@@ -6,7 +6,6 @@ namespace CarAuction.Models
     public class Vehicle
     {
         public int Id { get; set; }
-        public Guid LotNumber { get; set; }
         public Producer Producer { get; set; }
         public string ModelSpecifer { get; set; }
         public string ModelGeneration { get; set; } 

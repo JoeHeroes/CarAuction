@@ -1,0 +1,43 @@
+﻿@model CarAuction.Models.Vehicle
+@{
+    ViewData["Title"] = "VehicleLot";
+}
+
+<div class="jumbotron">
+    <h1>@Model.RegistrationYear @Model.Producer</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Copart Finland</h2>
+        <div class="col-sm-4">
+            <img src="FileUpload1" alt="Image" />
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <h3>Lot #@Model.Id</h3>
+
+
+        <h3>Registration Year:@Model.RegistrationYear</h3>
+
+
+        <h3>Model Specifer:@Model.ModelSpecifer</h3>
+
+
+        <h3>Damage:@Model.EngineCapacity</h3>
+
+    </div>
+
+
+
+    <div class="col-md-4">
+        <h5><i class="fa fa-home"></i> Physical Address:</h5>
+
+       
+
+        <h5><i class="fa fa-envelope"></i> Mailing Address:</h5>
+        
+    </div>
+</div>
+

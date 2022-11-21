@@ -202,9 +202,6 @@ namespace CarAuction.Migrations
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("LotNumber")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<long>("MeterReadout")
                         .HasColumnType("bigint");
 

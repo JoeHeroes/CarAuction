@@ -22,29 +22,12 @@ namespace UniAPI.Controllers
         }
 
 
-        public IActionResult Espoo()
+        public IActionResult Place(int locationId)
         {
-            Location location = this.dbContext.Locations.FirstOrDefault(x => x.City == "Espoo");
+            Location location = this.dbContext.Locations.FirstOrDefault(x => x.Id == locationId);
             return View(location);
         }
 
-        public IActionResult Oulu()
-        {
-            Location location = this.dbContext.Locations.FirstOrDefault(x => x.City == "Oulu");
-            return View(location);
-        }
-
-        public IActionResult Pirkkala()
-        {
-            Location location = this.dbContext.Locations.FirstOrDefault(x => x.City == "Pirkkala");
-            return View(location);
-        }
-
-        public IActionResult Turku()
-        {
-            Location location = this.dbContext.Locations.FirstOrDefault(x => x.City == "Turku");
-            return View(location);
-        }
 
     }
 }

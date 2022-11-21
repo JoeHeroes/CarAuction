@@ -4,7 +4,6 @@
 }
 
 
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -33,28 +32,10 @@
     </thead>
     <tbody>
         @foreach (var obj in Model)
-        {  
+        {
             <tr>
                 <td width="50%">
-                    @if (@obj.City == "Espoo")
-                    {
-                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Espoo">@obj.City</a>
-                    }
-
-                    @if (@obj.City == "Oulu")
-                    {
-                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Oulu">@obj.City</a>
-                    }
-
-                    @if (@obj.City == "Pirkkala")
-                    {
-                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Pirkkala">@obj.City</a>
-                    }
-
-                    @if (@obj.City == "Turku")
-                    {
-                        <a class="nav-link" asp-area="" asp-controller="Location" asp-action="Turku">@obj.City</a>
-                    }
+                    @Html.ActionLink(@obj.City, "Place", "Location", new { locationId = @obj.Id }, null)
                 </td>
                 <td width="30%">
                     @obj.Street

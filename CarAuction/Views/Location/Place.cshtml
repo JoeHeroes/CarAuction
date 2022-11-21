@@ -1,16 +1,18 @@
 ﻿@model Location
 @{
-    ViewData["Title"] = "Turku";
+    ViewData["Title"] = "Place";
 }
 
+
+
 <div class="jumbotron">
-    <h1>Turku</h1>
+    <h1>@Model.City</h1>
 </div>
 <div class="row">
     <div class="col-md-4">
         <h2>Copart Finland</h2>
         <p>
-            Copart Finland Premium and Basic Members may preview vehicles at Espoo yard between 9-16 on weekdays. Guest Members may also preview vehicles between 9-16 on weekdays by paying Guest fee according to the price list.
+            Copart Finland Premium and Basic Members may preview vehicles at @Model.City yard between 9-16 on weekdays. Guest Members may also preview vehicles between 9-16 on weekdays by paying Guest fee according to the price list.
         </p>
     </div>
     <div class="col-md-4">
@@ -41,8 +43,4 @@
         <p>@Model.City, @Model.PostalCode</p>
     </div>
 </div>
-
-
-
-
 

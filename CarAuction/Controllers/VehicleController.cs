@@ -60,6 +60,16 @@ namespace AutoAuction.Controllers
                 baseQuery = baseRegistration;
             }
 
+            /*
+
+            if (query.Damage != null)
+            {
+                var baseRegistration = baseQuery.Where(x => x.Damage == query.Damage);
+                baseQuery = baseRegistration;
+            }
+
+            */
+
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -89,7 +99,7 @@ namespace AutoAuction.Controllers
             {
                 VehicleView view = new VehicleView()
                 {
-                    LotNumber = vehicle.LotNumber,
+                    LotNumber = vehicle.Id,
                     //Watch = vehicle.Bid.Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
@@ -104,6 +114,13 @@ namespace AutoAuction.Controllers
             }
 
             return View(vehiclesView);
+        }
+
+
+        public IActionResult VehicleLot(int lotNumber)
+        {
+            Vehicle vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == lotNumber);
+            return View(vehicle);
         }
     }
 }

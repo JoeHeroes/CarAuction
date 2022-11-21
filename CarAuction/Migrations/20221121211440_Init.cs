@@ -34,7 +34,6 @@ namespace CarAuction.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressID = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -106,7 +105,6 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LotNumber = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Producer = table.Column<int>(type: "int", nullable: false),
                     ModelSpecifer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelGeneration = table.Column<string>(type: "nvarchar(max)", nullable: true),

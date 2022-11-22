@@ -76,31 +76,6 @@ namespace CarAuction.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.Bid", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("BidStatus")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("CurrentBid")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("SaleStatus")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Watch")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bids");
-                });
-
             modelBuilder.Entity("CarAuction.Models.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -132,38 +107,6 @@ namespace CarAuction.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.Sell", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PrimaryDamage")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SaleTerm")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SecondaryDamage")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeLeft")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VIN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sells");
-                });
-
             modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
@@ -172,8 +115,8 @@ namespace CarAuction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BidID")
-                        .HasColumnType("int");
+                    b.Property<bool>("BidStatus")
+                        .HasColumnType("bit");
 
                     b.Property<int>("BodyType")
                         .HasColumnType("int");
@@ -183,6 +126,12 @@ namespace CarAuction.Migrations
 
                     b.Property<int>("CreateById")
                         .HasColumnType("int");
+
+                    b.Property<int>("CurrentBid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Drive")
                         .HasColumnType("int");
@@ -211,6 +160,9 @@ namespace CarAuction.Migrations
                     b.Property<string>("NumberKeys")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PrimaryDamage")
+                        .HasColumnType("int");
+
                     b.Property<int>("Producer")
                         .HasColumnType("int");
 
@@ -220,27 +172,36 @@ namespace CarAuction.Migrations
                     b.Property<int>("RegistrationYear")
                         .HasColumnType("int");
 
+                    b.Property<bool>("SaleStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SaleTerm")
+                        .HasColumnType("int");
+
                     b.Property<bool>("SecondTireSet")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SellID")
+                    b.Property<int>("SecondaryDamage")
                         .HasColumnType("int");
 
                     b.Property<bool>("ServiceManual")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("TimeLeft")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Transmission")
                         .HasColumnType("int");
 
+                    b.Property<string>("VIN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Watch")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BidID")
-                        .IsUnique();
-
                     b.HasIndex("LocationId");
-
-                    b.HasIndex("SellID")
-                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });
@@ -258,37 +219,11 @@ namespace CarAuction.Migrations
 
             modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
                 {
-                    b.HasOne("CarAuction.Models.Bid", "Bid")
-                        .WithOne("Vehicle")
-                        .HasForeignKey("CarAuction.Models.Vehicle", "BidID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CarAuction.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
 
-                    b.HasOne("CarAuction.Models.Sell", "Sell")
-                        .WithOne("Vehicle")
-                        .HasForeignKey("CarAuction.Models.Vehicle", "SellID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bid");
-
                     b.Navigation("Location");
-
-                    b.Navigation("Sell");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.Bid", b =>
-                {
-                    b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.Sell", b =>
-                {
-                    b.Navigation("Vehicle");
                 });
 #pragma warning restore 612, 618
         }

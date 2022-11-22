@@ -4,7 +4,9 @@ namespace CarAuction.Models
 {
     public class AuctionQuery
     {
+      
         public Producer Producer { get; set; } = Producer.none;
+        public Damage Damage { get; set; } = Damage.none;
         public string LocationName { get; set; } = null;
         public int RegistrationYear { get; set; }
         public int SinceYear { get; set; } = 2000;

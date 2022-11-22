@@ -87,7 +87,7 @@
                     @obj.CurrentBid
                 </td>
                 <td width="10%">
-                   <button contextmenu="Bid Now"></button>
+                    <button text="Bid Now">@Html.ActionLink("Bid Now", "VehicleLot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)</button>
                 </td>
 
             </tr>

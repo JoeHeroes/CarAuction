@@ -92,28 +92,29 @@ namespace AutoAuction.Controllers
 
             if (query.LocationName != null)
             {
-                var baseRegistration = baseQuery.Where(x => x.Location.Name == query.LocationName);
-                baseQuery = baseRegistration;
+                var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
+                baseQuery = baseLocation;
             }
 
-            /*
 
-            if (query.Damage != null)
+            if (query.Damage != Damage.none)
             {
-                var baseRegistration = baseQuery.Where(x => x.Damage == query.Damage);
-                baseQuery = baseRegistration;
+                var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
+                baseQuery = baseDamage;
             }
 
-            */
+
 
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
                 var columnsSelectors = new Dictionary<string, Expression<Func<Vehicle, object>>>
                 {
+                    { nameof(Vehicle.Id), r => r.Id },
                     { nameof(Vehicle.Producer), r => r.Producer },
                     { nameof(Vehicle.RegistrationYear), r => r.RegistrationYear },
                     { nameof(Vehicle.Location.Name), r => r.Location.Name },
+                    { nameof(Vehicle.PrimaryDamage), r => r.PrimaryDamage },
                 };
 
                 var selectedColumn = columnsSelectors[query.SortBy];
@@ -136,14 +137,14 @@ namespace AutoAuction.Controllers
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
-                    //Watch = vehicle.Bid.Watch,
+                    Watch = vehicle.Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
                     ModelSpecifer = vehicle.ModelSpecifer,
-                    //DateTime = vehicle.Sell.DateTime,
+                    DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
-                    //Damage = vehicle.Sell.PrimaryDamage,
-                    //CurrentBid = vehicle.Bid.CurrentBid
+                    Damage = vehicle.PrimaryDamage,
+                    CurrentBid = vehicle.CurrentBid
                 };
 
                 vehiclesView.Add(view);

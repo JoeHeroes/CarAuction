@@ -2,6 +2,7 @@
 {
     public enum Damage
     {
+        none,
         All_Over,
         Burn,
         Burn_Engine,

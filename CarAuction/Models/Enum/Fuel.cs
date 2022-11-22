@@ -2,6 +2,7 @@
 {
     public enum Fuel
     {
+        none,
         Diesel,
         Petrol,
         Gas,

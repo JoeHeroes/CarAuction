@@ -1,7 +1,9 @@
 ﻿using CarAuction.Models;
+using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 using System.Linq.Expressions;
 
 namespace AutoAuction.Controllers
@@ -33,39 +35,57 @@ namespace AutoAuction.Controllers
             return View();
         }
 
-        //Fix
 
         [HttpPost]
-        public IActionResult VehicleCreate(VehicleView vv)
+        [Route("VehicleCreate")]
+        public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
 
-            string stringFileName = UploadFile(vv);
+            string stringFileName = UploadFile(dto);
             var vehicle = new Vehicle
             {
-
+                Producer = dto.Producer,
+                ModelSpecifer = dto.ModelSpecifer,
+                ModelGeneration = dto.ModelGeneration,
+                RegistrationYear = dto.RegistrationYear,
+                Color = dto.Color,
+                BodyType = dto.BodyType,
+                Transmission = dto.Transmission,
+                Drive = dto.Drive,
+                MeterReadout = dto.MeterReadout,
+                Fuel = dto.Fuel,
+                PrimaryDamage = dto.PrimaryDamage,
+                SecondaryDamage = dto.SecondaryDamage,
+                VIN = dto.VIN,
                 ProfileImg = stringFileName,
-                RegistrationYear = vv.RegistrationYear,
-                Producer = vv.Producer,
-                ModelSpecifer = vv.ModelSpecifer,
-
             };
 
             dbContext.Vehicles.Add(vehicle);
             dbContext.SaveChanges();
-            return View();
+            return View(vehicle);
         }
 
-        private string UploadFile(VehicleView vv)
+
+
+
+
+
+
+
+
+
+
+        private string UploadFile(CreateVehicleDto dto)
         {
             string fileName = null;
-            if(vv.PathPic!= null)
+            if(dto.PathPic!= null)
             {
                 string uploadDir = Path.Combine(webHost.WebRootPath, "Images");
-                fileName = Guid.NewGuid().ToString() + "-" + vv.PathPic.FileName;
+                fileName = Guid.NewGuid().ToString() + "-" + dto.PathPic.FileName;
                 string filePath = Path.Combine(uploadDir, fileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    vv.PathPic.CopyTo(fileStream);
+                    dto.PathPic.CopyTo(fileStream);
                 }
 
             }
@@ -73,12 +93,26 @@ namespace AutoAuction.Controllers
         }
 
         [HttpPost]
-        [Route("VehicleSearch")]
-        public IActionResult VehicleSearch(AuctionQuery query)
+        [Route("Search")]
+        public IActionResult Search(AuctionQuery query)
         {
             var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear); ;
 
-            if(query.Producer != Producer.none)
+
+            if(query.SearchName != null)
+            {
+                var baseSearch = baseQuery.Where(x => x.ModelSpecifer == query.SearchName);
+
+                if (baseSearch != null)
+                {
+                    baseQuery = baseSearch;
+                }
+            }
+
+            //|| x.VIN == query.SearchName || x.Id == int.Parse(query.SearchName)
+
+
+            if (query.Producer != Producer.none)
             {
                 var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
                 baseQuery = baseProducer;
@@ -153,8 +187,8 @@ namespace AutoAuction.Controllers
             return View(vehiclesView);
         }
 
-
-        public IActionResult VehicleLot(int lotNumber)
+        [Route("Lot")]
+        public IActionResult Lot(int lotNumber)
         {
             Vehicle vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == lotNumber);
             return View(vehicle);

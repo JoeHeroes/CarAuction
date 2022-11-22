@@ -1,76 +1,115 @@
-﻿@model CarAuction.Models.View.VehicleView
+﻿@model CarAuction.Models.DTO.CreateVehicleDto
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create Vehicle</h1>
-
-
+<h1>Create a Vehicle</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="VehicleCreate">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="LotNumber" class="control-label"></label>
-                <input asp-for="LotNumber" class="form-control" />
-                <span asp-validation-for="LotNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Watch" /> @Html.DisplayNameFor(model => model.Watch)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationYear" class="control-label"></label>
-                <input asp-for="RegistrationYear" class="form-control" />
-                <span asp-validation-for="RegistrationYear" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Producer" class="control-label"></label>
-                <input asp-for="Producer" class="form-control" />
-                <span asp-validation-for="Producer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModelSpecifer" class="control-label"></label>
-                <input asp-for="ModelSpecifer" class="form-control" />
-                <span asp-validation-for="ModelSpecifer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateTime" class="control-label"></label>
-                <input asp-for="DateTime" class="form-control" />
-                <span asp-validation-for="DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MeterReadout" class="control-label"></label>
-                <input asp-for="MeterReadout" class="form-control" />
-                <span asp-validation-for="MeterReadout" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Damage" class="control-label"></label>
-                <input asp-for="Damage" class="form-control" />
-                <span asp-validation-for="Damage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentBid" class="control-label"></label>
-                <input asp-for="CurrentBid" class="form-control" />
-                <span asp-validation-for="CurrentBid" class="text-danger"></span>
-            </div>
+    <form method="post" action="@Url.Action("VehicleCreate", "Vehicle")">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-control">
-                <label asp-for="PathPic" class="control-label"></label>
-                <input asp-for="PathPic" class="form-control" />
-                <span asp-validation-for="PathPic" class="text-danger"></span>
-            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Producer" class="control-label"></label>
+                    <input asp-for="Producer" class="form-control" />
+                    <span asp-validation-for="Producer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ModelSpecifer" class="control-label"></label>
+                    <input asp-for="ModelSpecifer" class="form-control" />
+                    <span asp-validation-for="ModelSpecifer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ModelGeneration" class="control-label"></label>
+                    <input asp-for="ModelGeneration" class="form-control" />
+                    <span asp-validation-for="ModelGeneration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RegistrationYear" class="control-label"></label>
+                    <input asp-for="RegistrationYear" class="form-control" />
+                    <span asp-validation-for="RegistrationYear" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Color" class="control-label"></label>
+                    <input asp-for="Color" class="form-control" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BodyType" class="control-label"></label>
+                    <input asp-for="BodyType" class="form-control" />
+                    <span asp-validation-for="BodyType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Transmission" class="control-label"></label>
+                    <input asp-for="Transmission" class="form-control" />
+                    <span asp-validation-for="Transmission" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Drive" class="control-label"></label>
+                    <input asp-for="Drive" class="form-control" />
+                    <span asp-validation-for="Drive" class="text-danger"></span>
+                </div>
 
 
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="MeterReadout" class="control-label"></label>
+                    <input asp-for="MeterReadout" class="form-control" />
+                    <span asp-validation-for="MeterReadout" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fuel" class="control-label"></label>
+                    <input asp-for="Fuel" class="form-control" />
+                    <span asp-validation-for="Fuel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrimaryDamage" class="control-label"></label>
+                    <input asp-for="PrimaryDamage" class="form-control" />
+                    <span asp-validation-for="PrimaryDamage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecondaryDamage" class="control-label"></label>
+                    <input asp-for="SecondaryDamage" class="form-control" />
+                    <span asp-validation-for="SecondaryDamage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VIN" class="control-label"></label>
+                    <input asp-for="VIN" class="form-control" />
+                    <span asp-validation-for="VIN" class="text-danger"></span>
+                </div>
+                <br /> <br />
+                <div class="form-control">
+                    <label asp-for="PathPic" class="control-label"></label>
+                    <input asp-for="PathPic" class="form-control" />
+                    <span asp-validation-for="PathPic" class="text-danger"></span>
+                </div>
+
+
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+
+
+    </form>
+
+
+           
+
+ 
 </div>
 
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
 

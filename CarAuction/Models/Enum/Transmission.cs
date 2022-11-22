@@ -2,6 +2,7 @@
 {
     public enum Transmission
     {
+        none,
         Manual,
         Automatic,
         DualClutch,

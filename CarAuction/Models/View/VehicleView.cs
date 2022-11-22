@@ -4,7 +4,6 @@ namespace CarAuction.Models.View
 {
     public class VehicleView
     {
-        public IFormFile PathPic { get; set; }
         public int LotNumber { get; set; }
         public bool Watch { get; set; }
         public int RegistrationYear { get; set; }

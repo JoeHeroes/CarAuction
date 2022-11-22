@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CarAuction.Models.View.VehicleView>
 
 @{
-    ViewData["Title"] = "VehicleSearch";
+    ViewData["Title"] = "Search";
 }
 
 
@@ -10,8 +10,6 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Search Results For:</h2>
-        </div>
-        <div class="col-6 text-end">
         </div>
     </div>
 </div>
@@ -58,20 +56,20 @@
         {
             <tr>
                 <td width="10%">
-                    <img src="~/Images/@obj.PathPic" width="50" height="50" asp-append-version="true"/>
-                    @Html.ActionLink("Pic", "VehicleLot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)
+                    <img src="~/Images/@obj.Producer" width="50" height="50" asp-append-version="true"/>
+                    @Html.ActionLink("Pic", "Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)
                 </td>
-                <td width="40%">
+                <td width="30%">
                     @obj.LotNumber
                     @obj.Watch
                 </td>
                 <td width="30%">
                     @obj.RegistrationYear
                 </td>
-                <td width="20%">
+                <td width="10%">
                     @obj.Producer
                 </td>
-                <td width="20%">
+                <td width="210%">
                     @obj.ModelSpecifer
                 </td>
                 <td width="20%">
@@ -86,11 +84,12 @@
                 <td width="20%">
                     @obj.CurrentBid
                 </td>
-                <td width="10%">
-                    <button text="Bid Now">@Html.ActionLink("Bid Now", "VehicleLot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)</button>
+                <td width="15%">
+                <button class="btn btn-secondary my-2 my-sm-0" text="Bid Now">@Html.ActionLink("Bid Now", "Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)</button>
                 </td>
-
             </tr>
         }
     </tbody>
 </table>
+<br />
+<br />

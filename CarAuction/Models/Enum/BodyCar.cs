@@ -2,6 +2,7 @@
 {
     public enum BodyCar
     {
+        none,
         Micro,
         Sedan,
         Liftback,

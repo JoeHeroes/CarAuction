@@ -2,6 +2,7 @@
 {
     public enum Drive
     {
+        none,
         AWD,
         FWD,
         RWD

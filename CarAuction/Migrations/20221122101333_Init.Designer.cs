@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221121211440_Init")]
+    [Migration("20221122101333_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,6 +215,9 @@ namespace CarAuction.Migrations
 
                     b.Property<int>("Producer")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProfileImg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RegistrationYear")
                         .HasColumnType("int");

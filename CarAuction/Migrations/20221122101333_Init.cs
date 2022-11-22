@@ -121,6 +121,7 @@ namespace CarAuction.Migrations
                     ServiceManual = table.Column<bool>(type: "bit", nullable: false),
                     SecondTireSet = table.Column<bool>(type: "bit", nullable: false),
                     CreateById = table.Column<int>(type: "int", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SellID = table.Column<int>(type: "int", nullable: false),
                     BidID = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: true)

@@ -1,13 +1,8 @@
 ﻿using CarAuction.Models;
-using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AutoAuction.Controllers
 {
@@ -16,9 +11,12 @@ namespace AutoAuction.Controllers
     {
         private readonly AuctionDbContext dbContext;
 
-        public VehicleController(AuctionDbContext dbContext)
+        private readonly IWebHostEnvironment webHost;
+
+        public VehicleController(AuctionDbContext dbContext, IWebHostEnvironment webHost)
         {
             this.dbContext = dbContext;
+            this.webHost = webHost;
         }
 
 
@@ -28,13 +26,51 @@ namespace AutoAuction.Controllers
             return View();
         }
 
-        [Route("WatchList")]
-        public IActionResult WatchList()
+
+        [Route("Create")]
+        public IActionResult Create()
         {
             return View();
         }
 
+        //Fix
 
+        [HttpPost]
+        public IActionResult VehicleCreate(VehicleView vv)
+        {
+
+            string stringFileName = UploadFile(vv);
+            var vehicle = new Vehicle
+            {
+
+                ProfileImg = stringFileName,
+                RegistrationYear = vv.RegistrationYear,
+                Producer = vv.Producer,
+                ModelSpecifer = vv.ModelSpecifer,
+
+            };
+
+            dbContext.Vehicles.Add(vehicle);
+            dbContext.SaveChanges();
+            return View();
+        }
+
+        private string UploadFile(VehicleView vv)
+        {
+            string fileName = null;
+            if(vv.PathPic!= null)
+            {
+                string uploadDir = Path.Combine(webHost.WebRootPath, "Images");
+                fileName = Guid.NewGuid().ToString() + "-" + vv.PathPic.FileName;
+                string filePath = Path.Combine(uploadDir, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    vv.PathPic.CopyTo(fileStream);
+                }
+
+            }
+            return fileName;
+        }
 
         [HttpPost]
         [Route("VehicleSearch")]

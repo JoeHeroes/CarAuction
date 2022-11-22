@@ -22,6 +22,17 @@ namespace CarAuction.Models
         public bool ServiceManual { get; set; }
         public bool SecondTireSet { get; set; }
         public int CreateById { get; set; }
+
+
+
+
+
+
+
+        public string ProfileImg { get; set; }
+
+
+
         public int SellID { get; set; }
         public virtual Sell Sell { get; set; }
         public int BidID{ get; set; }

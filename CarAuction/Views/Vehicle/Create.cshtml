@@ -1,0 +1,76 @@
+﻿@model CarAuction.Models.View.VehicleView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Vehicle</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="VehicleCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LotNumber" class="control-label"></label>
+                <input asp-for="LotNumber" class="form-control" />
+                <span asp-validation-for="LotNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Watch" /> @Html.DisplayNameFor(model => model.Watch)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegistrationYear" class="control-label"></label>
+                <input asp-for="RegistrationYear" class="form-control" />
+                <span asp-validation-for="RegistrationYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producer" class="control-label"></label>
+                <input asp-for="Producer" class="form-control" />
+                <span asp-validation-for="Producer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelSpecifer" class="control-label"></label>
+                <input asp-for="ModelSpecifer" class="form-control" />
+                <span asp-validation-for="ModelSpecifer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeterReadout" class="control-label"></label>
+                <input asp-for="MeterReadout" class="form-control" />
+                <span asp-validation-for="MeterReadout" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Damage" class="control-label"></label>
+                <input asp-for="Damage" class="form-control" />
+                <span asp-validation-for="Damage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBid" class="control-label"></label>
+                <input asp-for="CurrentBid" class="form-control" />
+                <span asp-validation-for="CurrentBid" class="text-danger"></span>
+            </div>
+
+            <div class="form-control">
+                <label asp-for="PathPic" class="control-label"></label>
+                <input asp-for="PathPic" class="form-control" />
+                <span asp-validation-for="PathPic" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

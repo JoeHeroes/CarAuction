@@ -109,9 +109,6 @@ namespace CarAuction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AddressID")
-                        .HasColumnType("int");
-
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -216,6 +213,9 @@ namespace CarAuction.Migrations
 
                     b.Property<int>("Producer")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProfileImg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RegistrationYear")
                         .HasColumnType("int");

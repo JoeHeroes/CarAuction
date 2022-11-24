@@ -1,11 +1,7 @@
 using CarAuction;
-using CarAuction.Authorization;
-using CarAuction.Authorization.Policy;
 using CarAuction.Middleware;
 using CarAuction.Models;
-using CarAuction.Models.DTO;
 using CarAuction.Seeder;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -56,18 +52,6 @@ try
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
         };
     });
-
-    builder.Services.AddAuthorization(options => {
-        options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality", "German", "Polish"));
-        options.AddPolicy("Atleast20", builder => builder.AddRequirements(new MinimumAgeRequirment(20)));
-        options.AddPolicy("CreatedAtleast2Univeristy", builder => builder.AddRequirements(new CreateMultipleUniversityRequirment(2)));
-
-    });
-
-    //RequirmentHandler
-    builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirmentHandler>();
-    builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
-    builder.Services.AddScoped<IAuthorizationHandler, CreateMultipleUniversityRequirmentHandler>();
 
     //Validator
     //Obsolete

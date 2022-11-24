@@ -1,5 +1,4 @@
-﻿using CarAuction.Authorization;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CarAuction.Models
 {

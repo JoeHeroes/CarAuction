@@ -1,5 +1,4 @@
-﻿using CarAuction.Authorization;
-using CarAuction.Models;
+﻿using CarAuction.Models;
 using CarAuction.Models.Enum;
 
 namespace CarAuction.Seeder

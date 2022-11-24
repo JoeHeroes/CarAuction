@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CarAuction.Authorization
+namespace CarAuction.Models
 {
     public class User
     {

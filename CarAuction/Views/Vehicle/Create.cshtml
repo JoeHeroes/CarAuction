@@ -7,7 +7,7 @@
 <h1>Create a Vehicle</h1>
 <hr />
 <div class="row">
-    <form method="post" action="@Url.Action("VehicleCreate", "Vehicle")">
+    <form method="post" action="@Url.Action("VehicleCreate", "Vehicle")" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="row">

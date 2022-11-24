@@ -145,6 +145,9 @@ namespace CarAuction.Migrations
                     b.Property<int>("Fuel")
                         .HasColumnType("int");
 
+                    b.Property<int>("Highlights")
+                        .HasColumnType("int");
+
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 

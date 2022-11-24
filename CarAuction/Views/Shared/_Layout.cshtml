@@ -23,7 +23,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
+                <div class="collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto"></ul>
                     <form method="post" class="d-flex" action="@Url.Action("Search", "Vehicle")">
                         <input class="form-control me-sm-2" name="SearchName" type="text" placeholder="Search by Model, VIN or Lot Number">
@@ -89,8 +89,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Auctions</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Today Auctions</a>
-                                <a class="dropdown-item" href="#">Auctions Calender</a>
+                                <a class="dropdown-item" href=" Vehicle/Auction">Join Auctions</a>
+                                <a class="dropdown-item" href="Vehicle/Calendar">Auctions Calender</a>
                             </div>
                         </li>
 

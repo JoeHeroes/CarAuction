@@ -72,6 +72,7 @@ namespace CarAuction.Migrations
                     PrimaryDamage = table.Column<int>(type: "int", nullable: false),
                     SecondaryDamage = table.Column<int>(type: "int", nullable: false),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Highlights = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

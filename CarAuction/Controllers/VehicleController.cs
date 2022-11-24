@@ -178,6 +178,7 @@ namespace AutoAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
+                    ProfileImg= vehicle.ProfileImg,
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -187,11 +188,35 @@ namespace AutoAuction.Controllers
             return View(vehiclesView);
         }
 
-        [Route("Lot")]
         public IActionResult Lot(int lotNumber)
         {
-            Vehicle vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == lotNumber);
+            Vehicle vehicle = this.dbContext
+                                    .Vehicles
+                                    .FirstOrDefault(x => x.Id == lotNumber);
+
             return View(vehicle);
         }
+
+        //Fix
+        [HttpPost]
+        public IActionResult UpdateBid(int lotNumber, int bidNow)
+        {
+            Vehicle vehicle = this.dbContext
+                                .Vehicles
+                                .FirstOrDefault(x => x.Id == lotNumber);
+
+            vehicle.CurrentBid = bidNow;
+            dbContext.SaveChanges();
+            return View("Lot");
+        }
+
+
+
+        [Route("Auction")]
+        public IActionResult Auction()
+        {
+           return View();
+        }
+
     }
 }

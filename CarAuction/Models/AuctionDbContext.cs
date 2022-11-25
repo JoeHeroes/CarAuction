@@ -10,8 +10,8 @@ namespace CarAuction.Models
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
-        //public DbSet<Sell> Sells { get; set; }
-        //public DbSet<Bid> Bids { get; set; }
+        public DbSet<Sell> Sells { get; set; }
+        public DbSet<Bid> Bids { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -21,8 +21,7 @@ namespace CarAuction.Models
             modelBuilder.Entity<Vehicle>()
                 .Property(u => u.BodyType)
                 .IsRequired();
-
-            /*
+           
             modelBuilder.Entity<Sell>()
                .Property(u => u.VIN)
                .IsRequired();
@@ -30,7 +29,6 @@ namespace CarAuction.Models
             modelBuilder.Entity<Bid>()
                .Property(u => u.CurrentBid)
                .IsRequired();
-            */
 
             modelBuilder.Entity<User>()
                .Property(u => u.Email)

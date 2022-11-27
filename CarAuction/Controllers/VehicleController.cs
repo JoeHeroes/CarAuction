@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 
 namespace AutoAuction.Controllers
 {
-    [Route("Vehicle")]
     public class VehicleController : Controller
     {
         private readonly AuctionDbContext dbContext;
@@ -67,16 +66,6 @@ namespace AutoAuction.Controllers
             dbContext.SaveChanges();
             return View(vehicle);
         }
-
-
-
-
-
-
-
-
-
-
 
         private string UploadFile(CreateVehicleDto dto)
         {

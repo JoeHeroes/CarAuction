@@ -132,7 +132,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 },
@@ -161,7 +161,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 },
@@ -190,7 +190,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 },
@@ -219,7 +219,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 },
@@ -248,7 +248,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 },
@@ -277,7 +277,7 @@ namespace CarAuction.Seeder
                     Sell = new Sell()
                     {
                         PrimaryDamage = Damage.Normal_Wear,
-                        DateTime = DateTime.Today,
+                        DateTime = DateTime.Now,
                         VIN = ""
                     }
                 }

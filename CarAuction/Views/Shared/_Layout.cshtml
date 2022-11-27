@@ -73,14 +73,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Find a Vehicle</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="Vehicle/Finder">Vehicle Finder</a>
-                                <a class="dropdown-item" href="Vehicle/Create">Create Vehicle</a>
 
-                                <a class="dropdown-item" href="#">Watch List</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Finder">Vehicle Finder</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Create">Create Vehicle</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="#">#</a>
 
-
-
-                                
 
                             </div>
                         </li>
@@ -89,8 +86,16 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Auctions</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Today Auctions</a>
-                                <a class="dropdown-item" href="#">Auctions Calender</a>
+
+
+
+
+                                <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="Actual">Join Auction Auctions</a>
+                                
+                                <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="#">Today Auctions</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="#">Auctions Calender</a>
+
+
                             </div>
                         </li>
 

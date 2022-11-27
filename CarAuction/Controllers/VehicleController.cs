@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 
 namespace AutoAuction.Controllers
 {
-    [Route("Vehicle")]
     public class VehicleController : Controller
     {
         private readonly AuctionDbContext dbContext;
@@ -54,9 +53,12 @@ namespace AutoAuction.Controllers
                 Drive = dto.Drive,
                 MeterReadout = dto.MeterReadout,
                 Fuel = dto.Fuel,
-                PrimaryDamage = dto.PrimaryDamage,
-                SecondaryDamage = dto.SecondaryDamage,
-                VIN = dto.VIN,
+                Sell = new Sell()
+                {
+                    PrimaryDamage = dto.PrimaryDamage,
+                    SecondaryDamage = dto.SecondaryDamage,
+                    VIN = dto.VIN,
+                },
                 ProfileImg = stringFileName,
             };
 
@@ -64,16 +66,6 @@ namespace AutoAuction.Controllers
             dbContext.SaveChanges();
             return View(vehicle);
         }
-
-
-
-
-
-
-
-
-
-
 
         private string UploadFile(CreateVehicleDto dto)
         {
@@ -133,7 +125,7 @@ namespace AutoAuction.Controllers
 
             if (query.Damage != Damage.none)
             {
-                var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
+                var baseDamage = baseQuery.Where(x => x.Sell.PrimaryDamage == query.Damage);
                 baseQuery = baseDamage;
             }
 
@@ -148,7 +140,7 @@ namespace AutoAuction.Controllers
                     { nameof(Vehicle.Producer), r => r.Producer },
                     { nameof(Vehicle.RegistrationYear), r => r.RegistrationYear },
                     { nameof(Vehicle.Location.Name), r => r.Location.Name },
-                    { nameof(Vehicle.PrimaryDamage), r => r.PrimaryDamage },
+                    { nameof(Vehicle.Sell.PrimaryDamage), r => r.Sell.PrimaryDamage },
                 };
 
                 var selectedColumn = columnsSelectors[query.SortBy];
@@ -164,18 +156,29 @@ namespace AutoAuction.Controllers
                 .ToList();
 
 
+
+            var listBids = dbContext.Bids.ToList();
+
+            var listSells = dbContext.Sells.ToList();
+
             List<VehicleView> vehiclesView = new List<VehicleView>();
+
+
+            foreach (var item in listBids)
+            {
+                var x = item;
+            }
 
             foreach (var vehicle in vehicles)
             {
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
-                    Watch = vehicle.Watch,
+                    Watch = listBids[vehicle.BidId].Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
                     ModelSpecifer = vehicle.ModelSpecifer,
-                    DateTime = vehicle.DateTime,
+                    DateTime = listSells[vehicle.SellId].DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg= vehicle.ProfileImg,

@@ -4,6 +4,7 @@ using CarAuction.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    partial class AuctionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221122190026_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,9 +196,6 @@ namespace CarAuction.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Fuel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Highlights")
                         .HasColumnType("int");
 
                     b.Property<int?>("LocationId")

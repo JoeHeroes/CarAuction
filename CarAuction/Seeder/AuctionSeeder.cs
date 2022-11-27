@@ -123,11 +123,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = true,
-                    CurrentBid = 12000,
-                    PrimaryDamage = Damage.Front_End,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 },
                 new Vehicle()
                 {
@@ -146,11 +152,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = false,
-                    Watch = false,
-                    CurrentBid = 2500,
-                    PrimaryDamage = Damage.Side,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 },
                 new Vehicle()
                 {
@@ -169,11 +181,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = true,
-                    CurrentBid = 4000,
-                    PrimaryDamage = Damage.Front_End,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 },
                 new Vehicle()
                 {
@@ -192,11 +210,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = true,
-                    CurrentBid = 4000,
-                    PrimaryDamage = Damage.Top_Roof,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 },
                 new Vehicle()
                 {
@@ -215,11 +239,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = true,
-                    CurrentBid = 4000,
-                    PrimaryDamage = Damage.Side,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 },
                 new Vehicle()
                 {
@@ -238,11 +268,17 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = false,
                     SecondTireSet = false,
-                    Watch = false,
-                    CurrentBid = 2000,
-                    PrimaryDamage = Damage.Rear_End,
-                    DateTime = DateTime.Today,
-                    VIN = ""
+                    Bid = new Bid()
+                    {
+                        Watch = true,
+                        CurrentBid = 5000
+                    },
+                    Sell = new Sell()
+                    {
+                        PrimaryDamage = Damage.Normal_Wear,
+                        DateTime = DateTime.Now,
+                        VIN = ""
+                    }
                 }
             };
         }

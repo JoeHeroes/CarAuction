@@ -31,17 +31,7 @@ namespace CarAuction.Models
 
         public string ProfileImg { get; set; }
 
-
-
-
-
         public Location Location { get; set; }
-
-        //Bid
-        public bool BidStatus { get; set; }
-        public int CurrentBid { get; set; }
-        public bool SaleStatus { get; set; }
-        public bool Watch { get; set; }
 
 
         //Sell
@@ -53,5 +43,9 @@ namespace CarAuction.Models
         public DateTime DateTime { get; set; }
         public DateTime TimeLeft { get; set; }
 
+        public int SellId { get; set; }
+        public Sell Sell { get; set; }
+        public int BidId { get; set; }
+        public Bid Bid { get; set; }
     }
 }

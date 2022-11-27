@@ -34,6 +34,14 @@ namespace CarAuction.Models
         public Location Location { get; set; }
 
 
+        //Sell
+        public SaleTerm SaleTerm { get; set; }
+        public Damage PrimaryDamage { get; set; }
+        public Damage SecondaryDamage { get; set; }
+        public string VIN { get; set; } = null!;
+        public Highlight Highlights { get; set; }
+        public DateTime DateTime { get; set; }
+        public DateTime TimeLeft { get; set; }
 
         public int SellId { get; set; }
         public Sell Sell { get; set; }

@@ -8,41 +8,225 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h1>@Model.RegistrationYear @Model.Producer</h1>
+            <h1>@Model.RegistrationYear @Model.Producer @Model.ModelSpecifer</h1>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
         <div class="col-sm-4">
-            <img src="~/Images/" width="350" height="350" asp-append-version="true" />
+            <img src="~/Images/@Model.ProfileImg" width="350" height="350" asp-append-version="true" />
         </div>
     </div>
 
 
     <div class="col-md-4">
-        <h3>Lot #@Model.Id</h3>
 
 
-        <h3>Registration Year:@Model.RegistrationYear</h3>
+        <table>
+            <tr>
+                <th>Lot #@Model.Id</th>
+            </tr>
+            <tr>
+                <td>Model Specifer:</td>
+                <td>@Model.ModelSpecifer</td>
+            </tr>
+
+            <tr>
+                <td>Registration Year:</td>
+                <td>@Model.RegistrationYear</td>
+            </tr>
+
+            <tr>
+                <td>Sale Term:</td>
+                <td>@Model.SaleStatus</td>
+            </tr>
+
+            <tr>
+                <td>Second Tire set:</td>
+                <td>@Model.SecondTireSet</td>
+            </tr>
 
 
-        <h3>Model Specifer:@Model.ModelSpecifer</h3>
 
 
-        <h3>EngineCapacity:@Model.EngineCapacity</h3>
 
+
+            <tr>
+                <td>Primary Damage:</td>
+                <td>@Model.PrimaryDamage</td>
+            </tr>
+
+
+            <tr>
+                <td>Secondary Damage:</td>
+                <td>@Model.SecondaryDamage</td>
+            </tr>
+
+            <tr>
+                <td>VIN:</td>
+                <td>@Model.VIN</td>
+            </tr>
+
+            <tr>
+                <td>Highlights:</td>
+                <td>@Model.Highlights</td>
+            </tr>
+         
+
+
+
+        </table>
+    </div>
+
+    
+
+    <div class="col-md-4">
+        <table>
+            <tr>
+                <th>Features</th>
+            </tr>
+            <tr>
+                <td>Color:</td>
+                <td>@Model.Color</td>
+            </tr>
+             <tr>
+                <td>Body Style:</td>
+                <td>@Model.BodyType</td>
+            </tr>
+            <tr>
+                <td>Engine Capacity:</td>
+                <td>@Model.EngineCapacity</td>
+            </tr>
+
+            <tr>
+                <td>Engine Output:</td>
+                <td>@Model.EngineOutput</td>
+            </tr>
+
+            <tr>
+                <td>Transmission:</td>
+                <td>@Model.Transmission</td>
+            </tr>
+
+            <tr>
+                <td>Drive:</td>
+                <td>@Model.Drive</td>
+            </tr>
+
+             <tr>
+                <td>Meter Readout:</td>
+                <td>@Model.MeterReadout</td>
+            </tr>
+
+             <tr>
+                <td>Fuel:</td>
+                <td>@Model.Fuel</td>
+            </tr>
+
+            <tr>
+                <td>Number of Keys:</td>
+                <td>@Model.NumberKeys</td>
+            </tr>
+
+            <tr>
+                <td>Service Manual:</td>
+                <td>@Model.ServiceManual</td>
+            </tr>
+
+            <tr>
+                <td>Second Tire set:</td>
+                <td>@Model.SecondTireSet</td>
+            </tr>
+        </table>
     </div>
 
 
 
     <div class="col-md-4">
-        <h5><i class="fa fa-home"></i> Physical Address:</h5>
+        <table>
+            <tr>
+                <th>Bid inforamtion</th>
+            </tr>
 
-       
+            <tr>
+                <td>Bid Status:</td>
+                <td>@Model.BidStatus</td>
+            </tr>
 
-        <h5><i class="fa fa-envelope"></i> Mailing Address:</h5>
-        
+            <tr>
+                <td>Sale Status:</td>
+                <td>@Model.SaleStatus</td>
+            </tr>
+
+
+            <tr>
+                <td>Current Bid:</td>
+                <td>@Model.CurrentBid</td>
+            </tr>
+
+            <form method="post" class="d-flex" action="@Url.Action("UpdateBid", "Vehicle",  new { lotNumber = Model.Id })">
+
+            <tr>
+                <td>Your Max Bid:</td>
+                <td>€ <input class="form-control me-sm-2" name="bidNow" type="text"></td>
+            </tr>
+            <tr>
+                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Bid Now</button></td>
+            </tr>
+           
+            </form>
+
+
+        </table>
     </div>
+
+
+    <div class="col-md-4">
+        <table>
+            <tr>
+                <th>Sale Information</th>
+            </tr>
+
+            <tr>
+                <td>Location:</td>
+                <td>@Model.BidStatus</td>
+            </tr>
+
+            <tr>
+                <td>Sublot Location:</td>
+                <td>@Model.SaleStatus</td>
+            </tr>
+
+
+            <tr>
+                <td>Lane / Item / Grid/Row::</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Sale Name:</td>
+                <td>Private</td>
+            </tr>
+
+
+             <tr>
+                <td>Sale Date:</td>
+                <td>@Model.DateTime</td>
+            </tr>
+
+             <tr>
+                <td>Time Left:</td>
+                <td>@Model.TimeLeft</td>
+            </tr>
+
+
+        </table>
+    </div>
+
+
+
+
+
 </div>
 

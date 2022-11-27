@@ -13,6 +13,8 @@ namespace CarAuction.Models.View
         public long MeterReadout { get; set; }
         public Damage Damage { get; set; }
         public int CurrentBid { get; set; }
+        public string ProfileImg { get; set; }
+
 
     }
 }

@@ -20,7 +20,8 @@ namespace CarAuction.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,17 +65,17 @@ namespace CarAuction.Migrations
                     CreateById = table.Column<int>(type: "int", nullable: false),
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationId = table.Column<int>(type: "int", nullable: true),
-                    BidStatus = table.Column<bool>(type: "bit", nullable: false),
-                    CurrentBid = table.Column<int>(type: "int", nullable: false),
-                    SaleStatus = table.Column<bool>(type: "bit", nullable: false),
-                    Watch = table.Column<bool>(type: "bit", nullable: false),
                     SaleTerm = table.Column<int>(type: "int", nullable: false),
                     PrimaryDamage = table.Column<int>(type: "int", nullable: false),
                     SecondaryDamage = table.Column<int>(type: "int", nullable: false),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Highlights = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BidStatus = table.Column<bool>(type: "bit", nullable: false),
+                    CurrentBid = table.Column<int>(type: "int", nullable: false),
+                    SaleStatus = table.Column<bool>(type: "bit", nullable: false),
+                    Watch = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

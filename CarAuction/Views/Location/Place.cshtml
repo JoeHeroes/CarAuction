@@ -3,14 +3,21 @@
     ViewData["Title"] = "Place";
 }
 
-
-
-<div class="jumbotron">
-    <h1>@Model.City</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.City</h2>
+        </div>
+    </div>
 </div>
 <div class="row">
+
     <div class="col-md-4">
-        <h2>Copart Finland</h2>
+        <img src="~/Images/@Model.ProfileImg" width="350" height="350" asp-append-version="true" />
+  
+
+    
+
         <p>
             Copart Finland Premium and Basic Members may preview vehicles at @Model.City yard between 9-16 on weekdays. Guest Members may also preview vehicles between 9-16 on weekdays by paying Guest fee according to the price list.
         </p>

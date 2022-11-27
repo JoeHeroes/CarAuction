@@ -9,19 +9,19 @@ namespace UniAPI.Controllers
 
         private readonly AuctionDbContext dbContext;
        
-
         public LocationController(AuctionDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public IActionResult GetAll()
+        [Route("Locations")]
+        public IActionResult Locations()
         {
             List<Location> locations = this.dbContext.Locations.ToList();
             return View(locations);
         }
 
-
+        [Route("Place")]
         public IActionResult Place(int locationId)
         {
             Location location = this.dbContext.Locations.FirstOrDefault(x => x.Id == locationId);

@@ -14,7 +14,6 @@ namespace CarAuction.Models.View
         public Damage Damage { get; set; }
         public int CurrentBid { get; set; }
         public string ProfileImg { get; set; }
-
-
+        public string searchBy { get; set; }
     }
 }

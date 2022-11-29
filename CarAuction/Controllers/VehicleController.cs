@@ -2,8 +2,10 @@
 using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
 using CarAuction.Models.View;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AutoAuction.Controllers
 {
@@ -84,49 +86,55 @@ namespace AutoAuction.Controllers
         [Route("Search")]
         public IActionResult Search(AuctionQuery query)
         {
-            var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear); ;
+            var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear);
 
-
-            if(query.SearchName != null)
-            {
-                var baseSearch = baseQuery.Where(x => x.ModelSpecifer == query.SearchName);
-
-                if (baseSearch != null)
-                {
-                    baseQuery = baseSearch;
-                }
-            }
-
-            //|| x.VIN == query.SearchName || x.Id == int.Parse(query.SearchName)
+            string searchPara = "";
 
 
             if (query.Producer != Producer.none)
             {
                 var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
                 baseQuery = baseProducer;
+                searchPara += query.Producer.ToString();
+            }
+
+            if (query.SearchName != null)
+            {
+                var baseSearch = baseQuery.Where(r => query.SearchName == null 
+                                                    || (r.ModelSpecifer.ToLower().Contains(query.SearchName.ToLower()) 
+                                                    || r.VIN.ToLower().Contains(query.SearchName.ToLower())
+                                                    || r.Id.ToString().Contains(query.SearchName)));
+
+                if (baseSearch != null)
+                {
+                    baseQuery = baseSearch;
+                    searchPara += query.SearchName;
+                }
+            }
+
+
+            if (query.LocationName != null)
+            {
+                var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
+                baseQuery = baseLocation;
+                searchPara += ", " + query.LocationName.ToString();
             }
 
             if (query.RegistrationYear != 0)
             {
                 var baseRegistration = baseQuery.Where(x => x.RegistrationYear == query.RegistrationYear);
                 baseQuery = baseRegistration;
+                searchPara += ", " + query.RegistrationYear.ToString();
             }
-
-            if (query.LocationName != null)
-            {
-                var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
-                baseQuery = baseLocation;
-            }
-
 
             if (query.Damage != Damage.none)
             {
                 var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
                 baseQuery = baseDamage;
+                searchPara += ", " + query.Damage.ToString();
             }
 
-
-
+            HttpContext.Session.SetString("searchBy", searchPara);
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -173,7 +181,6 @@ namespace AutoAuction.Controllers
 
                 vehiclesView.Add(view);
             }
-
             return View(vehiclesView);
         }
 
@@ -188,7 +195,7 @@ namespace AutoAuction.Controllers
 
         //Fix
         [HttpPost]
-        public IActionResult UpdateBid(int lotNumber, int bidNow)
+        public void UpdateBid(int lotNumber, int bidNow)
         {
             Vehicle vehicle = this.dbContext
                                 .Vehicles
@@ -196,16 +203,6 @@ namespace AutoAuction.Controllers
 
             vehicle.CurrentBid = bidNow;
             dbContext.SaveChanges();
-            return View("Lot");
         }
-
-
-
-        [Route("Auction")]
-        public IActionResult Auction()
-        {
-           return View();
-        }
-
     }
 }

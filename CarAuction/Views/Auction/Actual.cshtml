@@ -1,0 +1,155 @@
+﻿@model IEnumerable<CarAuction.Models.Vehicle>
+@{
+    ViewData["Title"] = "Actual";
+    var obj = Model.FirstOrDefault(x => x.Id == 1);
+}
+
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Actual</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    
+        <div class="col-md-4">
+            <div class="col-sm-4">
+                <img src="~/Images/@obj.ProfileImg" width="350" height="350" asp-append-version="true" />
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+
+
+            <table>
+
+
+                
+                <tr>
+                    <th>@obj.RegistrationYear @obj.Producer @obj.ModelSpecifer</th>
+                </tr>
+
+                <tr>
+                    <th>Lot #@obj.Id</th>
+                </tr>
+
+                <tr>
+                    <td>Location:</td>
+                    <td>@obj.BidStatus</td>
+                </tr>
+
+
+                <tr>
+                    <td>Meter Readout:</td>
+                    <td>@obj.MeterReadout</td>
+                </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+                <tr>
+                    <td>Primary Damage:</td>
+                    <td>@obj.PrimaryDamage</td>
+                </tr>
+
+
+                <tr>
+                    <td>Secondary Damage:</td>
+                    <td>@obj.SecondaryDamage</td>
+                </tr>
+
+
+                <tr>
+                    <td>Highlights:</td>
+                    <td>@obj.Highlights</td>
+                </tr>
+
+
+                <tr>
+                    <td>VIN:</td>
+                    <td>@obj.VIN</td>
+                </tr>
+
+
+                <tr>
+                    <td>Body Style:</td>
+                    <td>@obj.BodyType</td>
+                </tr>
+
+                <tr>
+                    <td>Color:</td>
+                    <td>@obj.Color</td>
+                </tr>
+
+                <tr>
+                    <td>Engine Capacity:</td>
+                    <td>@obj.EngineCapacity</td>
+                </tr>
+
+
+                <tr>
+                    <td>Drive:</td>
+                    <td>@obj.Drive</td>
+                </tr>
+
+
+                <tr>
+                    <td>Fuel:</td>
+                    <td>@obj.Fuel</td>
+                </tr>
+
+                <tr>
+                    <td>Number of Keys:</td>
+                    <td>@obj.NumberKeys</td>
+                </tr>
+
+            </table>
+        </div>
+
+
+    <div class="col-md-4">
+        <table class="table table-bordered table-striped" style="overflow-x:auto;">
+            <tbody>
+                @foreach (var objList in Model)
+                {
+                    <tr>
+                        <td width="20%">
+                            <a href="@Url.Action("Lot", "Vehicle", new { lotNumber =  @objList.Id }, null)" title="Widget View" class="links">
+                                <img alt="Widget View" src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="80" height="80" asp-append-version="true">
+                            </a>
+                        </td>
+                       
+                        <td width="50%">
+                            <b>@objList.RegistrationYear  @objList.Producer  @objList.ModelSpecifer</b>
+                            <br/>
+                            <div class="text-primary">Lot:@objList.Id</div>
+                            <br/>
+                            Odo:<b>@objList.MeterReadout</b>
+                        </td>
+                       
+                        <td width="20%">
+                            Current Bid:<b>@objList.CurrentBid</b>
+                            
+                            @objList.Watch
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

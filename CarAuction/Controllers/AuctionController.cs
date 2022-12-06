@@ -11,7 +11,6 @@ namespace CarAuction.Controllers
         {
             this.dbContext = dbContext;
         }
-
         public IActionResult Actual()
         {
             var auction = this.dbContext.Vehicles.ToList();

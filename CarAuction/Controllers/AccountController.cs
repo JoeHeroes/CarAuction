@@ -11,7 +11,6 @@ namespace UniAPI.Controllers
     [Route("Account")]
     public class AccountController: Controller
     {
-
         private readonly AuctionDbContext dbContext;
         private readonly IPasswordHasher<User> passwordHasherUser;
         private readonly AuthenticationSettings authenticationSetting;

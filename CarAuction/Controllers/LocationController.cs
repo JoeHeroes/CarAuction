@@ -27,7 +27,5 @@ namespace UniAPI.Controllers
             Location location = this.dbContext.Locations.FirstOrDefault(x => x.Id == locationId);
             return View(location);
         }
-
-
     }
 }

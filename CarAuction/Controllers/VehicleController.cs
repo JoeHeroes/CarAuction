@@ -2,10 +2,8 @@
 using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
 using CarAuction.Models.View;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace AutoAuction.Controllers
 {
@@ -21,20 +19,17 @@ namespace AutoAuction.Controllers
             this.webHost = webHost;
         }
 
-
         [Route("Finder")]
         public IActionResult Finder()
         {
             return View();
         }
 
-
         [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
-
 
         [HttpPost]
         [Route("VehicleCreate")]
@@ -193,16 +188,26 @@ namespace AutoAuction.Controllers
             return View(vehicle);
         }
 
-        //Fix
         [HttpPost]
-        public void UpdateBid(int lotNumber, int bidNow)
+        public IActionResult UpdateBid(int lotNumber, int bidNow)
         {
             Vehicle vehicle = this.dbContext
                                 .Vehicles
                                 .FirstOrDefault(x => x.Id == lotNumber);
 
-            vehicle.CurrentBid = bidNow;
-            dbContext.SaveChanges();
+            if(bidNow > vehicle.CurrentBid)
+            {
+                vehicle.BidStatus = true;
+                vehicle.CurrentBid = bidNow;
+                dbContext.SaveChanges();
+                TempData["Success"] = "You bid is higher now";
+            }
+            else
+            {
+                TempData["Error"] = "You bid must be higher that current";
+            }
+
+            return RedirectToAction("Lot", new { @lotNumber = lotNumber });
         }
     }
 }

@@ -3,7 +3,6 @@
     ViewData["Title"] = "Lot";
 }
 
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -172,7 +171,17 @@
 
             <tr>
                 <td>Bid Status:</td>
-                <td>@Model.BidStatus</td>
+                <td>
+                    @if (Model.BidStatus == true)
+                    {
+                        <b style="color:green">YOU BID WIN</b>
+                    }
+                    else
+                    {
+                        <b style="color:red">OUTBID</b>
+                    }
+
+                </td>
             </tr>
 
             <tr>
@@ -188,7 +197,7 @@
             <form method="post" class="d-flex" action="@Url.Action("UpdateBid", "Vehicle",  new { lotNumber = Model.Id })">
 
             <tr>
-                <td>Your Max Bid:</td>
+                <td>Your New Max Bid:</td>
                 <td>€ <input class="form-control me-sm-2" name="bidNow" type="text"></td>
             </tr>
             <tr>

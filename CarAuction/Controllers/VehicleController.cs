@@ -5,7 +5,7 @@ using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
-namespace AutoAuction.Controllers
+namespace CarAuction.Controllers
 {
     public class VehicleController : Controller
     {
@@ -19,20 +19,23 @@ namespace AutoAuction.Controllers
             this.webHost = webHost;
         }
 
-        [Route("Finder")]
         public IActionResult Finder()
         {
             return View();
         }
 
-        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        public IActionResult WatchList()
+        {
+            return View();
+        }
+
+
         [HttpPost]
-        [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
 
@@ -197,7 +200,8 @@ namespace AutoAuction.Controllers
 
             if(bidNow > vehicle.CurrentBid)
             {
-                vehicle.BidStatus = true;
+                vehicle.WinnerId = int.Parse(HttpContext.Session.GetString("id"));
+                vehicle.bidders.Add(int.Parse(HttpContext.Session.GetString("id")));
                 vehicle.CurrentBid = bidNow;
                 dbContext.SaveChanges();
                 TempData["Success"] = "You bid is higher now";

@@ -13,5 +13,13 @@ namespace CarAuction.Models
         public string PasswordHash { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; } = null!;
+
+
+
+
+
+        public bool Watched { get; set; }
+        public int Auctioned { get; set; }
+
     }
 }

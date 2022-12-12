@@ -38,6 +38,7 @@ namespace UniAPI.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("name");
+            HttpContext.Session.Remove("id");
             return RedirectToAction("Login");
         }
 
@@ -47,6 +48,31 @@ namespace UniAPI.Controllers
             ViewBag.username = HttpContext.Session.GetString("name");
             return View("Welcome");
         }
+
+        [Route("AccountSettings")]
+        public IActionResult AccountSettings()
+        {
+            var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
+            return View(account);
+        }
+
+        [HttpPost]
+        [Route("AccountSettings")]
+        public IActionResult AccountSettings(EditUserDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
+                account.Nationality = dto.Nationality;
+                account.FirstName = dto.FirstName;
+                account.LastName = dto.LastName;
+
+                dbContext.SaveChanges();
+            }
+            return View("AccountSettings");
+        }
+
+
 
         [HttpPost]
         [Route("RegisterUser")]
@@ -90,15 +116,18 @@ namespace UniAPI.Controllers
 
                 if (user is null)
                 {
-                    throw new BadRequestException("Invalid username or password");
+                    ViewBag.msg = "Email or password is invalid.";
+                    return View("Login");
                 }
 
                 var result = this.passwordHasherUser.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
                 if (result == PasswordVerificationResult.Failed)
                 {
-                    throw new BadRequestException("Invalid username or password");
+                    ViewBag.msg = "Email or password is invalid.";
+                    return View("Login");
                 }
                 HttpContext.Session.SetString("name", user.LastName+" "+user.FirstName);
+                HttpContext.Session.SetString("id", user.Id.ToString());
                 return RedirectToAction("Welcome");
             }
             return View(dto);

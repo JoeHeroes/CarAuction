@@ -75,7 +75,8 @@ namespace CarAuction.Migrations
                     BidStatus = table.Column<bool>(type: "bit", nullable: false),
                     CurrentBid = table.Column<int>(type: "int", nullable: false),
                     SaleStatus = table.Column<bool>(type: "bit", nullable: false),
-                    Watch = table.Column<bool>(type: "bit", nullable: false)
+                    Watch = table.Column<bool>(type: "bit", nullable: false),
+                    WinnerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

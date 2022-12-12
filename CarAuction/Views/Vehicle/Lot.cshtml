@@ -1,4 +1,5 @@
 ﻿@model CarAuction.Models.Vehicle
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Lot";
 }
@@ -172,13 +173,17 @@
             <tr>
                 <td>Bid Status:</td>
                 <td>
-                    @if (Model.BidStatus == true)
+                    @if (Model.BidStatus == true && @HttpContextAccessor.HttpContext.Session.GetString("id") == Model.WinnerId.ToString())
                     {
                         <b style="color:green">YOU BID WIN</b>
                     }
-                    else
+                    else if (Model.BidStatus == true && @HttpContextAccessor.HttpContext.Session.GetString("id") != Model.WinnerId.ToString())
                     {
                         <b style="color:red">OUTBID</b>
+                    }
+                    else
+                    {
+                        <b>You Haven't Bid</b>
                     }
 
                 </td>
@@ -194,17 +199,40 @@
                 <td>@Model.CurrentBid</td>
             </tr>
 
-            <form method="post" class="d-flex" action="@Url.Action("UpdateBid", "Vehicle",  new { lotNumber = Model.Id })">
 
-            <tr>
-                <td>Your New Max Bid:</td>
-                <td>€ <input class="form-control me-sm-2" name="bidNow" type="text"></td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Bid Now</button></td>
-            </tr>
 
-            </form>
+
+
+            @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == null)
+            {
+                <tr>
+                    <td>
+                        <a href='@Url.Action("Login", "Account")' class="btn btn-primary">Login to Bid</a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <form method="post" class="d-flex" action="@Url.Action("UpdateBid", "Vehicle",  new { lotNumber = Model.Id })">
+
+                <tr>
+                    <td>Your New Max Bid:</td>
+                    <td>€ <input class="form-control me-sm-2" name="bidNow" type="text"></td>
+                </tr>
+                <tr>
+                    <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Bid Now</button></td>
+                </tr>
+
+                </form>
+            }
+
+
+           
+
+
+
+
+           
         </table>
     </div>
 </div>

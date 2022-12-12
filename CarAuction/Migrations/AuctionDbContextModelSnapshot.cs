@@ -205,6 +205,9 @@ namespace CarAuction.Migrations
                     b.Property<bool>("Watch")
                         .HasColumnType("bit");
 
+                    b.Property<int>("WinnerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");

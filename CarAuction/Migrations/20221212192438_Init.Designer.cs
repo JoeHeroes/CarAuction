@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221129160848_Init")]
+    [Migration("20221212192438_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,6 +206,9 @@ namespace CarAuction.Migrations
 
                     b.Property<bool>("Watch")
                         .HasColumnType("bit");
+
+                    b.Property<int>("WinnerId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

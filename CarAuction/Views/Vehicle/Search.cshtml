@@ -86,7 +86,7 @@
                     @obj.CurrentBid
                 </td>
                 <td width="15%">
-                <button class="btn btn-secondary my-2 my-sm-0" text="Bid Now">@Html.ActionLink("Bid Now", "Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)</button>
+                    <a href='@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
                 </td>
             </tr>
         }

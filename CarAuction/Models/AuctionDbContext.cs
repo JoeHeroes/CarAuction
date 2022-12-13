@@ -37,13 +37,13 @@ namespace CarAuction.Models
             modelBuilder
              .Entity<Watch>()
              .HasOne(c => c.VehicleMany)
-             .WithMany(c => c.Users)
-             .HasForeignKey(cl => cl.VehiclesId);
+             .WithMany(c => c.Bidders)
+             .HasForeignKey(cl => cl.VehicleId);
 
             modelBuilder
              .Entity<Watch>()
              .HasOne(c => c.UserMany)
-             .WithMany(c => c.Vehicles)
+             .WithMany(c => c.Watched)
              .HasForeignKey(cl => cl.UserId);
 
 

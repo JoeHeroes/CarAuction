@@ -13,7 +13,8 @@ namespace CarAuction.Models
         public string PasswordHash { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; } = null!;
-        public List<Watch> Watched { get; set; }
+        public List<Watch> Observed { get; set; }
+        public List<CurrentBind> CurrentBinds { get; set; }
 
     }
 }

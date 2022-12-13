@@ -123,9 +123,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = true,
+                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2022,12,28),
                     VIN = ""
                 },
                 new Vehicle()
@@ -145,9 +146,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = false,
+                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2022,12,18),
                     VIN = ""
                 },
                 new Vehicle()
@@ -167,9 +169,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
+                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2022,12,16 ),
                     VIN = ""
                 },
                 new Vehicle()
@@ -189,9 +192,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
+                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2022,12,30),
                     VIN = ""
                 },
                 new Vehicle()
@@ -211,9 +215,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
+                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2023,1,1),
                     VIN = ""
                 },
                 new Vehicle()
@@ -233,9 +238,10 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = false,
                     SecondTireSet = false,
+                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2023,1,4),
                     VIN = ""
                 }
             };

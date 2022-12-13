@@ -4,8 +4,17 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create a Vehicle</h1>
-<hr />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Create a Vehicle</h1>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+<br />
+<br />
 <div class="row">
     <form method="post" action="@Url.Action("VehicleCreate", "Vehicle")" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

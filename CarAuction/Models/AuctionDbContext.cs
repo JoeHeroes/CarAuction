@@ -12,8 +12,12 @@ namespace CarAuction.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Bidder> Bidders { get; set; }
+       
+
+
         public DbSet<Watch> Watches { get; set; }
+
+        public DbSet<CurrentBind> CurrentBinds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +34,9 @@ namespace CarAuction.Models
               .IsRequired();
 
 
+
+
+
             modelBuilder
               .Entity<Watch>()
               .HasKey(t => t.Id);
@@ -43,7 +50,25 @@ namespace CarAuction.Models
             modelBuilder
              .Entity<Watch>()
              .HasOne(c => c.UserMany)
-             .WithMany(c => c.Watched)
+             .WithMany(c => c.Observed)
+             .HasForeignKey(cl => cl.UserId);
+
+
+
+            modelBuilder
+              .Entity<CurrentBind>()
+              .HasKey(t => t.Id);
+
+            modelBuilder
+             .Entity<CurrentBind>()
+             .HasOne(c => c.VehicleMany)
+             .WithMany(c => c.CurrentBinds)
+             .HasForeignKey(cl => cl.VehicleId);
+
+            modelBuilder
+             .Entity<CurrentBind>()
+             .HasOne(c => c.UserMany)
+             .WithMany(c => c.CurrentBinds)
              .HasForeignKey(cl => cl.UserId);
 
 

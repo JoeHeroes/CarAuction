@@ -62,8 +62,23 @@
                 </td>
                 <td width="30%">
                     @obj.LotNumber
-                    <a href='@Url.Action("Watch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
-                </td>
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
+                    {
+                        
+
+
+                        @if (@obj.Watch == true)
+                        {
+                            <a href='@Url.Action("RemoveWatch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Remove</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Watch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Watch</a>
+                        }
+
+
+                    }
+                    
                 <td width="30%">
                     @obj.RegistrationYear
                 </td>

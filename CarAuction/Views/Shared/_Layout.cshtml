@@ -47,7 +47,7 @@
                     </li>
                     <li class="nav-item">
                         
-                        <a class="nav-link text-white"><div style="width:50px;font-weight:bold" id="clock">12:12:12</div></a>
+                        <a class="nav-link text-white"><div style="width:50px;font-weight:bold" id="clock"></div></a>
                     </li>
                 </ul>
            
@@ -75,13 +75,14 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Finder">Vehicle Finder</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Create">Create Vehicle</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Curent">Current Bids</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="#">#</a>
+
+                                @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
+                                {
+                                    <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="BindList">Current Bids</a>
+                                }
                             </div>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Vehicle" asp-action="Watch">Watchlist</a>
-                        </li>
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Auctions</a>

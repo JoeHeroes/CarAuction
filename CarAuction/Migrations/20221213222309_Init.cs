@@ -75,7 +75,8 @@ namespace CarAuction.Migrations
                     BidStatus = table.Column<bool>(type: "bit", nullable: false),
                     CurrentBid = table.Column<int>(type: "int", nullable: false),
                     SaleStatus = table.Column<bool>(type: "bit", nullable: false),
-                    WinnerId = table.Column<int>(type: "int", nullable: false)
+                    WinnerId = table.Column<int>(type: "int", nullable: false),
+                    Watch = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,22 +114,29 @@ namespace CarAuction.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bidders",
+                name: "CurrentBinds",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BinderId = table.Column<int>(type: "int", nullable: false),
-                    VehicleId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    VehicleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bidders", x => x.Id);
+                    table.PrimaryKey("PK_CurrentBinds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bidders_Vehicles_VehicleId",
+                        name: "FK_CurrentBinds_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CurrentBinds_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,8 +145,8 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WatchedId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    VehicleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -147,12 +155,24 @@ namespace CarAuction.Migrations
                         name: "FK_Watches_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Watches_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bidders_VehicleId",
-                table: "Bidders",
+                name: "IX_CurrentBinds_UserId",
+                table: "CurrentBinds",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CurrentBinds_VehicleId",
+                table: "CurrentBinds",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
@@ -169,27 +189,32 @@ namespace CarAuction.Migrations
                 name: "IX_Watches_UserId",
                 table: "Watches",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Watches_VehicleId",
+                table: "Watches",
+                column: "VehicleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Bidders");
+                name: "CurrentBinds");
 
             migrationBuilder.DropTable(
                 name: "Watches");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Vehicles");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

@@ -3,8 +3,17 @@
     ViewData["Title"] = "Finder";
 }
 
-<h1>Vehicle Finder</h1>
-
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Vehicle Finder</h1>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
 <div>
     <form method="post" action="@Url.Action("Search", "Vehicle")">
         <table border="0" cellpadding="2" cellspacing="2">

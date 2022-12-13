@@ -22,7 +22,7 @@ namespace CarAuction.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CarAuction.Models.Bidder", b =>
+            modelBuilder.Entity("CarAuction.Models.CurrentBind", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,17 +30,19 @@ namespace CarAuction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BinderId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehicleId")
+                    b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Bidders");
+                    b.ToTable("CurrentBinds");
                 });
 
             modelBuilder.Entity("CarAuction.Models.Location", b =>
@@ -223,6 +225,9 @@ namespace CarAuction.Migrations
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Watch")
+                        .HasColumnType("bit");
+
                     b.Property<int>("WinnerId")
                         .HasColumnType("int");
 
@@ -241,24 +246,38 @@ namespace CarAuction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WatchedId")
+                    b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("VehicleId");
+
                     b.ToTable("Watches");
                 });
 
-            modelBuilder.Entity("CarAuction.Models.Bidder", b =>
+            modelBuilder.Entity("CarAuction.Models.CurrentBind", b =>
                 {
-                    b.HasOne("CarAuction.Models.Vehicle", null)
-                        .WithMany("Bidders")
-                        .HasForeignKey("VehicleId");
+                    b.HasOne("CarAuction.Models.User", "UserMany")
+                        .WithMany("CurrentBinds")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarAuction.Models.Vehicle", "VehicleMany")
+                        .WithMany("CurrentBinds")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserMany");
+
+                    b.Navigation("VehicleMany");
                 });
 
             modelBuilder.Entity("CarAuction.Models.User", b =>
@@ -283,19 +302,35 @@ namespace CarAuction.Migrations
 
             modelBuilder.Entity("CarAuction.Models.Watch", b =>
                 {
-                    b.HasOne("CarAuction.Models.User", null)
-                        .WithMany("Watched")
-                        .HasForeignKey("UserId");
+                    b.HasOne("CarAuction.Models.User", "UserMany")
+                        .WithMany("Observed")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarAuction.Models.Vehicle", "VehicleMany")
+                        .WithMany("Bidders")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserMany");
+
+                    b.Navigation("VehicleMany");
                 });
 
             modelBuilder.Entity("CarAuction.Models.User", b =>
                 {
-                    b.Navigation("Watched");
+                    b.Navigation("CurrentBinds");
+
+                    b.Navigation("Observed");
                 });
 
             modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
                 {
                     b.Navigation("Bidders");
+
+                    b.Navigation("CurrentBinds");
                 });
 #pragma warning restore 612, 618
         }

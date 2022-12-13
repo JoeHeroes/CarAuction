@@ -60,10 +60,9 @@ namespace CarAuction.Models
         public bool BidStatus { get; set; }
         public int CurrentBid { get; set; }
         public bool SaleStatus { get; set; }
-        public bool Watch { get; set; }
         public int WinnerId { get; set; }
 
-
+        public virtual List<Watch> Bidders { get; set; }
 
     }
 }

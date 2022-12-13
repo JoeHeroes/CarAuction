@@ -166,7 +166,6 @@ namespace CarAuction.Controllers
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
-                    Watch = vehicle.Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
                     ModelSpecifer = vehicle.ModelSpecifer,
@@ -201,7 +200,6 @@ namespace CarAuction.Controllers
             if(bidNow > vehicle.CurrentBid)
             {
                 vehicle.WinnerId = int.Parse(HttpContext.Session.GetString("id"));
-                vehicle.bidders.Add(int.Parse(HttpContext.Session.GetString("id")));
                 vehicle.CurrentBid = bidNow;
                 dbContext.SaveChanges();
                 TempData["Success"] = "You bid is higher now";
@@ -213,5 +211,22 @@ namespace CarAuction.Controllers
 
             return RedirectToAction("Lot", new { @lotNumber = lotNumber });
         }
+
+
+        public IActionResult Watch(int lotNumber)
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+            var user = this.dbContext.Users.FirstOrDefault(x => x.Id == id);
+
+
+            user.Watched.Add()
+            Vehicle vehicle = this.dbContext
+                                    .Vehicles
+                                    .FirstOrDefault(x => x.Id == lotNumber);
+
+            return View(vehicle);
+        }
+
+
     }
 }

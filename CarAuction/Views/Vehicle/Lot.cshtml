@@ -173,11 +173,11 @@
             <tr>
                 <td>Bid Status:</td>
                 <td>
-                    @if (Model.BidStatus == true && @HttpContextAccessor.HttpContext.Session.GetString("id") == Model.WinnerId.ToString())
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == Model.WinnerId.ToString())
                     {
                         <b style="color:green">YOU BID WIN</b>
                     }
-                    else if (Model.BidStatus == true && @HttpContextAccessor.HttpContext.Session.GetString("id") != Model.WinnerId.ToString())
+                    else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != Model.WinnerId.ToString())
                     {
                         <b style="color:red">OUTBID</b>
                     }

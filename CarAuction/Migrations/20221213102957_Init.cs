@@ -75,7 +75,6 @@ namespace CarAuction.Migrations
                     BidStatus = table.Column<bool>(type: "bit", nullable: false),
                     CurrentBid = table.Column<int>(type: "int", nullable: false),
                     SaleStatus = table.Column<bool>(type: "bit", nullable: false),
-                    Watch = table.Column<bool>(type: "bit", nullable: false),
                     WinnerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -113,6 +112,49 @@ namespace CarAuction.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bidders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BinderId = table.Column<int>(type: "int", nullable: false),
+                    VehicleId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bidders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bidders_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Watches",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WatchedId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Watches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Watches_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bidders_VehicleId",
+                table: "Bidders",
+                column: "VehicleId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
                 table: "Users",
@@ -122,21 +164,32 @@ namespace CarAuction.Migrations
                 name: "IX_Vehicles_LocationId",
                 table: "Vehicles",
                 column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Watches_UserId",
+                table: "Watches",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Bidders");
+
+            migrationBuilder.DropTable(
+                name: "Watches");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

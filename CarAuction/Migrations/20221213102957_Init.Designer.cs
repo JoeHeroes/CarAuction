@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221212192438_Init")]
+    [Migration("20221213102957_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,27 @@ namespace CarAuction.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CarAuction.Models.Bidder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BinderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Bidders");
+                });
 
             modelBuilder.Entity("CarAuction.Models.Location", b =>
                 {
@@ -204,9 +225,6 @@ namespace CarAuction.Migrations
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Watch")
-                        .HasColumnType("bit");
-
                     b.Property<int>("WinnerId")
                         .HasColumnType("int");
 
@@ -215,6 +233,34 @@ namespace CarAuction.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Watch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WatchedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Watches");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Bidder", b =>
+                {
+                    b.HasOne("CarAuction.Models.Vehicle", null)
+                        .WithMany("Bidders")
+                        .HasForeignKey("VehicleId");
                 });
 
             modelBuilder.Entity("CarAuction.Models.User", b =>
@@ -235,6 +281,23 @@ namespace CarAuction.Migrations
                         .HasForeignKey("LocationId");
 
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Watch", b =>
+                {
+                    b.HasOne("CarAuction.Models.User", null)
+                        .WithMany("Watched")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.User", b =>
+                {
+                    b.Navigation("Watched");
+                });
+
+            modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
+                {
+                    b.Navigation("Bidders");
                 });
 #pragma warning restore 612, 618
         }

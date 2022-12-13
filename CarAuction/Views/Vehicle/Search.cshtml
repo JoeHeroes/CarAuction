@@ -62,7 +62,7 @@
                 </td>
                 <td width="30%">
                     @obj.LotNumber
-                    @obj.Watch
+                    <a href='@Url.Action("Watch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
                 </td>
                 <td width="30%">
                     @obj.RegistrationYear

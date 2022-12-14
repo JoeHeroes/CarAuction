@@ -4,6 +4,12 @@
     ViewData["Title"] = "Search";
 }
 
+<style>
+    td{
+        text-align:center;
+        vertical-align:middle;
+    }
+</style>
 
 
 <div class="container p-3">
@@ -60,7 +66,7 @@
                         <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="90" asp-append-version="true">
                     </a>
                 </td>
-                <td width="30%">
+                <td width="22%">
                     @obj.LotNumber
                     @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                     {
@@ -79,13 +85,13 @@
 
                     }
                     
-                <td width="30%">
+                <td width="8%">
                     @obj.RegistrationYear
                 </td>
                 <td width="10%">
                     @obj.Producer
                 </td>
-                <td width="210%">
+                <td width="20%">
                     @obj.ModelSpecifer
                 </td>
                 <td width="20%">

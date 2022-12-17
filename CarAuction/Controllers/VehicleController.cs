@@ -57,6 +57,7 @@ namespace CarAuction.Controllers
                 SecondaryDamage = dto.SecondaryDamage,
                 VIN = dto.VIN,
                 ProfileImg = stringFileName,
+                DateTime= dto.DateTime,
             };
 
             dbContext.Vehicles.Add(vehicle);
@@ -348,7 +349,6 @@ namespace CarAuction.Controllers
         public IActionResult BindList()
         {
             int id = int.Parse(HttpContext.Session.GetString("id"));
-
 
             var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
 

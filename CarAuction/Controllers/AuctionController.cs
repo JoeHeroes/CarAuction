@@ -1,9 +1,6 @@
 ﻿using CarAuction.Models;
-using CarAuction.Models.Enum;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CarAuction.Controllers
 {
@@ -15,11 +12,13 @@ namespace CarAuction.Controllers
         {
             this.dbContext = dbContext;
         }
+        [Route("Actual")]
         public IActionResult Actual()
         {
             var auction = this.dbContext.Vehicles.ToList();
             return View(auction);
         }
+        [Route("Today")]
         public IActionResult Today()
         {
             var auction = dbContext.Vehicles.Where(x => x.DateTime == DateTime.Now);

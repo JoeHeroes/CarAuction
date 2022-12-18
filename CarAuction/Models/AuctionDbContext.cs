@@ -16,8 +16,10 @@ namespace CarAuction.Models
 
 
         public DbSet<Watch> Watches { get; set; }
-
         public DbSet<CurrentBind> CurrentBinds { get; set; }
+
+
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

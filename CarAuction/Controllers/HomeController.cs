@@ -16,6 +16,7 @@ namespace CarAuction.Controllers
         {
             return View();
         }
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();

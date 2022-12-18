@@ -88,14 +88,14 @@ namespace CarAuction.Controllers
         {
             var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear);
 
-            string searchPara = "";
+            List<string> searchPara = new List<string>();
 
 
             if (query.Producer != Producer.none)
             {
                 var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
                 baseQuery = baseProducer;
-                searchPara += query.Producer.ToString();
+                searchPara.Add(query.Producer.ToString());
             }
 
             if (query.SearchName != null)
@@ -108,7 +108,7 @@ namespace CarAuction.Controllers
                 if (baseSearch != null)
                 {
                     baseQuery = baseSearch;
-                    searchPara += query.SearchName;
+                    searchPara.Add(query.SearchName);
                 }
             }
 
@@ -117,24 +117,40 @@ namespace CarAuction.Controllers
             {
                 var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
                 baseQuery = baseLocation;
-                searchPara += ", " + query.LocationName.ToString();
+                searchPara.Add(query.LocationName.ToString());
             }
 
             if (query.RegistrationYear != 0)
             {
                 var baseRegistration = baseQuery.Where(x => x.RegistrationYear == query.RegistrationYear);
                 baseQuery = baseRegistration;
-                searchPara += ", " + query.RegistrationYear.ToString();
+                searchPara.Add(query.RegistrationYear.ToString());
             }
 
             if (query.Damage != Damage.none)
             {
                 var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
                 baseQuery = baseDamage;
-                searchPara += ", " + query.Damage.ToString();
+                searchPara.Add(query.Damage.ToString());
             }
 
-            HttpContext.Session.SetString("searchBy", searchPara);
+            string stringSearch = "";
+
+
+            for(int i = 0; i<searchPara.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    stringSearch += searchPara[i];
+                }
+                else
+                {
+                    stringSearch += ", " + searchPara[i];
+                }
+            }
+
+
+            HttpContext.Session.SetString("searchBy", stringSearch);
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {

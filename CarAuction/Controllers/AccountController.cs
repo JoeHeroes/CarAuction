@@ -1,5 +1,4 @@
 ﻿using CarAuction;
-using CarAuction.Exceptions;
 using CarAuction.Models;
 using CarAuction.Models.DTO;
 using Microsoft.AspNetCore.Identity;

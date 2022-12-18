@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Calendar";
+}
+
+<script src="~/lib/calendar/index.global.js"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+</script>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Calendar</h2>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="col-8 text-end" id='calendar'></div>
+<br />
+<br />

@@ -1,4 +1,4 @@
-﻿namespace AutoAuction.Exceptions
+﻿namespace CarAuction.Exceptions
 {
     public class ForbidExeption : Exception
     {

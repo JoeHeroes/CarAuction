@@ -1,5 +1,4 @@
-﻿using AutoAuction.Exceptions;
-using CarAuction.Exceptions;
+﻿using CarAuction.Exceptions;
 
 namespace CarAuction.Middleware
 {

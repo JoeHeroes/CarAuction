@@ -4,14 +4,16 @@
     ViewData["Title"] = "Search";
 }
 
+<style>
+    td{
+        text-align:center;
+        vertical-align:middle;
+    }
+</style>
 
 
 <div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Search Results For: @HttpContextAccessor.HttpContext.Session.GetString("searchBy")</h2>
-        </div>
-    </div>
+    <h2 class="text-primary">Search Results For: @HttpContextAccessor.HttpContext.Session.GetString("searchBy")</h2>
 </div>
 <br />
 <br />
@@ -60,17 +62,32 @@
                         <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="90" asp-append-version="true">
                     </a>
                 </td>
-                <td width="30%">
+                <td width="22%">
                     @obj.LotNumber
-                    @obj.Watch
-                </td>
-                <td width="30%">
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
+                    {
+                        
+
+
+                        @if (@obj.Watch == true)
+                        {
+                            <a href='@Url.Action("RemoveWatch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Remove</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Watch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Watch</a>
+                        }
+
+
+                    }
+                    
+                <td width="8%">
                     @obj.RegistrationYear
                 </td>
                 <td width="10%">
                     @obj.Producer
                 </td>
-                <td width="210%">
+                <td width="20%">
                     @obj.ModelSpecifer
                 </td>
                 <td width="20%">
@@ -86,7 +103,7 @@
                     @obj.CurrentBid
                 </td>
                 <td width="15%">
-                <button class="btn btn-secondary my-2 my-sm-0" text="Bid Now">@Html.ActionLink("Bid Now", "Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)</button>
+                    <a href='@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
                 </td>
             </tr>
         }

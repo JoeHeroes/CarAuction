@@ -12,6 +12,14 @@ namespace CarAuction.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Role> Roles { get; set; }
+       
+
+
+        public DbSet<Watch> Watches { get; set; }
+        public DbSet<CurrentBind> CurrentBinds { get; set; }
+
+
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +34,46 @@ namespace CarAuction.Models
             modelBuilder.Entity<Role>()
               .Property(u => u.Name)
               .IsRequired();
+
+
+
+
+
+            modelBuilder
+              .Entity<Watch>()
+              .HasKey(t => t.Id);
+
+            modelBuilder
+             .Entity<Watch>()
+             .HasOne(c => c.VehicleMany)
+             .WithMany(c => c.Bidders)
+             .HasForeignKey(cl => cl.VehicleId);
+
+            modelBuilder
+             .Entity<Watch>()
+             .HasOne(c => c.UserMany)
+             .WithMany(c => c.Observed)
+             .HasForeignKey(cl => cl.UserId);
+
+
+
+            modelBuilder
+              .Entity<CurrentBind>()
+              .HasKey(t => t.Id);
+
+            modelBuilder
+             .Entity<CurrentBind>()
+             .HasOne(c => c.VehicleMany)
+             .WithMany(c => c.CurrentBinds)
+             .HasForeignKey(cl => cl.VehicleId);
+
+            modelBuilder
+             .Entity<CurrentBind>()
+             .HasOne(c => c.UserMany)
+             .WithMany(c => c.CurrentBinds)
+             .HasForeignKey(cl => cl.UserId);
+
+
         }
     }
 }

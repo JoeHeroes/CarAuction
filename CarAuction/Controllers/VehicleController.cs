@@ -3,9 +3,10 @@ using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace AutoAuction.Controllers
+namespace CarAuction.Controllers
 {
     public class VehicleController : Controller
     {
@@ -19,20 +20,23 @@ namespace AutoAuction.Controllers
             this.webHost = webHost;
         }
 
-        [Route("Finder")]
         public IActionResult Finder()
         {
             return View();
         }
 
-        [Route("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        public IActionResult WatchList()
+        {
+            return View();
+        }
+
+
         [HttpPost]
-        [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
 
@@ -53,6 +57,7 @@ namespace AutoAuction.Controllers
                 SecondaryDamage = dto.SecondaryDamage,
                 VIN = dto.VIN,
                 ProfileImg = stringFileName,
+                DateTime= dto.DateTime,
             };
 
             dbContext.Vehicles.Add(vehicle);
@@ -83,14 +88,14 @@ namespace AutoAuction.Controllers
         {
             var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear);
 
-            string searchPara = "";
+            List<string> searchPara = new List<string>();
 
 
             if (query.Producer != Producer.none)
             {
                 var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
                 baseQuery = baseProducer;
-                searchPara += query.Producer.ToString();
+                searchPara.Add(query.Producer.ToString());
             }
 
             if (query.SearchName != null)
@@ -103,7 +108,7 @@ namespace AutoAuction.Controllers
                 if (baseSearch != null)
                 {
                     baseQuery = baseSearch;
-                    searchPara += query.SearchName;
+                    searchPara.Add(query.SearchName);
                 }
             }
 
@@ -112,24 +117,40 @@ namespace AutoAuction.Controllers
             {
                 var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
                 baseQuery = baseLocation;
-                searchPara += ", " + query.LocationName.ToString();
+                searchPara.Add(query.LocationName.ToString());
             }
 
             if (query.RegistrationYear != 0)
             {
                 var baseRegistration = baseQuery.Where(x => x.RegistrationYear == query.RegistrationYear);
                 baseQuery = baseRegistration;
-                searchPara += ", " + query.RegistrationYear.ToString();
+                searchPara.Add(query.RegistrationYear.ToString());
             }
 
             if (query.Damage != Damage.none)
             {
                 var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
                 baseQuery = baseDamage;
-                searchPara += ", " + query.Damage.ToString();
+                searchPara.Add(query.Damage.ToString());
             }
 
-            HttpContext.Session.SetString("searchBy", searchPara);
+            string stringSearch = "";
+
+
+            for(int i = 0; i<searchPara.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    stringSearch += searchPara[i];
+                }
+                else
+                {
+                    stringSearch += ", " + searchPara[i];
+                }
+            }
+
+
+            HttpContext.Session.SetString("searchBy", stringSearch);
 
             if (!string.IsNullOrEmpty(query.SortBy))
             {
@@ -163,7 +184,6 @@ namespace AutoAuction.Controllers
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
-                    Watch = vehicle.Watch,
                     RegistrationYear = vehicle.RegistrationYear,
                     Producer = vehicle.Producer,
                     ModelSpecifer = vehicle.ModelSpecifer,
@@ -171,6 +191,7 @@ namespace AutoAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg= vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -195,10 +216,26 @@ namespace AutoAuction.Controllers
                                 .Vehicles
                                 .FirstOrDefault(x => x.Id == lotNumber);
 
-            if(bidNow > vehicle.CurrentBid)
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            if (bidNow > vehicle.CurrentBid)
             {
-                vehicle.BidStatus = true;
+                vehicle.WinnerId = id;
                 vehicle.CurrentBid = bidNow;
+
+                User user = this.dbContext
+                                  .Users
+                                  .FirstOrDefault(x => x.Id == id);
+
+                var bind = new CurrentBind()
+                {
+                    UserMany = user,
+                    VehicleMany = vehicle,
+                };
+
+                this.dbContext.CurrentBinds.Add(bind);
+
+
                 dbContext.SaveChanges();
                 TempData["Success"] = "You bid is higher now";
             }
@@ -209,5 +246,163 @@ namespace AutoAuction.Controllers
 
             return RedirectToAction("Lot", new { @lotNumber = lotNumber });
         }
+
+        public IActionResult Watch(int lotNumber)
+        {
+
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            User user = this.dbContext
+                                    .Users
+                                    .FirstOrDefault(x => x.Id == id);
+
+            Vehicle vehicle = this.dbContext
+                                    .Vehicles
+                                    .FirstOrDefault(x => x.Id == lotNumber);
+
+            var observed = new Watch()
+            {
+                UserMany = user,
+                VehicleMany = vehicle,
+            };
+
+            this.dbContext.Watches.Add(observed);
+
+            vehicle.Watch = true;
+
+
+            try
+            {
+                this.dbContext.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new DbUpdateException("Error DataBase", e);
+            }
+
+
+            return RedirectToAction("Lot", new { @lotNumber = lotNumber });
+        }
+
+        public IActionResult RemoveWatch(int lotNumber)
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            Vehicle vehicle = this.dbContext
+                                    .Vehicles
+                                    .FirstOrDefault(x => x.Id == lotNumber);
+
+            Watch observed = this.dbContext.Watches.FirstOrDefault(x => x.UserId == id && x.VehicleId == vehicle.Id);
+
+            this.dbContext.Watches.Remove(observed);
+
+
+            vehicle.Watch = false;
+
+            try
+            {
+                this.dbContext.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new DbUpdateException("Error DataBase", e);
+            }
+
+            return RedirectToAction("Lot", new { @lotNumber = lotNumber });
+        }
+
+
+        [Route("Watchlist")]
+        public IActionResult Watchlist()
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+
+            var watch = this.dbContext.Watches.Where(x => x.UserId == id);
+
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var vehiclesList = this.dbContext.Vehicles.ToList();
+
+            foreach (var x in watch)
+            {
+                var dish = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId);
+                vehicles.Add(dish);
+            }
+
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+
+            foreach (var vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid
+                };
+
+                vehiclesView.Add(view);
+            }
+            return View(vehiclesView);
+        }
+
+
+
+
+
+
+
+        [Route("BindList")]
+        public IActionResult BindList()
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var vehiclesList = this.dbContext.Vehicles.ToList();
+
+            foreach (var x in watch)
+            {
+                var dish = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId);
+                vehicles.Add(dish);
+            }
+
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+
+            foreach (var vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid,
+                    WinnerId = vehicle.WinnerId,
+                };
+
+                vehiclesView.Add(view);
+            }
+            return View(vehiclesView);
+        }
+
     }
 }

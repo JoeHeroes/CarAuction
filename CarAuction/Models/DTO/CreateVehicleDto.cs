@@ -19,7 +19,7 @@ namespace CarAuction.Models.DTO
         public Damage SecondaryDamage { get; set; }
         public string VIN { get; set; } = null!;
         public IFormFile PathPic { get; set; }
-
+        public DateTime DateTime { get; set; }
 
     }
 }

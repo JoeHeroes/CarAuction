@@ -3,8 +3,31 @@
     ViewData["Title"] = "Finder";
 }
 
-<h1>Vehicle Finder</h1>
+<style>
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding: 0 30px 0 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        line-height: 30px;
+        height: 30px;
+        background: #fff;
+        margin: 0 5px 5px 0;
+    }
 
+</style>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Vehicle Finder</h1>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
 <div>
     <form method="post" action="@Url.Action("Search", "Vehicle")">
         <table border="0" cellpadding="2" cellspacing="2">
@@ -216,8 +239,6 @@
             </tr>
         </table>
     </form>
-
-
 </div>
 
 

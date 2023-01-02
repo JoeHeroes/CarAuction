@@ -4,8 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create a Vehicle</h1>
-<hr />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Create a Vehicle</h1>
+        </div>
+    </div>
+</div>
+<br />
+<br />
 <div class="row">
     <form method="post" action="@Url.Action("VehicleCreate", "Vehicle")" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -82,13 +89,18 @@
                     <input asp-for="VIN" class="form-control" />
                     <span asp-validation-for="VIN" class="text-danger"></span>
                 </div>
-                <br /> <br />
+                <br />
                 <div class="form-control">
                     <label asp-for="PathPic" class="control-label"></label>
                     <input asp-for="PathPic" class="form-control" />
                     <span asp-validation-for="PathPic" class="text-danger"></span>
                 </div>
-
+                <br />
+                <div class="form-control">
+                    <label asp-for="DateTime" class="control-label"></label>
+                    <input asp-for="DateTime" class="form-control" />
+                    <span asp-validation-for="DateTime" class="text-danger"></span>
+                </div>
 
 
             </div>
@@ -98,18 +110,13 @@
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
-
-
-
     </form>
 
-
-           
-
- 
 </div>
 
 <div>
     <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>
 
+<br />
+<br />

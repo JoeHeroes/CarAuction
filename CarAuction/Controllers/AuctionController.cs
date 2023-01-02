@@ -1,4 +1,5 @@
 ﻿using CarAuction.Models;
+using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarAuction.Controllers
@@ -11,10 +12,39 @@ namespace CarAuction.Controllers
         {
             this.dbContext = dbContext;
         }
+        [Route("Actual")]
         public IActionResult Actual()
         {
             var auction = this.dbContext.Vehicles.ToList();
             return View(auction);
+        }
+        [Route("Today")]
+        public IActionResult Today()
+        {
+            var auction = dbContext.Vehicles.Where(x => x.DateTime == DateTime.Now);
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+            foreach (var vehicle in auction)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid,
+                    WinnerId = vehicle.WinnerId,
+                };
+
+                vehiclesView.Add(view);
+            }
+            return View(vehiclesView);
         }
     }
 }

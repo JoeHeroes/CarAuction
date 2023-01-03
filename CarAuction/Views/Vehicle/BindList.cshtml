@@ -2,6 +2,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "CurrentBinds";
+
+    
 }
 
 
@@ -82,13 +84,28 @@
                 </td>
                 <td width="20%">
                     @obj.CurrentBid
-                    @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
+
+                    @if (@obj.DateTime.Subtract(DateTime.Now).Seconds <= 0)
                     {
-                        <b style="color:green">YOU BID WIN</b>
+                        if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
+                        {
+                                <b style="color:green">YOU WON</b>
+                        }
+                        else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != @obj.WinnerId.ToString())
+                        {
+                            <b style="color:red">YOU LOST</b>
+                        }
                     }
-                    else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != @obj.WinnerId.ToString())
+                    else
                     {
-                        <b style="color:red">OUTBID</b>
+                        @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
+                        {
+                            <b style="color:green">YOU BID WIN</b>
+                        }
+                        else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != @obj.WinnerId.ToString())
+                        {
+                            <b style="color:red">OUTBID</b>
+                        }
                     }
                 </td>
                 <td width="15%">

@@ -233,7 +233,10 @@ namespace CarAuction.Controllers
                     VehicleMany = vehicle,
                 };
 
-                this.dbContext.CurrentBinds.Add(bind);
+                if (this.dbContext.CurrentBinds.FirstOrDefault(x => x.UserMany.Id == user.Id && x.VehicleMany.Id == vehicle.Id) == null)
+                {
+                    this.dbContext.CurrentBinds.Add(bind);
+                }
 
 
                 dbContext.SaveChanges();
@@ -374,8 +377,10 @@ namespace CarAuction.Controllers
 
             foreach (var x in watch)
             {
-                var dish = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId);
-                vehicles.Add(dish);
+                var veh = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId);
+                
+                vehicles.Add(veh);
+               
             }
 
 

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<CarAuction.Models.View.VehicleView>
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "LotsWon";
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Lots Won</h1>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Images
+            </th>
+            <th>
+                Lot
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Make
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Sale Date
+            </th>
+            <th>
+                Odometer
+            </th>
+            <th>
+                Damage
+            </th>
+            <th>
+                Current Bid
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="10%">
+                    <a href="@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)" title="Widget View" class="links">
+                        <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="90" asp-append-version="true">
+                    </a>
+                </td>
+                <td width="20%">
+                    @obj.LotNumber
+                </td>
+                <td width="20%">
+                    @obj.RegistrationYear
+                </td>
+                <td width="10%">
+                    @obj.Producer
+                </td>
+                <td width="10%">
+                    @obj.ModelSpecifer
+                </td>
+                <td width="20%">
+                    @obj.DateTime.ToString("MM/dd/yyyy hh:mm tt")
+                </td>
+                <td width="15%">
+                    @obj.MeterReadout
+                </td>
+                <td width="10%">
+                    @obj.Damage
+                </td>
+                <td width="25%">
+                    @obj.CurrentBid
+
+                    @if (@obj.DateTime.Subtract(DateTime.Now).Seconds <= 0)
+                    {
+                        if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
+                        {
+                            <b style="color:green">YOU WON</b>
+                        }
+                        else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != @obj.WinnerId.ToString())
+                        {
+                            <b style="color:red">YOU LOST</b>
+                        }
+                    }
+                    else
+                    {
+                        @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
+                        {
+                            <b style="color:green">YOU BID WIN</b>
+                        }
+                        else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != @obj.WinnerId.ToString())
+                        {
+                            <b style="color:red">OUTBID</b>
+                        }
+                    }
+                </td>
+                <td width="15%">
+                    <a href='@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />

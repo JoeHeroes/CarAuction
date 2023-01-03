@@ -378,11 +378,17 @@ namespace CarAuction.Controllers
             foreach (var x in watch)
             {
                 var veh = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId);
-                
-                vehicles.Add(veh);
-               
+
+                if (veh != null)
+                {
+                    vehicles.Add(veh);
+                }
             }
 
+            if (vehicles == null)
+            {
+                return View(new List<VehicleView>());
+            }
 
             List<VehicleView> vehiclesView = new List<VehicleView>();
 
@@ -409,5 +415,121 @@ namespace CarAuction.Controllers
             return View(vehiclesView);
         }
 
+
+
+
+
+
+
+
+        [Route("LotsWon")]
+        public IActionResult LotsWon()
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var vehiclesList = this.dbContext.Vehicles.ToList();
+
+            foreach (var x in watch)
+            {
+                var veh = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId && d.WinnerId == id);
+
+                if (veh != null)
+                {
+                    vehicles.Add(veh);
+                }
+            }
+
+            if (vehicles == null)
+            {
+                return View(new List<VehicleView>());
+            }
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+
+            foreach (var vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid,
+                    WinnerId = vehicle.WinnerId,
+                };
+
+                vehiclesView.Add(view);
+            }
+            return View(vehiclesView);
+        }
+
+
+        [Route("LotsLost")]
+        public IActionResult LotsLost()
+        {
+            int id = int.Parse(HttpContext.Session.GetString("id"));
+
+            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+
+            List<Vehicle> vehicles = new List<Vehicle>();
+
+            var vehiclesList = this.dbContext.Vehicles.ToList();
+
+            foreach (var x in watch)
+            {
+                var veh = vehiclesList.FirstOrDefault(d => d.Id == x.VehicleId && d.WinnerId != id);
+
+                if(veh != null)
+                {
+                    vehicles.Add(veh);
+                }
+            }
+
+           if(vehicles == null)
+           {
+               return View(new List<VehicleView>());
+           }
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+            foreach (var vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid,
+                    WinnerId = vehicle.WinnerId,
+                };
+
+                vehiclesView.Add(view);
+            }
+            return View(vehiclesView);
+        }
     }
 }
+
+    
+
+
+
+
+
+

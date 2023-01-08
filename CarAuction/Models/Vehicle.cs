@@ -22,15 +22,7 @@ namespace CarAuction.Models
         public bool ServiceManual { get; set; }
         public bool SecondTireSet { get; set; }
         public int CreateById { get; set; }
-
-
-
-
-
-
-
         public string ProfileImg { get; set; }
-
         public Location Location { get; set; }
 
 
@@ -55,7 +47,5 @@ namespace CarAuction.Models
         public bool Watch { get; set; }
         public virtual List<Watch> Bidders { get; set; }
         public virtual List<CurrentBind> CurrentBinds { get; set; }
-
-
     }
 }

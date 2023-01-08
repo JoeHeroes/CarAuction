@@ -131,7 +131,7 @@
             return new List<ClassEnum>
             {
                 new ClassEnum() { Id="none", Name="--Select Producer--"},
-                new ClassEnum() { Id="Alfa_Romeo", Name="Alfa Romeo"},
+                new ClassEnum() { Id="Alfa Romeo", Name="Alfa Romeo"},
                 new ClassEnum() { Id="Audi", Name="Audi"},
                 new ClassEnum() { Id="BMW", Name="BMW"},
                 new ClassEnum() { Id="Cupra", Name="Cupra"},
@@ -144,7 +144,7 @@
                 new ClassEnum() { Id="Honda", Name="Honda"},
                 new ClassEnum() { Id="Hyundai", Name="Hyundai"},
                 new ClassEnum() { Id="Kia", Name="Kia"},
-                new ClassEnum() { Id="Land_Rover", Name="Land Rover"},
+                new ClassEnum() { Id="Land Rover", Name="Land Rover"},
                 new ClassEnum() { Id="Jeep", Name="Jeep"},
                 new ClassEnum() { Id="Lexus", Name="Lexus"},
                 new ClassEnum() { Id="Mazda", Name="Mazda"},

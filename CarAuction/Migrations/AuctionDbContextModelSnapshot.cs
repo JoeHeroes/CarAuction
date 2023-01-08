@@ -172,8 +172,9 @@ namespace CarAuction.Migrations
                     b.Property<bool>("BidStatus")
                         .HasColumnType("bit");
 
-                    b.Property<int>("BodyType")
-                        .HasColumnType("int");
+                    b.Property<string>("BodyType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
@@ -187,8 +188,8 @@ namespace CarAuction.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Drive")
-                        .HasColumnType("int");
+                    b.Property<string>("Drive")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EngineCapacity")
                         .HasColumnType("int");
@@ -196,8 +197,8 @@ namespace CarAuction.Migrations
                     b.Property<int>("EngineOutput")
                         .HasColumnType("int");
 
-                    b.Property<int>("Fuel")
-                        .HasColumnType("int");
+                    b.Property<string>("Fuel")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Highlights")
                         .HasColumnType("int");
@@ -217,11 +218,11 @@ namespace CarAuction.Migrations
                     b.Property<string>("NumberKeys")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrimaryDamage")
-                        .HasColumnType("int");
+                    b.Property<string>("PrimaryDamage")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Producer")
-                        .HasColumnType("int");
+                    b.Property<string>("Producer")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImg")
                         .HasColumnType("nvarchar(max)");
@@ -238,17 +239,14 @@ namespace CarAuction.Migrations
                     b.Property<bool>("SecondTireSet")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SecondaryDamage")
-                        .HasColumnType("int");
+                    b.Property<string>("SecondaryDamage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ServiceManual")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("TimeLeft")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Transmission")
-                        .HasColumnType("int");
+                    b.Property<string>("Transmission")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(max)");

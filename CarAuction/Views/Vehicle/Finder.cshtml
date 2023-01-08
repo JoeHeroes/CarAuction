@@ -1,23 +1,7 @@
-﻿
+﻿@model CarAuction.Models.DTO.SearchVehicleDto
 @{
     ViewData["Title"] = "Finder";
 }
-
-<style>
-    select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        padding: 0 30px 0 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 3px;
-        line-height: 30px;
-        height: 30px;
-        background: #fff;
-        margin: 0 5px 5px 0;
-    }
-
-</style>
 
 <div class="container p-3">
     <div class="row pt-4">
@@ -27,160 +11,52 @@
     </div>
 </div>
 <br/>
-<br/>
-<div>
+<div class="row">
     <form method="post" action="@Url.Action("Search", "Vehicle")">
-        <table border="0" cellpadding="2" cellspacing="2">
 
-            <tr>
-                <td>Make</td>
-                <td>
-                    <select name="producer">
-                        <option value="none">All Makes</option>
-                        <option value="Alfa_Romeo">Alfa Romeo</option>
-                        <option value="Audi">Audi</option>
-                        <option value="BMW">BMW</option>
-                        <option value="Cupra">Cupra</option>
-                        <option value="Chevrolet">Chevrolet</option>
-                        <option value="Citroen">Citroen</option>
-                        <option value="Dacia">Dacia</option>
-                        <option value="Dodge">Dodge</option>
-                        <option value="FIAT">FIAT</option>
-                        <option value="Ford">Ford</option>
-                        <option value="Honda">Honda</option>
-                        <option value="Hyundai">Hyundai</option>
-                        <option value="Kia">Kia</option>
-                        <option value="Land_Rover">Land Rover</option>
-                        <option value="Jeep">Jeep</option>
-                        <option value="Lexus">Lexus</option>
-                        <option value="Mazda">Mazda</option>
-                        <option value="Mercedes">Mercedes</option>
-                        <option value="Mini">Mini</option>
-                        <option value="Mitsubishi">Mitsubishi</option>
-                        <option value="Nissan">Nissan</option>
-                        <option value="Opel">Opel</option>
-                        <option value="Peugeot">Peugeot</option>
-                        <option value="Renault">Renault</option>
-                        <option value="Seat">Seat</option>
-                        <option value="Skoda">Skoda</option>
-                        <option value="Subaru">Subaru</option>
-                        <option value="Suzuki">Suzuki</option>
-                        <option value="Tesla">Tesla</option>
-                        <option value="Toyota">Toyota</option>
-                        <option value="Volkswagen">Volkswagen</option>
-                        <option value="Volvo">Volvo</option>
-                    </select>
-                </td>
-            </tr>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Producer" class="control-label"></label>
+                    <select asp-for="Producer" asp-items="Model.ProducerSelectList" class="form-select" name="producer"></select>
+                    <span asp-validation-for="Producer" class="text-danger"></span>
+                </div>
+
+            
+
+                <div class="form-group">
+                    <label asp-for="RegistrationYear" class="control-label"></label>
+                    <select asp-for="RegistrationYear" asp-items="Model.RegistrationYearSelectList" class="form-select"></select>
+                    <span asp-validation-for="RegistrationYear" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SinceYear" class="control-label"></label>
+                    <select asp-for="SinceYear" asp-items="Model.SinceYearSelectList" class="form-select"></select>
+                    <span asp-validation-for="SinceYear" class="text-danger"></span>
+                </div>
 
 
-            <tr>
-                <td>Year</td>
-                <td>
-                    <select name="registrationYear">
-                        <option value="0">All Years</option>
-                        <option value="2000">2000</option>
-                        <option value="2001">2001</option>
-                        <option value="2002">2002</option>
-                        <option value="2004">2004</option>
-                        <option value="2005">2005</option>
-                        <option value="2006">2006</option>
-                        <option value="2007">2007</option>
-                        <option value="2008">2008</option>
-                        <option value="2009">2009</option>
-                        <option value="2010">2010</option>
-                        <option value="2011">2011</option>
-                        <option value="2012">2012</option>
-                        <option value="2013">2013</option>
-                        <option value="2014">2014</option>
-                        <option value="2015">2015</option>
-                        <option value="2016">2016</option>
-                        <option value="2017">2017</option>
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                    </select>
-                </td>
-            </tr>
+                <div class="form-group">
+                    <label asp-for="ToYear" class="control-label"></label>
+                    <select asp-for="ToYear" asp-items="Model.ToYearSelectList" class="form-select"></select>
+                    <span asp-validation-for="ToYear" class="text-danger"></span>
+                </div>
 
 
-
-            <tr>
-                <td>Year</td>
-                <td>
-                    <select name="sinceYear">
-                        <option value="2000">2000</option>
-                        <option value="2001">2001</option>
-                        <option value="2002">2002</option>
-                        <option value="2004">2004</option>
-                        <option value="2005">2005</option>
-                        <option value="2006">2006</option>
-                        <option value="2007">2007</option>
-                        <option value="2008">2008</option>
-                        <option value="2009">2009</option>
-                        <option value="2010">2010</option>
-                        <option value="2011">2011</option>
-                        <option value="2012">2012</option>
-                        <option value="2013">2013</option>
-                        <option value="2014">2014</option>
-                        <option value="2015">2015</option>
-                        <option value="2016">2016</option>
-                        <option value="2017">2017</option>
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                    </select>
-                    To
-                    <select name="toYear">
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                        <option value="2014">2014</option>
-                        <option value="2013">2013</option>
-                        <option value="2012">2012</option>
-                        <option value="2011">2011</option>
-                        <option value="2010">2010</option>
-                        <option value="2009">2009</option>
-                        <option value="2008">2008</option>
-                        <option value="2007">2007</option>
-                        <option value="2006">2006</option>
-                        <option value="2005">2005</option>
-                        <option value="2004">2004</option>
-                        <option value="2002">2002</option>
-                        <option value="2001">2001</option>
-                        <option value="2000">2000</option>
-                    </select>
-                </td>
-            </tr>
+                <div class="form-group">
+                    <label asp-for="LocationName" class="control-label"></label>
+                    <select asp-for="LocationName" asp-items="Model.LocationSelectList" class="form-select"></select>
+                    <span asp-validation-for="LocationName" class="text-danger"></span>
+                </div>
 
 
-            <tr>
-                <td>Location</td>
-                <td>
-                    <select name="locationName">
-                        <option value="">All Locations</option>
-                        <option value="Espoo">Espoo</option>
-                        <option value="Oulu">Oulu</option>
-                        <option value="Pirkkala">Pirkkala</option>
-                        <option value="Turku">Turku</option>
-                    </select>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>PageNumber</td>
-                <td>
-                    <select name="PageNumber">
+                
+                <div class="form-group">
+                    <label asp-for="PageNumber" class="control-label"></label>
+                    <select asp-for="PageNumber" class="form-select">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -190,13 +66,13 @@
                         <option value="7">7</option>
                         <option value="8">8</option>
                     </select>
-                </td>
-            </tr>
+                    <span asp-validation-for="PageNumber" class="text-danger"></span>
+                </div>
 
-            <tr>
-                <td>PageSize</td>
-                <td>
-                    <select name="PageSize">
+
+                <div class="form-group">
+                    <label asp-for="PageSize" class="control-label"></label>
+                    <select asp-for="PageSize" class="form-select">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -204,41 +80,63 @@
                         <option value="25">25</option>
                         <option value="30">30</option>
                     </select>
-                </td>
-            </tr>
+                    <span asp-validation-for="PageSize" class="text-danger"></span>
+                </div>
 
-            <tr>
-                <td>SortBy</td>
-                <td>
-                    <select name="SortBy">
+
+                <div class="form-group">
+                    <label asp-for="SortBy" class="control-label"></label>
+                    <select asp-for="SortBy" class="form-select">
                         <option value="Id">Id</option>
                         <option value="Producer">Producer</option>
                         <option value="RegistrationYear">RegistrationYear</option>
                         <option value="NameLocation">NameLocation</option>
                         <option value="PrimaryDamage">PrimaryDamage</option>
-
                     </select>
-                </td>
-            </tr>
+                    <span asp-validation-for="SortBy" class="text-danger"></span>
+                </div>
 
-
-
-            <tr>
-                <td>SortDirection</td>
-                <td>
-                    <select name="SortDirection">
+                <div class="form-group">
+                    <label asp-for="SortDirection" class="control-label"></label>
+                    <select asp-for="SortDirection" class="form-select">
                         <option value="ASC">ASC</option>
                         <option value="DESC">DESC</option>
                     </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button></td>
-            </tr>
-        </table>
+                    <span asp-validation-for="SortDirection" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+        <br /> 
+        <br />
+        <br />
+               
     </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 </div>
 
 

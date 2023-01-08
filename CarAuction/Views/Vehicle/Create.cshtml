@@ -21,17 +21,17 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Producer" class="control-label"></label>
-                    <input asp-for="Producer" class="form-control" />
+                    <select asp-for="Producer" asp-items="Model.ProducerSelectList" class="form-select"></select>
                     <span asp-validation-for="Producer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ModelSpecifer" class="control-label"></label>
-                    <input asp-for="ModelSpecifer" class="form-control" />
+                    <input asp-for="ModelSpecifer" class="form-control" placeholder="--Select Model--"/>
                     <span asp-validation-for="ModelSpecifer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ModelGeneration" class="control-label"></label>
-                    <input asp-for="ModelGeneration" class="form-control" />
+                    <input asp-for="ModelGeneration" class="form-control" placeholder="--Select Generation--" />
                     <span asp-validation-for="ModelGeneration" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -46,17 +46,17 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="BodyType" class="control-label"></label>
-                    <input asp-for="BodyType" class="form-control" />
+                    <select asp-for="BodyType" asp-items="Model.BodyTypeSelectList" class="form-select"></select>
                     <span asp-validation-for="BodyType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Transmission" class="control-label"></label>
-                    <input asp-for="Transmission" class="form-control" />
+                    <select asp-for="Transmission" asp-items="Model.TransmissionSelectList" class="form-select"></select>
                     <span asp-validation-for="Transmission" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Drive" class="control-label"></label>
-                    <input asp-for="Drive" class="form-control" />
+                    <select asp-for="Drive" asp-items="Model.DriveSelectList" class="form-select"></select>
                     <span asp-validation-for="Drive" class="text-danger"></span>
                 </div>
 
@@ -71,17 +71,17 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Fuel" class="control-label"></label>
-                    <input asp-for="Fuel" class="form-control" />
+                    <select asp-for="Fuel" asp-items="Model.FuelSelectList" class="form-select"></select>
                     <span asp-validation-for="Fuel" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PrimaryDamage" class="control-label"></label>
-                    <input asp-for="PrimaryDamage" class="form-control" />
+                    <select asp-for="PrimaryDamage" asp-items="Model.DamageSelectList" class="form-select"></select>
                     <span asp-validation-for="PrimaryDamage" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SecondaryDamage" class="control-label"></label>
-                    <input asp-for="SecondaryDamage" class="form-control" />
+                    <select asp-for="SecondaryDamage" asp-items="Model.DamageSelectList" class="form-select"></select>
                     <span asp-validation-for="SecondaryDamage" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -101,8 +101,6 @@
                     <input asp-for="DateTime" class="form-control" />
                     <span asp-validation-for="DateTime" class="text-danger"></span>
                 </div>
-
-
             </div>
         </div>
         <br />

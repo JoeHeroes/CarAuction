@@ -1,8 +1,10 @@
 ﻿using CarAuction.Models;
 using CarAuction.Models.DTO;
 using CarAuction.Models.Enum;
+using CarAuction.Models.Selection;
 using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -22,12 +24,114 @@ namespace CarAuction.Controllers
 
         public IActionResult Finder()
         {
-            return View();
+
+            var producersTypes = SelectionListEnum.GetAllProducers();
+            var years = SelectionListEnum.GetAllYears();
+            var locations = SelectionListEnum.GetAllLocations();
+
+            var model = new SearchVehicleDto();
+
+            model.ProducerSelectList = new List<SelectListItem>();
+            model.RegistrationYearSelectList = new List<SelectListItem>();
+            model.ToYearSelectList = new List<SelectListItem>();
+            model.SinceYearSelectList = new List<SelectListItem>();
+            model.LocationSelectList = new List<SelectListItem>();
+
+
+
+
+
+
+            foreach (var producer in producersTypes)
+            {
+                model.ProducerSelectList.Add(new SelectListItem { Text = producer.Name, Value = producer.Id });
+            }
+
+
+            foreach (var year in years)
+            {
+                model.RegistrationYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
+            }
+            foreach (var year in years)
+            {
+                model.ToYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
+            }
+            foreach (var year in years)
+            {
+                model.SinceYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
+            }
+
+            foreach (var location in locations)
+            {
+                model.LocationSelectList.Add(new SelectListItem { Text = location.Name, Value = location.Id });
+            }
+
+
+
+
+
+
+            return View(model);
         }
 
         public IActionResult Create()
         {
-            return View();
+            var bodyTypes = SelectionListEnum.GetAllBodyTypes();
+
+            var damageTypes = SelectionListEnum.GetAllDamages();
+
+            var driveTypes = SelectionListEnum.GetAllDrives();
+
+            var fuelTypes = SelectionListEnum.GetAllFuels();
+
+            var producersTypes = SelectionListEnum.GetAllProducers();
+
+            var transmissionTypes = SelectionListEnum.GetAllTransmissions();
+
+            var model = new CreateVehicleDto();
+
+            model.BodyTypeSelectList = new List<SelectListItem>();
+            model.DamageSelectList = new List<SelectListItem>();
+            model.DriveSelectList = new List<SelectListItem>();
+            model.FuelSelectList = new List<SelectListItem>();
+
+
+            model.ProducerSelectList = new List<SelectListItem>();
+            model.TransmissionSelectList = new List<SelectListItem>();
+
+
+
+            foreach (var body in bodyTypes)
+            {
+                model.BodyTypeSelectList.Add(new SelectListItem { Text = body.Name, Value = body.Id });
+            }
+
+            foreach (var damage in damageTypes)
+            {
+                model.DamageSelectList.Add(new SelectListItem { Text = damage.Name, Value = damage.Id });
+            }
+
+            foreach (var drive in driveTypes)
+            {
+                model.DriveSelectList.Add(new SelectListItem { Text = drive.Name, Value = drive.Id });
+            }
+
+            foreach (var fuel in fuelTypes)
+            {
+                model.FuelSelectList.Add(new SelectListItem { Text = fuel.Name, Value = fuel.Id });
+            }
+
+            foreach (var producer in producersTypes)
+            {
+                model.ProducerSelectList.Add(new SelectListItem { Text = producer.Name, Value = producer.Id });
+            }
+
+            foreach (var transmission in transmissionTypes)
+            {
+                model.TransmissionSelectList.Add(new SelectListItem { Text = transmission.Name, Value = transmission.Id });
+            }
+
+            return View(model);
         }
 
         public IActionResult WatchList()
@@ -84,18 +188,18 @@ namespace CarAuction.Controllers
 
         [HttpPost]
         [Route("Search")]
-        public IActionResult Search(AuctionQuery query)
+        public IActionResult Search(SearchVehicleDto query)
         {
             var baseQuery = dbContext.Vehicles.Where(x => x.RegistrationYear >= query.SinceYear && x.RegistrationYear <= query.ToYear);
 
             List<string> searchPara = new List<string>();
 
 
-            if (query.Producer != Producer.none)
+            if (query.Producer != "none" && query.Producer != null)
             {
                 var baseProducer = baseQuery.Where(x => x.Producer == query.Producer);
                 baseQuery = baseProducer;
-                searchPara.Add(query.Producer.ToString());
+                searchPara.Add(query.Producer);
             }
 
             if (query.SearchName != null)
@@ -113,11 +217,11 @@ namespace CarAuction.Controllers
             }
 
 
-            if (query.LocationName != null)
+            if (query.LocationName != "none" && query.LocationName != null)
             {
                 var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
                 baseQuery = baseLocation;
-                searchPara.Add(query.LocationName.ToString());
+                searchPara.Add(query.LocationName);
             }
 
             if (query.RegistrationYear != 0)
@@ -127,11 +231,11 @@ namespace CarAuction.Controllers
                 searchPara.Add(query.RegistrationYear.ToString());
             }
 
-            if (query.Damage != Damage.none)
+            if (query.Damage != null)
             {
                 var baseDamage = baseQuery.Where(x => x.PrimaryDamage == query.Damage);
                 baseQuery = baseDamage;
-                searchPara.Add(query.Damage.ToString());
+                searchPara.Add(query.Damage);
             }
 
             string stringSearch = "";

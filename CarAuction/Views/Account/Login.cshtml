@@ -3,11 +3,11 @@
 }
 
 <h3>Login</h3>
-@ViewBag.error
-@ViewBag.msg
 <form method="post" action="@Url.Action("LoginUser", "Account")">
     <table border="0" cellpadding="2" cellspacing="2">
+        @ViewBag.msg
         <tr>
+            <div asp-validation-summary="All"></div>
             <td>Email</td>
             <td><input type="text" name="email"></td>
         </tr>

@@ -77,6 +77,13 @@ namespace UniAPI.Controllers
         [Route("RegisterUser")]
         public IActionResult Register(RegisterUserDto dto)
         {
+
+            if (dto.Password != dto.ConfirmPassword)
+            {
+                ViewBag.msg = "Invalid Password";
+                return View("Register");
+            }
+
             if (ModelState.IsValid)
             {
                 var newUser = new User()
@@ -99,7 +106,7 @@ namespace UniAPI.Controllers
                 return RedirectToAction("Welcome");
             }
             ViewBag.msg = "Invalid";
-            return View("Login");
+            return View("Register");
         }
 
         [HttpPost]
@@ -129,7 +136,7 @@ namespace UniAPI.Controllers
                 HttpContext.Session.SetString("id", user.Id.ToString());
                 return RedirectToAction("Welcome");
             }
-            return View(dto);
+            return View("Login");
         }
     }
 }

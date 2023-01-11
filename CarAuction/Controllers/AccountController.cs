@@ -4,6 +4,7 @@ using CarAuction.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace UniAPI.Controllers
 {
@@ -65,11 +66,60 @@ namespace UniAPI.Controllers
                 account.Nationality = dto.Nationality;
                 account.FirstName = dto.FirstName;
                 account.LastName = dto.LastName;
+                account.DateOfBirth = dto.DateOfBirth;
 
                 dbContext.SaveChanges();
             }
             return View("AccountSettings");
         }
+
+
+        [Route("RestartPassword")]
+        public IActionResult RestartPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("RestartPassword")]
+        public IActionResult RestartPassword(RestartPasswordDto dto)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                if (dto.NewPassword != dto.ConfirmNewPassword)
+                {
+                    ViewBag.msg = "New Password must be the same.";
+                    return View("RestartPassword");
+                }
+
+
+                if (dto.OldPassword == dto.NewPassword)
+                {
+                    ViewBag.msg = "New and Old Password and couldn't be the same";
+                    return View("RestartPassword");
+                }
+
+                var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
+
+
+                var result1 = this.passwordHasherUser.VerifyHashedPassword(account, account.PasswordHash, dto.OldPassword);
+                if (result1 == PasswordVerificationResult.Failed)
+                {
+                    ViewBag.msg = "Old password is invalid.";
+                    return View("RestartPassword");
+                }
+
+                account.PasswordHash = this.passwordHasherUser.HashPassword(account, dto.NewPassword); ;
+                this.dbContext.SaveChanges();
+
+                return RedirectToAction("Welcome");
+
+            }
+            return View("RestartPassword");
+        }
+
 
 
 

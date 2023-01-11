@@ -4,7 +4,19 @@
     ViewData["Title"] = "AccountSettings";
 }
 
-<h1>Settings</h1>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Settings</h2>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-md-4">
@@ -30,10 +42,13 @@
                 <input asp-for="Nationality" class="form-control" />
                 <span asp-validation-for="Nationality" class="text-danger"></span>
             </div>
-
+            <br/>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
+<br/>
+<a href='@Url.Action("RestartPassword", "Account")' class="btn btn-primary">Restart password</a>

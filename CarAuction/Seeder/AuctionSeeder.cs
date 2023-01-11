@@ -51,7 +51,8 @@ namespace CarAuction.Seeder
                     Email = "Espoo@Copart.fi",
                     City = "Espoo",
                     Street = "Pieni teollisuuskatu 7",
-                    PostalCode = "Uusimaa 02920"
+                    PostalCode = "Uusimaa 02920",
+                    ProfileImg = "Espoo.png"
                 },
                 new Location()
                 {
@@ -60,7 +61,8 @@ namespace CarAuction.Seeder
                     Email = "Oulu@Copart.fi",
                     City = "Oulu",
                     Street = "Ahertajantie 1",
-                    PostalCode = "North Ostrobothnia 90940"
+                    PostalCode = "North Ostrobothnia 90940",
+                    ProfileImg = "Oulu.png"
                 },
                 new Location()
                 {
@@ -69,7 +71,8 @@ namespace CarAuction.Seeder
                     Email = "Pirkkala@Copart.fi",
                     City = "Pirkkala",
                     Street = "Teollisuustie 24",
-                    PostalCode = "Pirkanmaa 33960"
+                    PostalCode = "Pirkanmaa 33960",
+                    ProfileImg = "Pirkkala.png"
                 },
                 new Location()
                 {
@@ -78,7 +81,8 @@ namespace CarAuction.Seeder
                     Email = "Turku@Copart.fi",
                     City = "Turku",
                     Street = "Tiemestarinkatu 5",
-                    PostalCode = "20360"
+                    PostalCode = "20360",
+                    ProfileImg = "Turku.png"
                 },
             };
         }
@@ -113,7 +117,7 @@ namespace CarAuction.Seeder
                     ModelGeneration = "B9",
                     RegistrationYear = 2016,
                     Color = "Grey",
-                    BodyType = BodyCar.Sedan.ToString(),
+                    BodyType = BodyCar.Combi.ToString(),
                     EngineCapacity = 1968 ,
                     EngineOutput = 110,
                     Transmission = Transmission.DualClutch.ToString(),
@@ -126,8 +130,9 @@ namespace CarAuction.Seeder
                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
-                    DateTime = new DateTime(2022,12,28),
-                    VIN = ""
+                    DateTime = new DateTime(2023,12,28),
+                    VIN = "",
+                    ProfileImg = "a4b9.png"
                 },
                 new Vehicle()
                 {
@@ -149,8 +154,10 @@ namespace CarAuction.Seeder
                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
-                    DateTime = new DateTime(2022,12,18),
-                    VIN = ""
+                    DateTime = new DateTime(2023,12,18),
+                    VIN = "",
+                    ProfileImg = "a4b6.png"
+
                 },
                 new Vehicle()
                 {
@@ -159,7 +166,7 @@ namespace CarAuction.Seeder
                     ModelGeneration = "B8",
                     RegistrationYear = 2015,
                     Color = "Black",
-                    BodyType = BodyCar.Sedan.ToString(),
+                    BodyType = BodyCar.Combi.ToString(),
                     EngineCapacity = 1598,
                     EngineOutput = 88,
                     Transmission = Transmission.DualClutch.ToString(),
@@ -172,17 +179,18 @@ namespace CarAuction.Seeder
                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
-                    DateTime = new DateTime(2022,12,16 ),
-                    VIN = ""
+                    DateTime = new DateTime(2023,12,16 ),
+                    VIN = "",
+                    ProfileImg = "passatb8.png"
                 },
                 new Vehicle()
                 {
-                    Producer = Producer.Volkswagen.ToString(),
-                    ModelSpecifer = "Passat",
-                    ModelGeneration = "B8",
+                    Producer = Producer.Skoda.ToString(),
+                    ModelSpecifer = "Octavia",
+                    ModelGeneration = "3",
                     RegistrationYear = 2015,
                     Color = "LightBlue",
-                    BodyType = BodyCar.Sedan.ToString(),
+                    BodyType = BodyCar.Liftback.ToString(),
                     EngineCapacity = 1968,
                     EngineOutput = 110,
                     Transmission = Transmission.DualClutch.ToString(),
@@ -195,8 +203,9 @@ namespace CarAuction.Seeder
                      Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
-                    DateTime = new DateTime(2022,12,30),
-                    VIN = ""
+                    DateTime = new DateTime(2023,12,30),
+                    VIN = "",
+                    ProfileImg = "octavia3.png"
                 },
                 new Vehicle()
                 {
@@ -219,7 +228,8 @@ namespace CarAuction.Seeder
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,1),
-                    VIN = ""
+                    VIN = "",
+                    ProfileImg = "polo2g.png"
                 },
                 new Vehicle()
                 {
@@ -242,7 +252,8 @@ namespace CarAuction.Seeder
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,4),
-                    VIN = ""
+                    VIN = "",
+                    ProfileImg = "yaris2.png"
                 }
             };
         }

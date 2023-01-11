@@ -89,7 +89,15 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="Actual">Join Auction</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="Today">Today Auctions</a>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Calendar</a>
+                            <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="Calendar">Auctions Calender</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="AddCalendar">Add Calendar Event</a>
                             </div>
                         </li>
 
@@ -150,7 +158,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - CarAuction - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 CarAuction
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,46 +1,63 @@
-﻿@{
+﻿@model CarAuction.Models.DTO.RegisterUserDto
+@{
     ViewData["Title"] = "Register";
 }
 
-<h3>Register Account</h3>
-<form method="post"  action="@Url.Action("RegisterUser", "Account")">
-    <table border="0" cellpadding="2" cellspacing="2">
-        @ViewBag.msg
-        <tr>
-            <div asp-validation-summary="All"></div>
-            <td>Email</td>
-            <td><input type="text" name="email"></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password"></td>
-        </tr>
-        <tr>
-            <td>ConfirmPassword</td>
-            <td><input type="password" name="confirmPassword"></td>
-        </tr>
 
-        <tr>
-            <td>FirstName</td>
-            <td><input type="text" name="firstName"></td>
-        </tr>
-        <tr>
-            <td>LastName</td>
-            <td><input type="text" name="lastName"></td>
-        </tr>
 
-        <tr>
-            <td>Nationality</td>
-            <td><input type="text" name="nationality"></td>
-        </tr>
-        <tr>
-            <td>DateOfBirth</td>
-            <td><input type="date" name="dateOfBirth" value="2000-01-01"></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Register"></td>
-        </tr>
-    </table>
-</form>
 
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Register Account</h2>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="@Url.Action("RegisterUser", "Account")">
+            @ViewBag.msg
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Nationality" class="control-label"></label>
+                <input asp-for="Nationality" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

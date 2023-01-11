@@ -15,11 +15,11 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsFullDay = table.Column<bool>(type: "bit", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Start = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    End = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AllDay = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +64,7 @@ namespace CarAuction.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Producer = table.Column<int>(type: "int", nullable: false),
+                    Producer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelSpecifer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModelGeneration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegistrationYear = table.Column<int>(type: "int", nullable: false),
@@ -72,10 +72,10 @@ namespace CarAuction.Migrations
                     BodyType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EngineCapacity = table.Column<int>(type: "int", nullable: false),
                     EngineOutput = table.Column<int>(type: "int", nullable: false),
-                    Transmission = table.Column<int>(type: "int", nullable: false),
-                    Drive = table.Column<int>(type: "int", nullable: false),
+                    Transmission = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Drive = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MeterReadout = table.Column<long>(type: "bigint", nullable: false),
-                    Fuel = table.Column<int>(type: "int", nullable: false),
+                    Fuel = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NumberKeys = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ServiceManual = table.Column<bool>(type: "bit", nullable: false),
                     SecondTireSet = table.Column<bool>(type: "bit", nullable: false),
@@ -83,12 +83,11 @@ namespace CarAuction.Migrations
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationId = table.Column<int>(type: "int", nullable: true),
                     SaleTerm = table.Column<int>(type: "int", nullable: false),
-                    PrimaryDamage = table.Column<int>(type: "int", nullable: false),
-                    SecondaryDamage = table.Column<int>(type: "int", nullable: false),
+                    PrimaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Highlights = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeLeft = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BidStatus = table.Column<bool>(type: "bit", nullable: false),
                     CurrentBid = table.Column<int>(type: "int", nullable: false),
                     SaleStatus = table.Column<bool>(type: "bit", nullable: false),

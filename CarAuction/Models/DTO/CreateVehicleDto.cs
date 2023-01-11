@@ -12,7 +12,10 @@ namespace CarAuction.Models.DTO
 
         public string ModelSpecifer { get; set; }
         public string ModelGeneration { get; set; }
+
         public int RegistrationYear { get; set; }
+        public List<SelectListItem> RegistrationYearSelectList { get; set; }
+
         public string Color { get; set; }
 
 

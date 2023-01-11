@@ -13,23 +13,15 @@
     </div>
 </div>
 
-
 <div class="row">
     
         <div class="col-md-4">
             <div class="col-sm-4">
-                <img src="~/Images/@obj.ProfileImg" width="350" height="350" asp-append-version="true" />
+                <img src="~/Images/@obj.ProfileImg" width="600" height="400" asp-append-version="true" />
             </div>
-        </div>
-
-
-        <div class="col-md-4">
-
-
+            <div class="col-sm-4">
             <table>
 
-
-                
                 <tr>
                     <th>@obj.RegistrationYear @obj.Producer @obj.ModelSpecifer</th>
                 </tr>
@@ -105,6 +97,14 @@
                 </tr>
 
             </table>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+
+
+            
         </div>
 
 
@@ -116,7 +116,7 @@
                     <tr>
                         <td width="20%">
                             <a href="@Url.Action("Lot", "Vehicle", new { lotNumber =  @objList.Id }, null)" title="Widget View" class="links">
-                                <img alt="Widget View" src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="80" height="80" asp-append-version="true">
+                                <img alt="Widget View" src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="130" height="100" asp-append-version="true">
                             </a>
                         </td>
                        
@@ -137,3 +137,5 @@
         </table>
     </div>
 </div>
+<br/>
+<br/>

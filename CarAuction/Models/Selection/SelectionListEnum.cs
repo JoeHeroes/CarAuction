@@ -6,7 +6,6 @@
         {
             return new List<ClassEnum>
             {
-                new ClassEnum() { Id="0", Name="0"},
                 new ClassEnum() { Id="2022", Name="2022"},
                 new ClassEnum() { Id="2021", Name="2021"},
                 new ClassEnum() { Id="2020", Name="2020"},
@@ -30,6 +29,7 @@
                 new ClassEnum() { Id="2002", Name="2002"},
                 new ClassEnum() { Id="2001", Name="2001"},
                 new ClassEnum() { Id="2000", Name="2000"},
+                new ClassEnum() { Id="0", Name="0"},
             };
         }
 

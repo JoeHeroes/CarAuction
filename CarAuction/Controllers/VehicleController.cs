@@ -6,6 +6,7 @@ using CarAuction.Models.View;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CarAuction.Controllers
@@ -36,9 +37,6 @@ namespace CarAuction.Controllers
             model.ToYearSelectList = new List<SelectListItem>();
             model.SinceYearSelectList = new List<SelectListItem>();
             model.LocationSelectList = new List<SelectListItem>();
-
-
-
 
 
 
@@ -88,12 +86,15 @@ namespace CarAuction.Controllers
 
             var transmissionTypes = SelectionListEnum.GetAllTransmissions();
 
+            var years = SelectionListEnum.GetAllYears();
+
             var model = new CreateVehicleDto();
 
             model.BodyTypeSelectList = new List<SelectListItem>();
             model.DamageSelectList = new List<SelectListItem>();
             model.DriveSelectList = new List<SelectListItem>();
             model.FuelSelectList = new List<SelectListItem>();
+            model.RegistrationYearSelectList = new List<SelectListItem>();
 
 
             model.ProducerSelectList = new List<SelectListItem>();
@@ -130,6 +131,11 @@ namespace CarAuction.Controllers
             {
                 model.TransmissionSelectList.Add(new SelectListItem { Text = transmission.Name, Value = transmission.Id });
             }
+            foreach (var year in years)
+            {
+                model.RegistrationYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
+            }
+
 
             return View(model);
         }
@@ -373,10 +379,12 @@ namespace CarAuction.Controllers
                 VehicleMany = vehicle,
             };
 
-            this.dbContext.Watches.Add(observed);
+            if(this.dbContext.Watches.FirstOrDefault(x => x.VehicleId == lotNumber) == null)
+            {
+                this.dbContext.Watches.Add(observed);
+            }
 
             vehicle.Watch = true;
-
 
             try
             {
@@ -386,7 +394,6 @@ namespace CarAuction.Controllers
             {
                 throw new DbUpdateException("Error DataBase", e);
             }
-
 
             return RedirectToAction("Lot", new { @lotNumber = lotNumber });
         }
@@ -461,11 +468,6 @@ namespace CarAuction.Controllers
             }
             return View(vehiclesView);
         }
-
-
-
-
-
 
 
         [Route("BindList")]

@@ -1,26 +1,79 @@
 ﻿using CarAuction.Models;
+using CarAuction.Models.DTO;
 using CarAuction.Models.View;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarAuction.Controllers
 {
     public class CalendarController : Controller
     {
-        public IActionResult Index()
+        private readonly AuctionDbContext dbContext;
+        private readonly IPasswordHasher<User> passwordHasherUser;
+        private readonly AuthenticationSettings authenticationSetting;
+
+        public CalendarController(AuctionDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+
+        public IActionResult AddCalendar()
         {
             return View();
         }
 
+        public IActionResult AddEvent(EventDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var newEvent = new Event()
+                {
+                    Title = dto.Title,
+                    Start = dto.StartDate.ToString("yyyy-MM-dd"),
+                    End = dto.StartDate.ToString("yyyy-MM-dd"),
+                    Color = dto.BackgroundColor,
+                    AllDay= true,
+                };
+
+                
+                this.dbContext.Events.Add(newEvent);
+                this.dbContext.SaveChanges();
+
+                return RedirectToAction("Calendar");
+            }
+            return View("AddEvent");
+        }
+
+
         [Route("Calendar")]
         public IActionResult Calendar()
         {
-            ViewData["events"] = new[]
+            var events = this.dbContext.Events.ToList();
+
+            List<EventViewModel> listEvent = new();
+
+            int i = 1;
+
+            foreach (var eve in events)
             {
-                new EventViewModel { Id = 1, Title = "Video for Marisa", StartDate = "2023-01-14", BackgroundColor = "#8A2BE2", AllDay = true},
-                new EventViewModel { Id = 2, Title = "Preparation", StartDate = "2023-01-12", BackgroundColor = "#A52A2A", AllDay = false},
-            };
+                listEvent.Add(new EventViewModel 
+                { 
+                    Id = i,
+                    Title = eve.Title, 
+                    StartDate = eve.Start,
+                    EndDate = eve.End,
+                    BackgroundColor = eve.Color, 
+                    AllDay = eve.AllDay
+                });
+                i++;
+            }
+
+            ViewData["events"] = listEvent;
 
             return View();
+
+
         }
     }
 }

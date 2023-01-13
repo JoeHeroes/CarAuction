@@ -35,10 +35,16 @@
                 <ul class="navbar-nav">
                     @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                     {
-                        <li class="nav-item">@dbContext.Vehicles.ToList().Count()
-                            <img src="~/Images/@dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(@HttpContextAccessor.HttpContext.Session.GetString("id"))).ProfileImg" width="35" height="35" asp-append-version="true" />
+                        <li class="nav-item">
+                            @if (@dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(@HttpContextAccessor.HttpContext.Session.GetString("id"))).ProfileImg != null)
+                            {
+                                <a href="@Url.Action("Profile", "Account")" title="Profile" class="links">
+                                    <img style="border-radius: 50%;" src="~/Images/@dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(@HttpContextAccessor.HttpContext.Session.GetString("id"))).ProfileImg" width="40" height="40" asp-append-version="true" />
+                                </a>
+                            }
+                            
 
-                            <a class="navbar-text text-white" asp-controller="Account" asp-action="Profile" title="Login">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+                            <a class="navbar-text text-white" asp-controller="Account" asp-action="Profile" title="Login">@HttpContextAccessor.HttpContext.Session.GetString("name")</a>
                         </li>
                     }
                 </ul>

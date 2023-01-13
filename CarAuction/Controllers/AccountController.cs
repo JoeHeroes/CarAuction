@@ -1,6 +1,7 @@
 ﻿using CarAuction;
 using CarAuction.Models;
 using CarAuction.Models.DTO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,14 @@ namespace UniAPI.Controllers
         private readonly AuctionDbContext dbContext;
         private readonly IPasswordHasher<User> passwordHasherUser;
         private readonly AuthenticationSettings authenticationSetting;
+        private readonly IWebHostEnvironment webHost;
 
-        public AccountController(AuctionDbContext dbContext, IPasswordHasher<User> passwordHasherUser, AuthenticationSettings authenticationSetting)
+        public AccountController(AuctionDbContext dbContext, IPasswordHasher<User> passwordHasherUser, AuthenticationSettings authenticationSetting, IWebHostEnvironment webHost)
         {
             this.dbContext = dbContext;
             this.passwordHasherUser = passwordHasherUser;
             this.authenticationSetting = authenticationSetting;
+            this.webHost = webHost;
         }
 
         [Route("Login")]
@@ -48,17 +51,25 @@ namespace UniAPI.Controllers
             ViewBag.username = HttpContext.Session.GetString("name");
             return View("Welcome");
         }
-
-        [Route("AccountSettings")]
-        public IActionResult AccountSettings()
+        [Route("Profile")]
+        public IActionResult Profile()
         {
             var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
             return View(account);
         }
 
+
+        [Route("ProfileEdit")]
+        public IActionResult ProfileEdit(int id)
+        {
+            var account = dbContext.Users.FirstOrDefault(x => x.Id == id);
+
+            return View(account);
+        }
+
         [HttpPost]
-        [Route("AccountSettings")]
-        public IActionResult AccountSettings(EditUserDto dto)
+        [Route("ProfileEdit")]
+        public IActionResult ProfileEdit(EditUserDto dto)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +81,63 @@ namespace UniAPI.Controllers
 
                 dbContext.SaveChanges();
             }
-            return View("AccountSettings");
+            return View("ProfileEdit");
         }
 
+        [Route("SelectPicture")]
+        public IActionResult SelectPicture()
+        {
+            var dto = new PictureDto();
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        [Route("SelectPicture")]
+        public IActionResult SelectPicture(PictureDto dto)
+        {
+
+
+            string stringFileName = UploadFile(dto);
+            if (ModelState.IsValid)
+            {
+                var model = this.dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
+                model.ProfileImg = stringFileName;
+
+                HttpContext.Session.SetString("img", stringFileName);
+
+                try
+                {
+                    this.dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
+
+                return RedirectToAction("Profile");
+            }
+
+            return View(dto);
+
+        }
+
+
+        private string UploadFile(PictureDto dto)
+        {
+            string fileName = null;
+            if (dto.PathPic != null)
+            {
+                string uploadDir = Path.Combine(webHost.WebRootPath, "Images");
+                fileName = Guid.NewGuid().ToString() + "-" + dto.PathPic.FileName;
+                string filePath = Path.Combine(uploadDir, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    dto.PathPic.CopyTo(fileStream);
+                }
+            }
+            return fileName;
+        }
 
         [Route("RestartPassword")]
         public IActionResult RestartPassword()
@@ -120,7 +185,35 @@ namespace UniAPI.Controllers
             return View("RestartPassword");
         }
 
+        [HttpPost]
+        [Route("LoginUser")]
+        public IActionResult Login(LoginDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = this.dbContext
+                                .Users
+                                .Include(u => u.Role)
+                                .FirstOrDefault(u => u.Email == dto.Email);
 
+                if (user is null)
+                {
+                    ViewBag.msg = "Email or password is invalid.";
+                    return View("Login");
+                }
+
+                var result = this.passwordHasherUser.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+                if (result == PasswordVerificationResult.Failed)
+                {
+                    ViewBag.msg = "Email or password is invalid.";
+                    return View("Login");
+                }
+                HttpContext.Session.SetString("name", user.FirstName + " " + user.LastName);
+                HttpContext.Session.SetString("id", user.Id.ToString());
+                return RedirectToAction("Welcome");
+            }
+            return View("Login");
+        }
 
 
         [HttpPost]
@@ -157,36 +250,6 @@ namespace UniAPI.Controllers
             }
             ViewBag.msg = "Invalid";
             return View("Register");
-        }
-
-        [HttpPost]
-        [Route("LoginUser")]
-        public IActionResult Login(LoginDto dto)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = this.dbContext
-                                .Users
-                                .Include(u => u.Role)
-                                .FirstOrDefault(u => u.Email == dto.Email);
-
-                if (user is null)
-                {
-                    ViewBag.msg = "Email or password is invalid.";
-                    return View("Login");
-                }
-
-                var result = this.passwordHasherUser.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
-                if (result == PasswordVerificationResult.Failed)
-                {
-                    ViewBag.msg = "Email or password is invalid.";
-                    return View("Login");
-                }
-                HttpContext.Session.SetString("name", user.LastName+" "+user.FirstName);
-                HttpContext.Session.SetString("id", user.Id.ToString());
-                return RedirectToAction("Welcome");
-            }
-            return View("Login");
         }
     }
 }

@@ -15,5 +15,6 @@ namespace CarAuction.Models
         public virtual Role Role { get; set; } = null!;
         public List<Watch> Observed { get; set; }
         public List<CurrentBind> CurrentBinds { get; set; }
+        public string ProfileImg { get; set; } = null;
     }
 }

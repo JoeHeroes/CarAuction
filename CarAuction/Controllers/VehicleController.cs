@@ -39,12 +39,10 @@ namespace CarAuction.Controllers
             model.LocationSelectList = new List<SelectListItem>();
 
 
-
             foreach (var producer in producersTypes)
             {
                 model.ProducerSelectList.Add(new SelectListItem { Text = producer.Name, Value = producer.Id });
             }
-
 
             foreach (var year in years)
             {
@@ -63,11 +61,6 @@ namespace CarAuction.Controllers
             {
                 model.LocationSelectList.Add(new SelectListItem { Text = location.Name, Value = location.Id });
             }
-
-
-
-
-
 
             return View(model);
         }

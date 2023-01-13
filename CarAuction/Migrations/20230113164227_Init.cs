@@ -116,7 +116,8 @@ namespace CarAuction.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

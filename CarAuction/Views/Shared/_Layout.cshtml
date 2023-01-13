@@ -35,8 +35,10 @@
                 <ul class="navbar-nav">
                     @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                     {
-                        <li class="nav-item">
-                            <a class="navbar-text text-white" asp-controller="Account" asp-action="AccountSettings" title="Login">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("name")</a>
+                        <li class="nav-item">@dbContext.Vehicles.ToList().Count()
+                            <img src="~/Images/@dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(@HttpContextAccessor.HttpContext.Session.GetString("id"))).ProfileImg" width="35" height="35" asp-append-version="true" />
+
+                            <a class="navbar-text text-white" asp-controller="Account" asp-action="Profile" title="Login">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("name")</a>
                         </li>
                     }
                 </ul>

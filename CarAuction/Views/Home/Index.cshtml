@@ -1,14 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-</br>
-</br>
+
+<br />
+<br />
 <div class="text-center">
     <h1 class="display-4">100% Online Auto Auctions</h1>
     <h2>Used and Damaged Cars, Motorcycles & More for Sale</h2>
 </div>
 
 <h2>Make</h2>
+<hr/>
 <form method="post" action="@Url.Action("Search", "Vehicle")">
     <div>
         <button class="navbar-toggler" type="submit" value="Alfa Romeo" name="producer">Alfa Romeo</button>
@@ -47,9 +49,8 @@
 
 
     <h2>Damage</h2>
+    <hr />
     <div>
-
-
         <button class="navbar-toggler" type="submit" value="All_Over" name="damage">All Over</button>
         <button class="navbar-toggler" type="submit" value="Burn" name="damage">Burn</button>
         <button class="navbar-toggler" type="submit" value="Burn_Engine" name="damage">Burn Engine</button>
@@ -65,7 +66,5 @@
         <button class="navbar-toggler" type="submit" value="Undercarriagee" name="damage">Undercarriage</button>
         <button class="navbar-toggler" type="submit" value="Unknown" name="damage">Unknown</button>
         <button class="navbar-toggler" type="submit" value="Vandalism" name="damage">Vandalism</button>
-
     </div>
-
 </form>

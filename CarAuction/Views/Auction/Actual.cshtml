@@ -13,10 +13,11 @@
     </div>
 </div>
 <hr />
+<br/>
 <div class="row">
         <div class="col-md-4">
             <div class="col-sm-4">
-                <img src="~/Images/@obj.ProfileImg" width="600" height="400" asp-append-version="true" />
+            <img src="~/Images/@obj.ProfileImg" width="320" height="240" asp-append-version="true" />
             </div>
             <div class="col-sm-4">
             <table>
@@ -110,12 +111,12 @@
     <div class="col-md-4">
         <table class="table table-bordered table-striped" style="overflow-x:auto;">
             <tbody>
-                @foreach (var objList in Model)
+                @foreach (var objList in Model) 
                 {
                     <tr>
                         <td width="20%">
                             <a href="@Url.Action("Lot", "Vehicle", new { lotNumber =  @objList.Id }, null)" title="Widget View" class="links">
-                                <img src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="130" height="100" asp-append-version="true">
+                                <img src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="160" height="80" asp-append-version="true">
                             </a>
                         </td>
                        
@@ -134,6 +135,8 @@
                 }
             </tbody>
         </table>
+        <br />
+        <br />
     </div>
 </div>
 <br/>

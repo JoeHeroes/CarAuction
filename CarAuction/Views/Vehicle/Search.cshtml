@@ -57,28 +57,11 @@
             <tr>
                 <td width="10%">
                     <a href="@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)" title="@obj.Producer" class="links">
-                        <img src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="200" height="150" asp-append-version="true">
+                        <img src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="110" asp-append-version="true">
                     </a>
                 </td>
                 <td width="22%">
                     @obj.LotNumber
-                    @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
-                    {
-                        
-
-
-                        @if (@obj.Watch == true)
-                        {
-                            <a href='@Url.Action("RemoveWatch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Remove</a>
-                        }
-                        else
-                        {
-                            <a href='@Url.Action("Watch", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Watch</a>
-                        }
-
-
-                    }
-                    
                 <td width="8%">
                     @obj.RegistrationYear
                 </td>

@@ -208,7 +208,7 @@ namespace UniAPI.Controllers
                     ViewBag.msg = "Email or password is invalid.";
                     return View("Login");
                 }
-                HttpContext.Session.SetString("name", user.FirstName + " " + user.LastName);
+                HttpContext.Session.SetString("name", "  " + user.FirstName + " " + user.LastName);
                 HttpContext.Session.SetString("id", user.Id.ToString());
                 return RedirectToAction("Welcome");
             }

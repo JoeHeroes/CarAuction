@@ -293,6 +293,25 @@
                     </tr>
 
                     </form>
+
+                    @if (@Model.Watch == true)
+                    {
+                        <form method="post" class="d-flex" action="@Url.Action("RemoveWatch", "Vehicle",  new { lotNumber = Model.Id })">
+                        <tr>
+                            <td><button style="color: blue; background-color:lightskyblue; border: 2px solid blue; font-weight: bold;" class="btn btn-secondary my-2 my-sm-0" type="submit"><span style="color: yellow;">★</span> Remove</button></td>
+                        </tr>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" class="d-flex" action="@Url.Action("Watch", "Vehicle",  new { lotNumber = Model.Id })">
+                        <tr>
+                            <td><button style="color: blue; background-color:lightskyblue; border: 2px solid blue; font-weight: bold;" class="btn btn-secondary my-2 my-sm-0" type="submit">★ Watch</button></td>
+                        </tr>
+                        </form>
+                    }
+
+
                 }
             }
            

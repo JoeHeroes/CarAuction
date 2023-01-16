@@ -15,11 +15,16 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h1 class="text-primary">Watchlist</h1>
+            <h1 class="text-primary">WatchList</h1>
         </div>
     </div>
 </div>
 <hr />
+<br />
+
+
+
+
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
@@ -60,24 +65,23 @@
         {
             <tr>
                 <td width="10%">
-                    <a href="@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)" title="Widget View" class="links">
-                        <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="110" asp-append-version="true">
+                    <a href="@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)" title="@obj.Producer" class="links">
+                        <img src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="110" asp-append-version="true">
                     </a>
                 </td>
-                <td width="30%">
+                <td width="22%">
                     @obj.LotNumber
-                </td>
-                <td width="30%">
+                <td width="8%">
                         @obj.RegistrationYear
                 </td>
                 <td width="10%">
                         @obj.Producer
                 </td>
-                <td width="210%">
+                <td width="20%">
                         @obj.ModelSpecifer
                 </td>
                 <td width="20%">
-                        @obj.DateTime.ToString("MM/dd/yyyy hh:mm tt")
+                        @obj.DateTime.ToString("MM/dd/yyyy hh:mm")
                 </td>
                 <td width="15%">
                         @obj.MeterReadout

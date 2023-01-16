@@ -9,7 +9,6 @@ using System.Security.Principal;
 
 namespace UniAPI.Controllers
 {
-    [Route("Account")]
     public class AccountController: Controller
     {
         private readonly AuctionDbContext dbContext;
@@ -186,7 +185,7 @@ namespace UniAPI.Controllers
         }
 
         [HttpPost]
-        [Route("LoginUser")]
+        [Route("Login")]
         public IActionResult Login(LoginDto dto)
         {
             if (ModelState.IsValid)
@@ -217,7 +216,7 @@ namespace UniAPI.Controllers
 
 
         [HttpPost]
-        [Route("RegisterUser")]
+        [Route("Register")]
         public IActionResult Register(RegisterUserDto dto)
         {
 

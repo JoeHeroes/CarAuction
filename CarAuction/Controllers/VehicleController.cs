@@ -22,7 +22,7 @@ namespace CarAuction.Controllers
             this.dbContext = dbContext;
             this.webHost = webHost;
         }
-
+        [Route("Finder")]
         public IActionResult Finder()
         {
 
@@ -65,6 +65,7 @@ namespace CarAuction.Controllers
             return View(model);
         }
 
+        [Route("Create")]
         public IActionResult Create()
         {
             var bodyTypes = SelectionListEnum.GetAllBodyTypes();
@@ -88,12 +89,8 @@ namespace CarAuction.Controllers
             model.DriveSelectList = new List<SelectListItem>();
             model.FuelSelectList = new List<SelectListItem>();
             model.RegistrationYearSelectList = new List<SelectListItem>();
-
-
             model.ProducerSelectList = new List<SelectListItem>();
             model.TransmissionSelectList = new List<SelectListItem>();
-
-
 
             foreach (var body in bodyTypes)
             {
@@ -138,8 +135,8 @@ namespace CarAuction.Controllers
             return View();
         }
 
-
         [HttpPost]
+        [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
 
@@ -302,7 +299,7 @@ namespace CarAuction.Controllers
             }
             return View(vehiclesView);
         }
-
+        [Route("Lot")]
         public IActionResult Lot(int lotNumber)
         {
             Vehicle vehicle = this.dbContext
@@ -313,6 +310,7 @@ namespace CarAuction.Controllers
         }
 
         [HttpPost]
+        [Route("UpdateBid")]
         public IActionResult UpdateBid(int lotNumber, int bidNow)
         {
             Vehicle vehicle = this.dbContext
@@ -424,7 +422,6 @@ namespace CarAuction.Controllers
         {
             int id = int.Parse(HttpContext.Session.GetString("id"));
 
-
             var watch = this.dbContext.Watches.Where(x => x.UserId == id);
 
             List<Vehicle> vehicles = new List<Vehicle>();
@@ -513,12 +510,6 @@ namespace CarAuction.Controllers
             }
             return View(vehiclesView);
         }
-
-
-
-
-
-
 
 
         [Route("LotsWon")]
@@ -624,11 +615,3 @@ namespace CarAuction.Controllers
         }
     }
 }
-
-    
-
-
-
-
-
-

@@ -4,8 +4,12 @@
     ViewData["Title"] = "CurrentBinds";
 
     
-}
-
+}<style>
+     td {
+         text-align: center;
+         vertical-align: middle;
+     }
+</style>
 
 
 <div class="container p-3">
@@ -57,23 +61,23 @@
             <tr>
                 <td width="10%">
                     <a href="@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber }, null)" title="Widget View" class="links">
-                        <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="90" asp-append-version="true">
+                        <img alt="Widget View" src='@Url.Content("~/Images/"+@obj.ProfileImg)' width="160" height="110" asp-append-version="true">
                     </a>
                 </td>
-                <td width="30%">
+                <td width="22%">
                     @obj.LotNumber
                 </td>
-                <td width="30%">
+                <td width="8%">
                     @obj.RegistrationYear
                 </td>
                 <td width="10%">
                     @obj.Producer
                 </td>
-                <td width="210%">
+                <td width="20%">
                     @obj.ModelSpecifer
                 </td>
                 <td width="20%">
-                    @obj.DateTime.ToString("MM/dd/yyyy hh:mm tt")
+                    @obj.DateTime.ToString("MM/dd/yyyy hh:mm")
                 </td>
                 <td width="15%">
                     @obj.MeterReadout

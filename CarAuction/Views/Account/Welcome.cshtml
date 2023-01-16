@@ -7,15 +7,23 @@
 <div class="text-center">
     @if (@ViewBag.username != null)
     {
-        <h1>Welcome @ViewBag.username</h1>
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        <br />
+        <br />
+        <br />
+        <div class="text-center">
+            <h1>Welcome, @ViewBag.username</h1>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        </div>
     }
     else
     {
-        <h1>Registration Correct</h1>
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+        <br />
+        <br />
+        <br />
+        <div class="text-center">
+            <h1>Registration Correct</h1>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+        </div>
     }
-
-
 </div>
 

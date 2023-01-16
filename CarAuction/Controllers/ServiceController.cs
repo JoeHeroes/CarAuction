@@ -21,7 +21,7 @@ namespace CarAuction.Controllers
 
         [HttpPost]
         [Route("SendEmail")]
-        public IActionResult SendEmail(EmialDto emailDto)
+        public IActionResult SendEmail(EmailDto emailDto)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace CarAuction.Controllers
                 {
                     var senderEmail = new MailAddress(emailDto.Email, "Sender");
                     var receiverEmail = new MailAddress("Copart@wp.pl", "Receiver");
-                    var password = "Your Email Password here";
+                    var password = emailDto.Password;
                     var smtp = new SmtpClient
                     {
                         Host = "smtp.gmail.com",

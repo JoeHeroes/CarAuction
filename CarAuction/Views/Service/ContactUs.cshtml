@@ -1,6 +1,7 @@
-﻿
+﻿@model CarAuction.Models.DTO.EmailDto
+@inject IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "ContactUs";
+    ViewData["Title"] = "Contact Us";
 }
 
 <div class="container p-3">
@@ -12,55 +13,45 @@
 </div>
 <hr />
 
-<form method="post" action="@Url.Action("SendEmail", "Service")">
-    <table border="0" cellpadding="2" cellspacing="2">
+@if (@HttpContextAccessor.HttpContext.Session.GetString("id") == null)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <a href='@Url.Action("Login", "Account")' class="btn btn-primary">Login to Bid</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" action="@Url.Action("SendEmail", "Service")">
+                @ViewBag.msg
+                <div asp-validation-summary="All" class="text-danger"></div>
+               
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" type="password" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Body" class="control-label"></label>
+                    <input asp-for="Body" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Send" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
 
 
-        <tr>
-            <td>First Name</td>
-            <td>
-                <input type="text" name="FirstName">
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>Last Name</td>
-            <td>
-                <input type="text" name="LastName">
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>Email</td>
-            <td>
-                <input type="text" name="Email">
-            </td>
-        </tr>
-
-
-        <tr>
-            <td>Subject of Enquiry</td>
-            <td>
-                <input type="text" name="Subject">
-            </td>
-        </tr>
-
-
-
-        <tr>
-            <td>Body</td>
-            <td>
-                <input type="text" name="Body">
-            </td>
-        </tr>
-
-
-
-        <tr>
-            <td>&nbsp;</td>
-            <td><button class="btn btn-secondary my-2 my-sm-0" type="submit">Send</button></td>
-        </tr>
-    </table>
-    </form>

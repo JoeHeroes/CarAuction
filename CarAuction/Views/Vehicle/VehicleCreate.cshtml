@@ -1,7 +1,7 @@
 ﻿@model CarAuction.Models.Vehicle
 
 @{
-    ViewData["Title"] = "VehicleCreate";
+    ViewData["Title"] = "Vehicle Created";
 }
 
 <div class="container p-3">
@@ -14,9 +14,12 @@
 <br />
 <br />
 <div>
-    <div>
-        <img src="~/Images/@Model.ProfileImg" width="300" height="300" asp-append-version="true" />
-    </div>
+    @if (@Model.ProfileImg=="")
+    {
+        <div>
+            <img src="~/Images/@Model.ProfileImg" width="400" height="300" asp-append-version="true" />
+        </div>
+    }
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)

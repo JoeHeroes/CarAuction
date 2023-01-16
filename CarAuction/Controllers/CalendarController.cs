@@ -17,7 +17,7 @@ namespace CarAuction.Controllers
             this.dbContext = dbContext;
         }
 
-
+        [Route("AddCalendar")]
         public IActionResult AddCalendar()
         {
             return View();

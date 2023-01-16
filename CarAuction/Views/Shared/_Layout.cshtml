@@ -15,12 +15,13 @@
     <link rel="stylesheet" href="~/CarAuction.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/js/clock.js"></script>
+    <link rel="shortcut icon" href="~/icon/c.ico">
 </head>
 <body onload="odliczanie();">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Copart</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index" style="font-weight: bold;">Copart</a>
                 
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto"></ul>
@@ -29,8 +30,6 @@
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-
-
 
                 <ul class="navbar-nav">
                     @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
@@ -42,29 +41,20 @@
                                     <img style="border-radius: 50%;" src="~/Images/@dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(@HttpContextAccessor.HttpContext.Session.GetString("id"))).ProfileImg" width="40" height="40" asp-append-version="true" />
                                 </a>
                             }
-                            
 
                             <a class="navbar-text text-white" asp-controller="Account" asp-action="Profile" title="Login">@HttpContextAccessor.HttpContext.Session.GetString("name")</a>
                         </li>
                     }
                 </ul>
-
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-white"><b>@dbContext.Vehicles.ToList().Count()</b> Vehicle on Sale </a>
                     </li>
                     <li class="nav-item">
                         
-                        <a class="nav-link text-white"><div style="width:50px;font-weight:bold" id="clock"></div></a>
+                        <a class="nav-link text-white"><div style="width:60px;font-weight:bold" id="clock"></div></a>
                     </li>
                 </ul>
-           
-              
-
-
-
-                
-
             </div>
         </nav>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -77,7 +67,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Find a Vehicle</a>
                             <div class="dropdown-menu">
@@ -86,12 +75,10 @@
 
                                 @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                                 {
-                                    <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="WatchList">WatchList</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Watchlist">Watch List</a>
                                 }
                             </div>
                         </li>
-
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Auctions</a>
                             <div class="dropdown-menu">
@@ -99,8 +86,6 @@
                                 <a class="dropdown-item" asp-area="" asp-controller="Auction" asp-action="Today">Today Auctions</a>
                             </div>
                         </li>
-
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Calendar</a>
                             <div class="dropdown-menu">
@@ -109,9 +94,7 @@
                             </div>
                         </li>
 
-
-
-                         @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
+                        @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bid Status</a>
@@ -119,19 +102,9 @@
                                     <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="BindList">Current Bids</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="LotsWon">Lots Won</a>
                                     <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="LotsLost">Lots Lost</a>
-               
                                 </div>
                             </li>
-                        
                         }
-
-                  
-
-
-
-
-
-
 
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Location" asp-action="Locations">Location</a>

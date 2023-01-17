@@ -20,8 +20,8 @@ namespace CarAuction.Models.DTO
         public DateTime? DateOfBirth { get; set; }
         [Required]
         public int RoleId { get; set; } = 1;
-        //1 Admin 
-        //2 Moderator
-        //3 Użytkownik
+        //1 Buyer 
+        //2 Seller
+        //3 Admin
     }
 }

@@ -15,13 +15,26 @@ namespace CarAuction.Controllers
         [Route("Actual")]
         public IActionResult Actual()
         {
-            var auction = this.dbContext.Vehicles.ToList();
-            return View(auction);
+            var auction = dbContext.Vehicles.Where(x => x.DateTime <= DateTime.Now && x.DateTime.AddHours(2) >= DateTime.Now);
+            if (auction.Any() == true)
+            {
+                return View(auction);
+            }
+
+            return View("NoLive");
         }
+
+        [Route("NoLive")]
+        public IActionResult NoLive()
+        {
+            return View();
+        }
+
+
         [Route("Today")]
         public IActionResult Today()
         {
-            var auction = dbContext.Vehicles.Where(x => x.DateTime == DateTime.Now);
+            var auction = dbContext.Vehicles.Where(x => x.DateTime.Date == DateTime.Now.Date);
 
             List<VehicleView> vehiclesView = new List<VehicleView>();
 

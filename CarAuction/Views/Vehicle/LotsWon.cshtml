@@ -89,6 +89,7 @@
                 </td>
                 <td width="20%">
                         @obj.CurrentBid
+                        <br />
                         @if (@obj.DateTime.Subtract(DateTime.Now).Seconds <= 0)
                         {
                             if (@HttpContextAccessor.HttpContext.Session.GetString("id") == @obj.WinnerId.ToString())
@@ -113,7 +114,14 @@
                         }
                 </td>
                 <td width="15%">
-                    <a href='@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
+
+                    @if (@obj.DateTime.Subtract(DateTime.Now).Minutes > 0)
+                    {
+                        <a href='@Url.Action("Lot", "Vehicle", new { lotNumber = @obj.LotNumber })' class="btn btn-secondary my-2 my-sm-0">Bid Now</a>
+                    }
+                    else{
+                        <b>SOLD END</b>
+                    }
                 </td>
             </tr>
         }

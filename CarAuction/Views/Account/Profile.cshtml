@@ -19,12 +19,12 @@
 
 @if (Model.ProfileImg != null)
 {
-    <div>
+    <div class="text-center">
         <img style="border-radius: 50%;" src='@Url.Content("~/Images/"+ Model.ProfileImg)' width="400" height="400" asp-append-version="true">
     </div>
     <hr />
 }
-<div>
+<div class="text-center">
     <a href='@Url.Action("SelectPicture", "Account")' class="btn btn-primary">Select Picture</a>
 </div>
 <hr />

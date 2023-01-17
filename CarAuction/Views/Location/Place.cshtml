@@ -11,32 +11,34 @@
     </div>
 </div>
 <hr />
+<br />
 <div class="row">
 
     <div class="col-md-4">
-        <img src="~/Images/@Model.ProfileImg" width="350" height="350" asp-append-version="true" />
-        <p>
-            Copart Finland Premium and Basic Members may preview vehicles at @Model.City yard between 9-16 on weekdays. Guest Members may also preview vehicles between 9-16 on weekdays by paying Guest fee according to the price list.
-        </p>
+        <img src="~/Images/@Model.ProfileImg" width="600" height="350" asp-append-version="true" />
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
+    </div>
+    <br />
+    <div class="col-md-2">
         <h5><i class="fa fa-phone"></i> Phone:</h5>
         <p>@Model.Phone</p>
-
+        <br />
         <h5><i class="fa fa-clock-o"></i> Hours:</h5>
         <p>Monday - Friday</p>
         <p>09:00 - 17:00</p>
-
+        <br />
         <h5><i class="fa fa-envelope"></i> Email:</h5>
         <p>@Model.Email</p>
 
     </div>
-    <div class="col-md-4">
+    <br />
+    <div class="col-md-2">
         <h5><i class="fa fa-home"></i> Physical Address:</h5>
 
         <p>@Model.Street</p>
         <p>@Model.City, @Model.PostalCode</p>
-
+        <br /><br /><br />
         <h5><i class="fa fa-envelope"></i> Mailing Address:</h5>
         <p>@Model.Street</p>
         <p>@Model.City, @Model.PostalCode</p>

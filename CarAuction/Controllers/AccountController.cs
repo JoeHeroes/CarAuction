@@ -1,11 +1,9 @@
 ﻿using CarAuction;
 using CarAuction.Models;
 using CarAuction.Models.DTO;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
 
 namespace UniAPI.Controllers
 {
@@ -41,6 +39,7 @@ namespace UniAPI.Controllers
         {
             HttpContext.Session.Remove("name");
             HttpContext.Session.Remove("id");
+            HttpContext.Session.Remove("role");
             return RedirectToAction("Login");
         }
 
@@ -178,7 +177,7 @@ namespace UniAPI.Controllers
                 account.PasswordHash = this.passwordHasherUser.HashPassword(account, dto.NewPassword); ;
                 this.dbContext.SaveChanges();
 
-                return RedirectToAction("Welcome");
+                return RedirectToAction("Profile");
 
             }
             return View("RestartPassword");
@@ -209,6 +208,19 @@ namespace UniAPI.Controllers
                 }
                 HttpContext.Session.SetString("name", "  " + user.FirstName + " " + user.LastName);
                 HttpContext.Session.SetString("id", user.Id.ToString());
+                if (user.RoleId == 1)
+                {
+                    HttpContext.Session.SetString("role", "Buyer");
+                }
+                else if (user.RoleId == 2)
+                {
+                    HttpContext.Session.SetString("role", "Seller");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("role", "Admin");
+                }
+                    
                 return RedirectToAction("Welcome");
             }
             return View("Login");

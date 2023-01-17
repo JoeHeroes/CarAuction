@@ -41,6 +41,7 @@
                 <div class="form-group">
                     <label asp-for="Color" class="control-label"></label>
                     <select asp-for="Color" class="form-select">
+                        <option value="">Select Color</option>
                         <option value="yellow">Yellow</option>
                         <option value="white">White</option>
                         <option value="red">Red</option>
@@ -115,7 +116,7 @@
                 <br />
                 <div class="form-control">
                     <label asp-for="DateTime" class="control-label"></label>
-                    <input asp-for="DateTime" value=@DateTime.Now class="form-control" />
+                    <input asp-for="DateTime" value=@DateTime.Now type="date" class="form-control" />
                     <span asp-validation-for="DateTime" class="text-danger"></span>
                 </div>
             </div>

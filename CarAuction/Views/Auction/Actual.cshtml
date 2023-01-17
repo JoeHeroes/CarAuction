@@ -19,7 +19,7 @@
             <div class="col-sm-4">
             <img src="~/Images/@obj.ProfileImg" width="400" height="300" asp-append-version="true" />
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
             <table>
 
                 <tr>
@@ -90,12 +90,6 @@
                     <td>Fuel:</td>
                     <td>@obj.Fuel</td>
                 </tr>
-
-                <tr>
-                    <td>Number of Keys:</td>
-                    <td>@obj.NumberKeys</td>
-                </tr>
-
             </table>
             </div>
         </div>
@@ -115,7 +109,7 @@
                 {
                     <tr>
                         <td width="20%">
-                            <a href="@Url.Action("Lot", "Vehicle", new { lotNumber =  @objList.Id }, null)" title="Widget View" class="links">
+                            <a href="@Url.Action("Lot", "Vehicle", new { lotNumber =  @objList.Id }, null)" title=@objList.ModelSpecifer class="links">
                                 <img src='@Url.Content("~/Images/"+ @objList.ProfileImg)' width="160" height="110" asp-append-version="true">
                             </a>
                         </td>
@@ -125,7 +119,7 @@
                             <br/>
                             <div class="text-primary">Lot:@objList.Id</div>
                             <br/>
-                            Odo:<b>@objList.MeterReadout</b>
+                            Odo: <b>@objList.MeterReadout</b>
                         </td>
                        
                         <td width="20%">

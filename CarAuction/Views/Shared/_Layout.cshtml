@@ -71,10 +71,14 @@
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Find a Vehicle</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Finder">Vehicle Finder</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Create">Create Vehicle</a>
 
                                 @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                                 {
+                                    @if (@HttpContextAccessor.HttpContext.Session.GetString("role") == "Admin")
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Create">Create Vehicle</a>
+                                    }
+                               
                                     <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Watchlist">Watch List</a>
                                 }
                             </div>
@@ -90,7 +94,10 @@
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Calendar</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="Calendar">Auctions Calender</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="AddCalendar">Add Calendar Event</a>
+                                @if (@HttpContextAccessor.HttpContext.Session.GetString("role") == "Admin")
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="AddCalendar">Add Calendar Event</a>
+                                    }
                             </div>
                         </li>
 

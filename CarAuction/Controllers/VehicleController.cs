@@ -79,6 +79,8 @@ namespace CarAuction.Controllers
 
             var transmissionTypes = SelectionListEnum.GetAllTransmissions();
 
+            var locationTypes = SelectionListEnum.GetAllLocations();
+
             var years = SelectionListEnum.GetAllYears();
 
             var model = new CreateVehicleDto();
@@ -90,6 +92,7 @@ namespace CarAuction.Controllers
             model.RegistrationYearSelectList = new List<SelectListItem>();
             model.ProducerSelectList = new List<SelectListItem>();
             model.TransmissionSelectList = new List<SelectListItem>();
+            model.LocationSelectList = new List<SelectListItem>();
 
             foreach (var body in bodyTypes)
             {
@@ -120,10 +123,15 @@ namespace CarAuction.Controllers
             {
                 model.TransmissionSelectList.Add(new SelectListItem { Text = transmission.Name, Value = transmission.Id });
             }
+            foreach (var location in locationTypes)
+            {
+                model.LocationSelectList.Add(new SelectListItem { Text = location.Name, Value = location.Id });
+            }
             foreach (var year in years)
             {
                 model.RegistrationYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
             }
+           
 
 
             return View(model);
@@ -138,7 +146,6 @@ namespace CarAuction.Controllers
         [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
-
             string stringFileName = UploadFile(dto);
             var vehicle = new Vehicle
             {
@@ -151,6 +158,12 @@ namespace CarAuction.Controllers
                 Transmission = dto.Transmission,
                 Drive = dto.Drive,
                 MeterReadout = dto.MeterReadout,
+                EngineCapacity = dto.EngineCapacity,
+                EngineOutput = dto.EngineOutput,
+                NumberKeys = dto.NumberKeys,
+                ServiceManual = dto.ServiceManual,
+                SecondTireSet = dto.SecondTireSet,
+                Location = dto.Location,
                 Fuel = dto.Fuel,
                 PrimaryDamage = dto.PrimaryDamage,
                 SecondaryDamage = dto.SecondaryDamage,

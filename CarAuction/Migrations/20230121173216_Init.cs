@@ -82,7 +82,6 @@ namespace CarAuction.Migrations
                     CreateById = table.Column<int>(type: "int", nullable: false),
                     ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationId = table.Column<int>(type: "int", nullable: true),
-                    SaleTerm = table.Column<int>(type: "int", nullable: false),
                     PrimaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(max)", nullable: true),

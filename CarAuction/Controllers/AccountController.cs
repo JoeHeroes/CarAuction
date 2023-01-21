@@ -71,12 +71,17 @@ namespace UniAPI.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (dto.DateOfBirth > DateTime.Now.Date)
+                {
+                    ViewBag.msg = "Your are time traveler?";
+                    return View("ProfileEdit");
+                }
+
                 var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
                 account.Nationality = dto.Nationality;
                 account.FirstName = dto.FirstName;
                 account.LastName = dto.LastName;
                 account.DateOfBirth = dto.DateOfBirth;
-
                 dbContext.SaveChanges();
             }
             return View("ProfileEdit");
@@ -231,10 +236,26 @@ namespace UniAPI.Controllers
         [Route("Register")]
         public IActionResult Register(RegisterUserDto dto)
         {
+            var user = this.dbContext
+                                .Users
+                                .Include(u => u.Role)
+                                .FirstOrDefault(u => u.Email == dto.Email);
+
+            if(user != null)
+            {
+                ViewBag.msg = "Email is taken";
+                return View("Register");
+            }
 
             if (dto.Password != dto.ConfirmPassword)
             {
                 ViewBag.msg = "Invalid Password";
+                return View("Register");
+            }
+
+            if (dto.DateOfBirth>DateTime.Now.Date)
+            {
+                ViewBag.msg = "Your are time traveler?";
                 return View("Register");
             }
 

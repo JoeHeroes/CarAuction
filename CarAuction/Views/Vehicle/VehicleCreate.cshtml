@@ -14,7 +14,7 @@
 <hr />
 <br />
 <div>
-    @if (@Model.ProfileImg=="")
+    @if (@Model.ProfileImg!="")
     {
         <div>
             <img src="~/Images/@Model.ProfileImg" width="400" height="300" asp-append-version="true" />

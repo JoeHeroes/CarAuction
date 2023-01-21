@@ -148,7 +148,18 @@
                 if (@time.Seconds <= 0)
                 {
                     <tr>
-                        <td> <h2 style="color:red; font-weight: bold;">SOLD</h2></td>
+                        <td>
+                            <div class="text-center">
+                            @if (@HttpContextAccessor.HttpContext.Session.GetString("id") == Model.WinnerId.ToString())
+                            {
+                                <h2 style="color:green; font-weight: bold;">SOLD</h2>
+                            }
+                            else if (@HttpContextAccessor.HttpContext.Session.GetString("id") != Model.WinnerId.ToString())
+                            {
+                                <h2 style="color:red; font-weight: bold;">SOLD</h2>
+                            }
+                            </div>
+                        </td>
                     </tr>
                 }
                 else
@@ -167,9 +178,11 @@
                     </form>
                 }
             }
-
         </table>
-
+        <br />
+        <br />
+        <br />
+        <br />
     </div>
 
     <div class="float-child">
@@ -274,7 +287,7 @@
 
             <tr>
                 <td>Time Left:</td>
-                <td>@Model.DateTime.ToString("dd/MM/yyyy hh:mm tt")</td>
+                <td>@Model.DateTime.ToString("dd.MM.yyyy hh:mm tt")</td>
             </tr>
 
             <tr>
@@ -286,10 +299,6 @@
                 }
             </tr>
         </table> 
-        <br />
-        <br />
-        <br />
-        <br />
     </div>
 </div>
 

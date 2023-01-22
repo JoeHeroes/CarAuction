@@ -74,9 +74,9 @@
 
                                 @if (@HttpContextAccessor.HttpContext.Session.GetString("name") != null)
                                 {
-                                    @if (@HttpContextAccessor.HttpContext.Session.GetString("role") == "Admin")
+                                    @if (@HttpContextAccessor.HttpContext.Session.GetString("role") != "Buyer")
                                     {
-                                        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Create">Create Vehicle</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="AddVehicle">Add Vehicle</a>
                                     }
                                
                                     <a class="dropdown-item" asp-area="" asp-controller="Vehicle" asp-action="Watchlist">Watch List</a>

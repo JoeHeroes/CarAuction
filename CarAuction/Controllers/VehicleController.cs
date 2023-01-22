@@ -64,8 +64,8 @@ namespace CarAuction.Controllers
             return View(model);
         }
 
-        [Route("Create")]
-        public IActionResult Create()
+        [Route("AddVehicle")]
+        public IActionResult AddVehicle()
         {
             var bodyTypes = SelectionListEnum.GetAllBodyTypes();
 

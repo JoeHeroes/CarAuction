@@ -269,7 +269,7 @@ namespace UniAPI.Controllers
 
             if (dto.DateOfBirth>DateTime.Now.Date)
             {
-                ViewBag.msg = "Your are time traveler?";
+                ViewBag.msg = "Are you time traveler?";
                 return View("Register");
             }
 

@@ -236,9 +236,6 @@ namespace CarAuction.Migrations
                     b.Property<int>("RegistrationYear")
                         .HasColumnType("int");
 
-                    b.Property<bool>("SaleStatus")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("SecondTireSet")
                         .HasColumnType("bit");
 

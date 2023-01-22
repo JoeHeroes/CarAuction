@@ -17,7 +17,7 @@ namespace CarAuction.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -61,6 +61,9 @@ namespace CarAuction.Migrations
 
                     b.Property<string>("End")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Owner")
+                        .HasColumnType("int");
 
                     b.Property<string>("Start")
                         .HasColumnType("nvarchar(max)");

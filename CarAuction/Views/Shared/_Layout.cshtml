@@ -95,9 +95,10 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="Calendar">Auctions Calender</a>
                                 @if (@HttpContextAccessor.HttpContext.Session.GetString("role") == "Admin")
-                                    {
-                                        <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="AddCalendar">Add Calendar Event</a>
-                                    }
+                                {
+                                    <a class="dropdown-item" asp-area="" asp-controller="Calendar" asp-action="EventList">Management Calendar</a>
+
+                                }
                             </div>
                         </li>
 

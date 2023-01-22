@@ -19,7 +19,8 @@ namespace CarAuction.Migrations
                     Start = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     End = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AllDay = table.Column<bool>(type: "bit", nullable: false)
+                    AllDay = table.Column<bool>(type: "bit", nullable: false),
+                    Owner = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -82,7 +82,14 @@ namespace UniAPI.Controllers
                 account.FirstName = dto.FirstName;
                 account.LastName = dto.LastName;
                 account.DateOfBirth = dto.DateOfBirth;
-                dbContext.SaveChanges();
+                try
+                {
+                    this.dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
             }
             return View("ProfileEdit");
         }
@@ -180,7 +187,14 @@ namespace UniAPI.Controllers
                 }
 
                 account.PasswordHash = this.passwordHasherUser.HashPassword(account, dto.NewPassword); ;
-                this.dbContext.SaveChanges();
+                try
+                {
+                    this.dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
 
                 return RedirectToAction("Profile");
 
@@ -276,7 +290,14 @@ namespace UniAPI.Controllers
 
                 newUser.PasswordHash = hashedPass;
                 this.dbContext.Users.Add(newUser);
-                this.dbContext.SaveChanges();
+                try
+                {
+                    this.dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
 
                 return RedirectToAction("Welcome");
             }

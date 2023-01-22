@@ -51,39 +51,6 @@
                     <select asp-for="LocationName" asp-items="Model.LocationSelectList" class="form-select"></select>
                     <span asp-validation-for="LocationName" class="text-danger"></span>
                 </div>
-
-
-                
-                <div class="form-group">
-                    <label asp-for="PageNumber" class="control-label"></label>
-                    <select asp-for="PageNumber" class="form-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                    </select>
-                    <span asp-validation-for="PageNumber" class="text-danger"></span>
-                </div>
-
-
-                <div class="form-group">
-                    <label asp-for="PageSize" class="control-label"></label>
-                    <select asp-for="PageSize" class="form-select">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                        <option value="25">25</option>
-                        <option value="30">30</option>
-                    </select>
-                    <span asp-validation-for="PageSize" class="text-danger"></span>
-                </div>
-
-
                 <div class="form-group">
                     <label asp-for="SortBy" class="control-label"></label>
                     <select asp-for="SortBy" class="form-select">

@@ -384,6 +384,18 @@ namespace CarAuction.Controllers
 
             if(this.dbContext.Watches.FirstOrDefault(x => x.VehicleId == lotNumber) == null)
             {
+                var newEvent = new Event()
+                {
+                    Title = vehicle.Id +" "+ vehicle.Producer + " " + vehicle.ModelGeneration ,
+                    Start = vehicle.DateTime.ToString("yyyy-MM-dd"),
+                    End = vehicle.DateTime.ToString("yyyy-MM-dd"),
+                    Color = vehicle.Color,
+                    AllDay = true,
+                    Owner = user.Id,
+                };
+
+
+                this.dbContext.Events.Add(newEvent);
                 this.dbContext.Watches.Add(observed);
             }
 
@@ -410,6 +422,16 @@ namespace CarAuction.Controllers
                                     .FirstOrDefault(x => x.Id == lotNumber);
 
             Watch observed = this.dbContext.Watches.FirstOrDefault(x => x.UserId == id && x.VehicleId == vehicle.Id);
+
+
+            var events = this.dbContext.Events.FirstOrDefault(x => x.Title == vehicle.Id + " " + vehicle.Producer + " " + vehicle.ModelGeneration);
+            
+            
+            
+            if (events != null && events.Owner == id)
+            {
+                this.dbContext.Events.Remove(events);
+            }
 
             this.dbContext.Watches.Remove(observed);
 

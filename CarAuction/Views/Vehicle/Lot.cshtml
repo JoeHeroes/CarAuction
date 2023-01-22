@@ -124,11 +124,6 @@
             </tr>
 
             <tr>
-                <td>Sale Status:</td>
-                <td>@Model.SaleStatus</td>
-            </tr>
-
-            <tr>
                 <td>Current Bid:</td>
                 <td>@Model.CurrentBid € </td>
             </tr>
@@ -286,15 +281,15 @@
             </tr>
 
             <tr>
-                <td>Time Left:</td>
+                <td>Sale Date:</td>
                 <td>@Model.DateTime.ToString("dd.MM.yyyy hh:mm tt")</td>
             </tr>
 
             <tr>
 
-                @if (@time.Minutes > 0)
+                @if (@time.Seconds > 0)
                 {
-                    <td>Sale Date:</td>
+                    <td>Time Left:</td>
                     <td> <b style="color:red">@time.Days D @time.Hours H @time.Minutes min</b></td>
                 }
             </tr>

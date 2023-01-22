@@ -2,12 +2,18 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Search";
+
+
 }
 
 <style>
     td{
         text-align:center;
         vertical-align:middle;
+    }
+
+    select {
+        
     }
 </style>
 
@@ -99,5 +105,46 @@
         }
     </tbody>
 </table>
+
+<form method="post" action="@Url.Action("Search", "Vehicle")">
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                PageNumber
+                <select name="PageNumber" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                PageSize
+                <select name="PageSize" class="form-select">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Change" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
 <br />
 <br />

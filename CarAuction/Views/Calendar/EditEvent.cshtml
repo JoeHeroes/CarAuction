@@ -1,0 +1,57 @@
+﻿@model CarAuction.Models.DTO.EventDto
+
+@{
+    ViewData["Title"] = "ProfileEdit";
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Edit Profile</h2>
+        </div>
+    </div>
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="@Url.Action("EditEvent", "Calendar")">
+            @ViewBag.msg
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="BackgroundColor" class="control-label"></label>
+                <select asp-for="BackgroundColor" class="form-select">
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="gray">Gray</option>
+                    <option value="green">Pink</option>
+                    <option value="purple">Purple</option>
+                    <option value="orange">Orange</option>
+                </select>
+            </div>
+            <br />
+            <div class="btn-group">
+                <div class="form-group" style="padding: 10px;">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+                <div style="padding: 10px;">
+                    <a href='@Url.Action("EventList", "Calendar")' class="btn btn-primary">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

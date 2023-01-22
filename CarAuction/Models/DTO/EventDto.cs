@@ -5,6 +5,7 @@ namespace CarAuction.Models.DTO
 {
     public class EventDto
     {
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

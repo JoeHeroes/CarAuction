@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20230122171004_Init")]
+    [Migration("20230123184216_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

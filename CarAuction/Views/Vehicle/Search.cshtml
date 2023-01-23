@@ -1,9 +1,10 @@
-﻿@model IEnumerable<CarAuction.Models.View.VehicleView>
+﻿@model CarAuction.Models.DTO.SearchModelDto
+
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Search";
 
-
+    var option = Model.Options;
 }
 
 <style>
@@ -67,7 +68,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var obj in Model)
+        @foreach (var obj in Model.Vehicles)
         {
             <tr>
                 <td width="10%">
@@ -105,8 +106,15 @@
         }
     </tbody>
 </table>
-
 <form method="post" action="@Url.Action("Search", "Vehicle")">
+    <input type="hidden" value=@option.Producer name="Producer"   />
+    <input type="hidden" value=@option.RegistrationYear name="RegistrationYear" />
+    <input type="hidden" value=@option.SinceYear name="SinceYear"   />
+    <input type="hidden" value=@option.ToYear name="option.ToYear" />
+    <input type="hidden" value=@option.LocationName name="option.LocationName" />
+    <input type="hidden" value=@option.SortBy name="option.SortBy" />
+    <input type="hidden" value=@option.SortDirection name="option.SortDirection"  />
+
     <div class="row">
         <div class="col-md-1">
             <div class="form-group">

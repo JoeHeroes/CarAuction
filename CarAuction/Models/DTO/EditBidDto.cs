@@ -1,7 +1,7 @@
 ﻿
 namespace CarAuction.Models.DTO
 {
-    public class UpdateBidDto
+    public class EditBidDto
     {
         public Location Location { get; set; }
         public DateTime DateTime { get; set; }

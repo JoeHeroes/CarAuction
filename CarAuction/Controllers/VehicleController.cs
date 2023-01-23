@@ -146,36 +146,36 @@ namespace CarAuction.Controllers
         [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
-            string stringFileName = UploadFile(dto);
-            var vehicle = new Vehicle
-            {
-                Producer = dto.Producer,
-                ModelSpecifer = dto.ModelSpecifer,
-                ModelGeneration = dto.ModelGeneration,
-                RegistrationYear = dto.RegistrationYear,
-                Color = dto.Color,
-                BodyType = dto.BodyType,
-                Transmission = dto.Transmission,
-                Drive = dto.Drive,
-                MeterReadout = dto.MeterReadout,
-                EngineCapacity = dto.EngineCapacity,
-                EngineOutput = dto.EngineOutput,
-                NumberKeys = dto.NumberKeys,
-                ServiceManual = dto.ServiceManual,
-                SecondTireSet = dto.SecondTireSet,
-                Location = dto.Location,
-                Fuel = dto.Fuel,
-                PrimaryDamage = dto.PrimaryDamage,
-                SecondaryDamage = dto.SecondaryDamage,
-                VIN = dto.VIN,
-                ProfileImg = stringFileName,
-                DateTime= dto.DateTime,
-            };
+                string stringFileName = UploadFile(dto);
+                var vehicle = new Vehicle
+                {
+                    Producer = dto.Producer,
+                    ModelSpecifer = dto.ModelSpecifer,
+                    ModelGeneration = dto.ModelGeneration,
+                    RegistrationYear = dto.RegistrationYear,
+                    Color = dto.Color,
+                    BodyType = dto.BodyType,
+                    Transmission = dto.Transmission,
+                    Drive = dto.Drive,
+                    MeterReadout = dto.MeterReadout,
+                    EngineCapacity = dto.EngineCapacity,
+                    EngineOutput = dto.EngineOutput,
+                    NumberKeys = dto.NumberKeys,
+                    ServiceManual = dto.ServiceManual,
+                    SecondTireSet = dto.SecondTireSet,
+                    Location = dto.Location,
+                    Fuel = dto.Fuel,
+                    PrimaryDamage = dto.PrimaryDamage,
+                    SecondaryDamage = dto.SecondaryDamage,
+                    VIN = dto.VIN,
+                    ProfileImg = stringFileName,
+                    DateTime= dto.DateTime,
+                };
 
-            dbContext.Vehicles.Add(vehicle);
-            dbContext.SaveChanges();
-            return View(vehicle);
-        }
+                dbContext.Vehicles.Add(vehicle);
+                dbContext.SaveChanges();
+                return View(vehicle);
+            }
 
         private string UploadFile(CreateVehicleDto dto)
         {
@@ -309,7 +309,13 @@ namespace CarAuction.Controllers
 
                 vehiclesView.Add(view);
             }
-            return View(vehiclesView);
+
+            SearchModelDto model = new();
+
+            model.Vehicles = vehiclesView;
+            model.Options = query;
+
+            return View(model);
         }
         [Route("Lot")]
         public IActionResult Lot(int lotNumber)
@@ -646,6 +652,146 @@ namespace CarAuction.Controllers
                 vehiclesView.Add(view);
             }
             return View(vehiclesView);
+        }
+
+        public IActionResult ListVehicle()
+        {
+            var vehicles = this.dbContext.Vehicles.ToList();
+
+
+            List<VehicleView> vehiclesView = new List<VehicleView>();
+
+
+            foreach (var vehicle in vehicles)
+            {
+                VehicleView view = new VehicleView()
+                {
+                    LotNumber = vehicle.Id,
+                    RegistrationYear = vehicle.RegistrationYear,
+                    Producer = vehicle.Producer,
+                    ModelSpecifer = vehicle.ModelSpecifer,
+                    DateTime = vehicle.DateTime,
+                    MeterReadout = vehicle.MeterReadout,
+                    Damage = vehicle.PrimaryDamage,
+                    ProfileImg = vehicle.ProfileImg,
+                    Watch = vehicle.Watch,
+                    CurrentBid = vehicle.CurrentBid
+                };
+
+                vehiclesView.Add(view);
+            }
+
+            return View(vehiclesView);
+        }
+
+
+        [Route("EditVehicle")]
+        public IActionResult EditVehicle(int id)
+        {
+            var vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == id);
+
+            var model = new EditVehicleDto()
+            {
+                Id = vehicle.Id,
+                RegistrationYear = vehicle.RegistrationYear,
+                Color = vehicle.Color,
+                BodyType = vehicle.BodyType,
+                Transmission = vehicle.Transmission,
+                Location = vehicle.Location,
+                Fuel = vehicle.Fuel,
+                DateTime = vehicle.DateTime,
+            };
+
+            var bodyTypes = SelectionListEnum.GetAllBodyTypes();
+
+            var fuelTypes = SelectionListEnum.GetAllFuels();
+
+            var transmissionTypes = SelectionListEnum.GetAllTransmissions();
+
+            var locationTypes = SelectionListEnum.GetAllLocations();
+
+            var years = SelectionListEnum.GetAllYears();
+
+            model.BodyTypeSelectList = new List<SelectListItem>();
+            model.FuelSelectList = new List<SelectListItem>();
+            model.RegistrationYearSelectList = new List<SelectListItem>();
+            model.TransmissionSelectList = new List<SelectListItem>();
+            model.LocationSelectList = new List<SelectListItem>();
+
+            foreach (var body in bodyTypes)
+            {
+                model.BodyTypeSelectList.Add(new SelectListItem { Text = body.Name, Value = body.Id });
+            }
+
+            foreach (var fuel in fuelTypes)
+            {
+                model.FuelSelectList.Add(new SelectListItem { Text = fuel.Name, Value = fuel.Id });
+            }
+
+            foreach (var transmission in transmissionTypes)
+            {
+                model.TransmissionSelectList.Add(new SelectListItem { Text = transmission.Name, Value = transmission.Id });
+            }
+            foreach (var location in locationTypes)
+            {
+                model.LocationSelectList.Add(new SelectListItem { Text = location.Name, Value = location.Id });
+            }
+            foreach (var year in years)
+            {
+                model.RegistrationYearSelectList.Add(new SelectListItem { Text = year.Name, Value = year.Id });
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("EditVehicle")]
+        public IActionResult EditVehicle(EditVehicleDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                var vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == dto.Id);
+
+                vehicle.RegistrationYear = dto.RegistrationYear;
+                vehicle.Color = dto.Color;
+                vehicle.BodyType = dto.BodyType;
+                vehicle.Transmission = dto.Transmission;
+                vehicle.Location = dto.Location;
+                vehicle.Fuel = dto.Fuel;
+                vehicle.DateTime = dto.DateTime;
+
+                try
+                {
+                    this.dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    throw new DbUpdateException("Error DataBase", e);
+                }
+                return RedirectToAction("ListVehicle");
+            }
+            return RedirectToAction("EditVehicle");
+        }
+
+      
+        public IActionResult DeleteVehicle(int id)
+        {
+            var vehicle = this.dbContext.Vehicles.FirstOrDefault(x => x.Id == id);
+            if (vehicle != null)
+            {
+                this.dbContext.Vehicles.Remove(vehicle);
+            }
+
+            try
+            {
+                this.dbContext.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new DbUpdateException("Error DataBase", e);
+            }
+
+            return RedirectToAction("ListVehicle");
         }
     }
 }

@@ -14,14 +14,14 @@
 <hr />
 <br />
 <div>
-    @if (@Model.ProfileImg!="")
+    @if (@Model.ProfileImg!=null)
     {
         <div>
             <img src="~/Images/@Model.ProfileImg" width="400" height="300" asp-append-version="true" />
         </div>
+        <br />
+        <hr />
     }
-    <br />
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)

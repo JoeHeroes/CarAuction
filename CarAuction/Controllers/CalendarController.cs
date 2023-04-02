@@ -11,8 +11,6 @@ namespace CarAuction.Controllers
     public class CalendarController : Controller
     {
         private readonly AuctionDbContext dbContext;
-        private readonly IPasswordHasher<User> passwordHasherUser;
-        private readonly AuthenticationSettings authenticationSetting;
 
         public CalendarController(AuctionDbContext dbContext)
         {

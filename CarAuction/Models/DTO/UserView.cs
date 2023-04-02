@@ -1,22 +1,17 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace CarAuction.Models
+namespace CarAuction.Models.DTO
 {
-    public class User
+    public class UserView
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        [DisplayName("First Name")]
         public string FirstName { get; set; }
-        [DisplayName("Last Name")]
         public string LastName { get; set; }
-        [DisplayName("Date Of Birth")]
         public DateTime? DateOfBirth { get; set; }
         public string Nationality { get; set; }
         public string PasswordHash { get; set; }
-        [DisplayName("Role")]
-        public int RoleId { get; set; }
-        public string ProfileImg { get; set; }
+        public string Role { get; set; }
+        public string ProfileImg { get; set; } = null;
     }
 }

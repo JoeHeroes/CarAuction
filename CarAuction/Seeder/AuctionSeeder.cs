@@ -127,12 +127,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,28),
                     VIN = "",
-                    ProfileImg = "a4b9.png"
+                    ProfileImg = "a4b9.png",
+                    LocationId = 1
                 },
                 new Vehicle()
                 {
@@ -151,12 +151,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "1",
                     ServiceManual = true,
                     SecondTireSet = false,
-                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,18),
                     VIN = "",
-                    ProfileImg = "a4b6.png"
+                    ProfileImg = "a4b6.png",
+                    LocationId = 2
 
                 },
                 new Vehicle()
@@ -176,12 +176,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,16 ),
                     VIN = "",
-                    ProfileImg = "passatb8.png"
+                    ProfileImg = "passatb8.png",
+                    LocationId = 3
                 },
                 new Vehicle()
                 {
@@ -200,12 +200,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,30),
                     VIN = "",
-                    ProfileImg = "octavia3.png"
+                    ProfileImg = "octavia3.png",
+                    LocationId = 4
                 },
                 new Vehicle()
                 {
@@ -224,12 +224,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = true,
                     SecondTireSet = true,
-                     Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,1),
                     VIN = "",
-                    ProfileImg = "polo2g.png"
+                    ProfileImg = "polo2g.png",
+                    LocationId = 1
                 },
                 new Vehicle()
                 {
@@ -248,12 +248,12 @@ namespace CarAuction.Seeder
                     NumberKeys = "2",
                     ServiceManual = false,
                     SecondTireSet = false,
-                    Watch = false,
                     CurrentBid = 5000,
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,4),
                     VIN = "",
-                    ProfileImg = "yaris2.png"
+                    ProfileImg = "yaris2.png",
+                    LocationId = 2
                 }
             };
         }

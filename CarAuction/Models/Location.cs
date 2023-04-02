@@ -6,7 +6,7 @@ namespace CarAuction.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [PhoneAttribute]
+        [Phone]
         public string Phone { get; set; }
         [EmailAddress]
         public string Email { get; set; }

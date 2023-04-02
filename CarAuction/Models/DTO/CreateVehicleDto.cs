@@ -69,7 +69,7 @@ namespace CarAuction.Models.DTO
         [DisplayName("Second Tire Set")]
         public bool SecondTireSet { get; set; }
         [Required]
-        public Location Location { get; set; }
+        public int LocationId { get; set; }
 
         [Required]
         public string VIN { get; set; } = null!;

@@ -113,8 +113,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Location" class="control-label"></label>
-                    <select asp-for="Location" asp-items="Model.LocationSelectList" class="form-select"></select>
+                    <label asp-for="LocationId" class="control-label"></label>
+                    <select asp-for="LocationId" class="form-select">
+                        <option value=1>Espoo</option>
+                        <option value=2>Oulu</option>
+                        <option value=3>Pirkkala</option>
+                        <option value=4>Turku</option>
+
+                    </select>
                 </div>
 
                 <div class="form-group">

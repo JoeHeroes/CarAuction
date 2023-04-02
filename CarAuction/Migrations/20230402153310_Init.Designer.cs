@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarAuction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20230123184216_Init")]
+    [Migration("20230402153310_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace CarAuction.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CarAuction.Models.CurrentBind", b =>
+            modelBuilder.Entity("CarAuction.Models.Bind", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,11 +40,7 @@ namespace CarAuction.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("CurrentBinds");
+                    b.ToTable("Binds");
                 });
 
             modelBuilder.Entity("CarAuction.Models.Event", b =>
@@ -164,8 +160,6 @@ namespace CarAuction.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users");
                 });
 
@@ -176,9 +170,6 @@ namespace CarAuction.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("BidStatus")
-                        .HasColumnType("bit");
 
                     b.Property<string>("BodyType")
                         .IsRequired()
@@ -211,7 +202,7 @@ namespace CarAuction.Migrations
                     b.Property<int>("Highlights")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<long>("MeterReadout")
@@ -253,15 +244,10 @@ namespace CarAuction.Migrations
                     b.Property<string>("VIN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Watch")
-                        .HasColumnType("bit");
-
                     b.Property<int>("WinnerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
 
                     b.ToTable("Vehicles");
                 });
@@ -282,83 +268,7 @@ namespace CarAuction.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VehicleId");
-
                     b.ToTable("Watches");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.CurrentBind", b =>
-                {
-                    b.HasOne("CarAuction.Models.User", "UserMany")
-                        .WithMany("CurrentBinds")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarAuction.Models.Vehicle", "VehicleMany")
-                        .WithMany("CurrentBinds")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserMany");
-
-                    b.Navigation("VehicleMany");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.User", b =>
-                {
-                    b.HasOne("CarAuction.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
-                {
-                    b.HasOne("CarAuction.Models.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
-
-                    b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.Watch", b =>
-                {
-                    b.HasOne("CarAuction.Models.User", "UserMany")
-                        .WithMany("Observed")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarAuction.Models.Vehicle", "VehicleMany")
-                        .WithMany("Bidders")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserMany");
-
-                    b.Navigation("VehicleMany");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.User", b =>
-                {
-                    b.Navigation("CurrentBinds");
-
-                    b.Navigation("Observed");
-                });
-
-            modelBuilder.Entity("CarAuction.Models.Vehicle", b =>
-                {
-                    b.Navigation("Bidders");
-
-                    b.Navigation("CurrentBinds");
                 });
 #pragma warning restore 612, 618
         }

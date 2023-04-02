@@ -147,6 +147,8 @@ namespace CarAuction.Controllers
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
                 string stringFileName = UploadFile(dto);
+
+
                 var vehicle = new Vehicle
                 {
                     Producer = dto.Producer,
@@ -163,7 +165,7 @@ namespace CarAuction.Controllers
                     NumberKeys = dto.NumberKeys,
                     ServiceManual = dto.ServiceManual,
                     SecondTireSet = dto.SecondTireSet,
-                    Location = dto.Location,
+                    LocationId = dto.LocationId,
                     Fuel = dto.Fuel,
                     PrimaryDamage = dto.PrimaryDamage,
                     SecondaryDamage = dto.SecondaryDamage,
@@ -227,7 +229,8 @@ namespace CarAuction.Controllers
 
             if (query.LocationName != "none" && query.LocationName != null)
             {
-                var baseLocation = baseQuery.Where(x => x.Location.Name == query.LocationName);
+                var locationResult = this.dbContext.Locations.FirstOrDefault(x => x.Name == query.LocationName);
+                var baseLocation = baseQuery.Where(x => x.LocationId == locationResult.Id);
                 baseQuery = baseLocation;
                 searchPara.Add(query.LocationName);
             }
@@ -271,7 +274,7 @@ namespace CarAuction.Controllers
                     { nameof(Vehicle.Id), r => r.Id },
                     { nameof(Vehicle.Producer), r => r.Producer },
                     { nameof(Vehicle.RegistrationYear), r => r.RegistrationYear },
-                    { nameof(Vehicle.Location.Name), r => r.Location.Name },
+                    { nameof(Vehicle.LocationId), r => r.LocationId },
                     { nameof(Vehicle.PrimaryDamage), r => r.PrimaryDamage },
                 };
 
@@ -293,6 +296,7 @@ namespace CarAuction.Controllers
 
             foreach (var vehicle in vehicles)
             {
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -303,7 +307,6 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg= vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -324,8 +327,59 @@ namespace CarAuction.Controllers
                                     .Vehicles
                                     .FirstOrDefault(x => x.Id == lotNumber);
 
-            return View(vehicle);
+            var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+            bool watchBool = false;
+
+            if (HttpContext.Session.GetString("id") != null)
+            {
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
+            }
+           
+
+            var location = this.dbContext.Locations.FirstOrDefault(x => x.Id == vehicle.LocationId);
+
+
+            VehicleLotView view = new VehicleLotView()
+            {
+                Id = vehicle.Id,
+                Producer = vehicle.Producer,
+                ModelSpecifer = vehicle.Producer,
+                ModelGeneration = vehicle.ModelGeneration,
+                RegistrationYear = vehicle.RegistrationYear,
+                Color = vehicle.Color,
+                BodyType = vehicle.BodyType,
+                EngineCapacity = vehicle.EngineCapacity,
+                EngineOutput = vehicle.EngineOutput,
+                Transmission = vehicle.Transmission,
+                Drive = vehicle.Drive,
+                MeterReadout = vehicle.MeterReadout,
+                Fuel = vehicle.Fuel,
+                NumberKeys = vehicle.NumberKeys,
+                ServiceManual = vehicle.ServiceManual,
+                SecondTireSet = vehicle.SecondTireSet,
+                CreateById = vehicle.CreateById,
+                ProfileImg = vehicle.ProfileImg,
+                Location = location.Name,
+                PrimaryDamage = vehicle.PrimaryDamage,
+                VIN = vehicle.VIN,
+                Highlights = vehicle.Highlights,
+                DateTime = vehicle.DateTime,
+                CurrentBid = vehicle.CurrentBid,
+                Watch = watchBool,
+                WinnerId = vehicle.WinnerId,
+
+
+            };
+            return View(view);
+
         }
+
 
         [HttpPost]
         [Route("UpdateBid")]
@@ -346,15 +400,15 @@ namespace CarAuction.Controllers
                                   .Users
                                   .FirstOrDefault(x => x.Id == id);
 
-                var bind = new CurrentBind()
+                var bind = new Bind()
                 {
-                    UserMany = user,
-                    VehicleMany = vehicle,
+                    UserId = user.Id,
+                    VehicleId = vehicle.Id,
                 };
 
-                if (this.dbContext.CurrentBinds.FirstOrDefault(x => x.UserMany.Id == user.Id && x.VehicleMany.Id == vehicle.Id) == null)
+                if (this.dbContext.Binds.FirstOrDefault(x => x.UserId == user.Id && x.VehicleId == vehicle.Id) == null)
                 {
-                    this.dbContext.CurrentBinds.Add(bind);
+                    this.dbContext.Binds.Add(bind);
                 }
 
 
@@ -384,8 +438,8 @@ namespace CarAuction.Controllers
 
             var observed = new Watch()
             {
-                UserMany = user,
-                VehicleMany = vehicle,
+                UserId = user.Id,
+                VehicleId = vehicle.Id,
             };
 
             if(this.dbContext.Watches.FirstOrDefault(x => x.VehicleId == lotNumber) == null)
@@ -404,8 +458,6 @@ namespace CarAuction.Controllers
                 this.dbContext.Events.Add(newEvent);
                 this.dbContext.Watches.Add(observed);
             }
-
-            vehicle.Watch = true;
 
             try
             {
@@ -441,9 +493,6 @@ namespace CarAuction.Controllers
 
             this.dbContext.Watches.Remove(observed);
 
-
-            vehicle.Watch = false;
-
             try
             {
                 this.dbContext.SaveChanges();
@@ -474,12 +523,22 @@ namespace CarAuction.Controllers
                 vehicles.Add(dish);
             }
 
-
             List<VehicleView> vehiclesView = new List<VehicleView>();
-
 
             foreach (var vehicle in vehicles)
             {
+
+
+                var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                bool watchBool = false;
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -490,7 +549,7 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg = vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
+                    Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -505,7 +564,7 @@ namespace CarAuction.Controllers
         {
             int id = int.Parse(HttpContext.Session.GetString("id"));
 
-            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+            var watch = this.dbContext.Binds.Where(x => x.UserId == id);
 
             List<Vehicle> vehicles = new List<Vehicle>();
 
@@ -531,6 +590,16 @@ namespace CarAuction.Controllers
 
             foreach (var vehicle in vehicles)
             {
+                var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                bool watchBool = false;
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -541,7 +610,7 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg = vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
+                    Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
                 };
@@ -557,7 +626,7 @@ namespace CarAuction.Controllers
         {
             int id = int.Parse(HttpContext.Session.GetString("id"));
 
-            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+            var watch = this.dbContext.Binds.Where(x => x.UserId == id);
 
             List<Vehicle> vehicles = new List<Vehicle>();
 
@@ -583,6 +652,16 @@ namespace CarAuction.Controllers
 
             foreach (var vehicle in vehicles)
             {
+                var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                bool watchBool = false;
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -593,7 +672,7 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg = vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
+                    Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
                 };
@@ -609,7 +688,7 @@ namespace CarAuction.Controllers
         {
             int id = int.Parse(HttpContext.Session.GetString("id"));
 
-            var watch = this.dbContext.CurrentBinds.Where(x => x.UserId == id);
+            var watch = this.dbContext.Binds.Where(x => x.UserId == id);
 
             List<Vehicle> vehicles = new List<Vehicle>();
 
@@ -634,6 +713,16 @@ namespace CarAuction.Controllers
 
             foreach (var vehicle in vehicles)
             {
+                var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                bool watchBool = false;
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -644,7 +733,7 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg = vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
+                    Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
                 };
@@ -664,6 +753,16 @@ namespace CarAuction.Controllers
 
             foreach (var vehicle in vehicles)
             {
+                var watchResult = this.dbContext.Watches.Where(x => x.VehicleId == vehicle.Id);
+                var result = watchResult.FirstOrDefault(x => x.UserId == int.Parse(HttpContext.Session.GetString("id")));
+
+                bool watchBool = false;
+
+                if (result != null)
+                {
+                    watchBool = true;
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -674,7 +773,7 @@ namespace CarAuction.Controllers
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
                     ProfileImg = vehicle.ProfileImg,
-                    Watch = vehicle.Watch,
+                    Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -697,7 +796,7 @@ namespace CarAuction.Controllers
                 Color = vehicle.Color,
                 BodyType = vehicle.BodyType,
                 Transmission = vehicle.Transmission,
-                Location = vehicle.Location,
+                LocationId = vehicle.LocationId,
                 Fuel = vehicle.Fuel,
                 DateTime = vehicle.DateTime,
             };
@@ -756,7 +855,7 @@ namespace CarAuction.Controllers
                 vehicle.Color = dto.Color;
                 vehicle.BodyType = dto.BodyType;
                 vehicle.Transmission = dto.Transmission;
-                vehicle.Location = dto.Location;
+                vehicle.LocationId = dto.LocationId;
                 vehicle.Fuel = dto.Fuel;
                 vehicle.DateTime = dto.DateTime;
 

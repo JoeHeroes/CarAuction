@@ -52,8 +52,23 @@ namespace UniAPI.Controllers
         [Route("Profile")]
         public IActionResult Profile()
         {
-            var account = dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
-            return View(account);
+            var account = this.dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(HttpContext.Session.GetString("id")));
+
+            var role = this.dbContext.Roles.FirstOrDefault(x => x.Id == account.RoleId);
+
+            UserView accountView = new UserView()
+            {
+                Id = account.Id,
+                Email = account.Email,
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                DateOfBirth = account.DateOfBirth,
+                Nationality = account.Nationality,
+                PasswordHash = account.PasswordHash,
+                Role = role.Name,
+                ProfileImg = account.ProfileImg,
+            };
+            return View(accountView);
         }
 
 
@@ -210,7 +225,6 @@ namespace UniAPI.Controllers
             {
                 var user = this.dbContext
                                 .Users
-                                .Include(u => u.Role)
                                 .FirstOrDefault(u => u.Email == dto.Email);
 
                 if (user is null)
@@ -252,7 +266,6 @@ namespace UniAPI.Controllers
         {
             var user = this.dbContext
                                 .Users
-                                .Include(u => u.Role)
                                 .FirstOrDefault(u => u.Email == dto.Email);
 
             if(user != null)

@@ -14,14 +14,6 @@
 <hr />
 <br />
 <div>
-    @if (@Model.ProfileImg!=null)
-    {
-        <div>
-            <img src="~/Images/@Model.ProfileImg" width="400" height="300" asp-append-version="true" />
-        </div>
-        <br />
-        <hr />
-    }
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
@@ -124,12 +116,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreateById)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProfileImg)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProfileImg)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CurrentBid)

@@ -106,6 +106,25 @@ namespace CarAuction.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("CarAuction.Models.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("PathImg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
+                });
+
             modelBuilder.Entity("CarAuction.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -219,9 +238,6 @@ namespace CarAuction.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Producer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImg")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RegistrationYear")

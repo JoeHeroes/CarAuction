@@ -146,10 +146,12 @@ namespace CarAuction.Controllers
         [Route("VehicleCreate")]
         public IActionResult VehicleCreate(CreateVehicleDto dto)
         {
-                string stringFileName = UploadFile(dto);
+             string stringFileName = UploadFile(dto);
 
+            var picture = new Picture { PathImg = stringFileName };
+            dbContext.Pictures.Add(picture);
 
-                var vehicle = new Vehicle
+            var vehicle = new Vehicle
                 {
                     Producer = dto.Producer,
                     ModelSpecifer = dto.ModelSpecifer,
@@ -170,7 +172,6 @@ namespace CarAuction.Controllers
                     PrimaryDamage = dto.PrimaryDamage,
                     SecondaryDamage = dto.SecondaryDamage,
                     VIN = dto.VIN,
-                    ProfileImg = stringFileName,
                     DateTime= dto.DateTime,
                 };
 
@@ -297,6 +298,20 @@ namespace CarAuction.Controllers
             foreach (var vehicle in vehicles)
             {
 
+                
+
+                List<string> pictures = new List<string>();
+
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+                if (restultPictures != null)
+                {
+                     foreach (var pic in restultPictures)
+                        {
+                            pictures.Add(pic.PathImg);
+                        }
+                }
+               
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -306,7 +321,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg= vehicle.ProfileImg,
+                    Image = pictures[0],
                     CurrentBid = vehicle.CurrentBid
                 };
 
@@ -344,6 +359,14 @@ namespace CarAuction.Controllers
 
             var location = this.dbContext.Locations.FirstOrDefault(x => x.Id == vehicle.LocationId);
 
+            var restultPictures = this.dbContext.Pictures.Where(x => x.VehicleId == vehicle.Id);
+
+            List<string> pictures = new List<string>();
+
+            foreach (var pic in restultPictures)
+            {
+                pictures.Add(pic.PathImg);
+            }
 
             VehicleLotView view = new VehicleLotView()
             {
@@ -364,7 +387,7 @@ namespace CarAuction.Controllers
                 ServiceManual = vehicle.ServiceManual,
                 SecondTireSet = vehicle.SecondTireSet,
                 CreateById = vehicle.CreateById,
-                ProfileImg = vehicle.ProfileImg,
+                Images = pictures,
                 Location = location.Name,
                 PrimaryDamage = vehicle.PrimaryDamage,
                 VIN = vehicle.VIN,
@@ -539,6 +562,15 @@ namespace CarAuction.Controllers
                     watchBool = true;
                 }
 
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+
+                List<string> pictures = new List<string>();
+
+                foreach (var pic in restultPictures)
+                {
+                    pictures.Add(pic.PathImg);
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -548,7 +580,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg = vehicle.ProfileImg,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid
                 };
@@ -600,6 +632,15 @@ namespace CarAuction.Controllers
                     watchBool = true;
                 }
 
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+
+                List<string> pictures = new List<string>();
+
+                foreach (var pic in restultPictures)
+                {
+                    pictures.Add(pic.PathImg);
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -609,7 +650,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg = vehicle.ProfileImg,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
@@ -662,6 +703,15 @@ namespace CarAuction.Controllers
                     watchBool = true;
                 }
 
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+
+                List<string> pictures = new List<string>();
+
+                foreach (var pic in restultPictures)
+                {
+                    pictures.Add(pic.PathImg);
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -671,7 +721,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg = vehicle.ProfileImg,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
@@ -723,6 +773,15 @@ namespace CarAuction.Controllers
                     watchBool = true;
                 }
 
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+
+                List<string> pictures = new List<string>();
+
+                foreach (var pic in restultPictures)
+                {
+                    pictures.Add(pic.PathImg);
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -732,7 +791,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg = vehicle.ProfileImg,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,
@@ -763,6 +822,15 @@ namespace CarAuction.Controllers
                     watchBool = true;
                 }
 
+                var restultPictures = this.dbContext.Pictures.Where(x => x.Id == vehicle.Id);
+
+                List<string> pictures = new List<string>();
+
+                foreach (var pic in restultPictures)
+                {
+                    pictures.Add(pic.PathImg);
+                }
+
                 VehicleView view = new VehicleView()
                 {
                     LotNumber = vehicle.Id,
@@ -772,7 +840,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    ProfileImg = vehicle.ProfileImg,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid
                 };

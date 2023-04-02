@@ -22,7 +22,7 @@ namespace CarAuction.Models.DTO
         public bool ServiceManual { get; set; }
         public bool SecondTireSet { get; set; }
         public int CreateById { get; set; }
-        public string ProfileImg { get; set; }
+        public List<string> Images { get; set; }
         public string Location { get; set; }
         public string PrimaryDamage { get; set; }
         public string SecondaryDamage { get; set; }

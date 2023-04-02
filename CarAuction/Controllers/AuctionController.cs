@@ -73,7 +73,7 @@ namespace CarAuction.Controllers
                     DateTime = vehicle.DateTime,
                     MeterReadout = vehicle.MeterReadout,
                     Damage = vehicle.PrimaryDamage,
-                    Images = pictures,
+                    Image = pictures[0],
                     Watch = watchBool,
                     CurrentBid = vehicle.CurrentBid,
                     WinnerId = vehicle.WinnerId,

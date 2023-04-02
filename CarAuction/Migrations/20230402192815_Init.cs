@@ -61,6 +61,20 @@ namespace CarAuction.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VehicleId = table.Column<int>(type: "int", nullable: false),
+                    PathImg = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pictures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -115,7 +129,6 @@ namespace CarAuction.Migrations
                     ServiceManual = table.Column<bool>(type: "bit", nullable: false),
                     SecondTireSet = table.Column<bool>(type: "bit", nullable: false),
                     CreateById = table.Column<int>(type: "int", nullable: false),
-                    ProfileImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationId = table.Column<int>(type: "int", nullable: false),
                     PrimaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondaryDamage = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -155,6 +168,9 @@ namespace CarAuction.Migrations
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Pictures");
 
             migrationBuilder.DropTable(
                 name: "Roles");

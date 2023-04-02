@@ -37,6 +37,14 @@ namespace CarAuction.Seeder
                     _dbContext.Locations.AddRange(info);
                     _dbContext.SaveChanges();
                 }
+
+
+                if (!_dbContext.Pictures.Any())
+                {
+                    var pic = GetPictures();
+                    _dbContext.Pictures.AddRange(pic);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
@@ -106,6 +114,76 @@ namespace CarAuction.Seeder
             };
         }
 
+        public IEnumerable<Picture> GetPictures()
+        {
+            return new List<Picture> ()
+            {
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "a4b9.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "a4b6.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "octavia3.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "passatb8.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "polo2g.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 1,
+                    PathImg = "yaris2.png"
+                },
+                 new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "a4b9.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "a4b6.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "octavia3.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "passatb8.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "polo2g.png"
+                },
+                new Picture()
+                {
+                    VehicleId = 2,
+                    PathImg = "yaris2.png"
+                },
+
+            };
+        }
+
+
+        
         public IEnumerable<Vehicle> GetInfoVehicle()
         {
             return new List<Vehicle>()
@@ -131,7 +209,6 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,28),
                     VIN = "",
-                    ProfileImg = "a4b9.png",
                     LocationId = 1
                 },
                 new Vehicle()
@@ -155,8 +232,7 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,18),
                     VIN = "",
-                    ProfileImg = "a4b6.png",
-                    LocationId = 2
+                    LocationId = 2,
 
                 },
                 new Vehicle()
@@ -180,7 +256,6 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,16 ),
                     VIN = "",
-                    ProfileImg = "passatb8.png",
                     LocationId = 3
                 },
                 new Vehicle()
@@ -204,7 +279,6 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,12,30),
                     VIN = "",
-                    ProfileImg = "octavia3.png",
                     LocationId = 4
                 },
                 new Vehicle()
@@ -228,7 +302,6 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,1),
                     VIN = "",
-                    ProfileImg = "polo2g.png",
                     LocationId = 1
                 },
                 new Vehicle()
@@ -252,7 +325,6 @@ namespace CarAuction.Seeder
                     PrimaryDamage = Damage.Normal_Wear.ToString(),
                     DateTime = new DateTime(2023,1,4),
                     VIN = "",
-                    ProfileImg = "yaris2.png",
                     LocationId = 2
                 }
             };
